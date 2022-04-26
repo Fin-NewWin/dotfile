@@ -1,0 +1,24 @@
+local status_ok, indent_blankline = pcall(require, "indent_blankline")
+if not status_ok then
+    return
+end
+
+indent_blankline.setup {
+    show_current_context = true,
+    filetype_exclude = {
+        'help',
+        'git',
+        'markdown',
+        'text',
+        'lspinfo',
+        'packer',
+        'man',
+        'checkhealth',
+        '',
+    },
+    buftype_exclude = {
+        'terminal',
+        'nofile',
+    },
+}
+
