@@ -45,3 +45,6 @@ export STARSHIP_CACHE="$XDG_CACHE_HOME/starship/cache"
 
 # X11
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+
+# Editor
+export EDITOR="nvim"

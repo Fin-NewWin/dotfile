@@ -3,3 +3,11 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 alias startx='startx $XINITRC'
+
+
+# Nvim alias
+alias \
+    snvim='sudo -E -s nvim' \
+    vi='nvim'               \
+    vim='nvim'              \
+    nivm='nvim'             \
