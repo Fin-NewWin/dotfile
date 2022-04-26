@@ -7,7 +7,7 @@ dunst &
 picom -b
 
 # Set wallpaper
-~/script/setwall
+~/script/setwall.sh
 
 # Set keyboard speed
 xset r rate 280 40 s off -dpms
