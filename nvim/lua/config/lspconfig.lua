@@ -11,6 +11,15 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = "single" })
 
+local win = require('lspconfig.ui.windows')
+local _default_opts = win.default_opts
+
+win.default_opts = function(options)
+  local opts = _default_opts(options)
+  opts.border = 'single'
+  return opts
+end
+
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
 
@@ -41,7 +50,8 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local servers = {
     'jedi_language_server',
     'clangd',
-
+    'tsserver',
+    'html'
 }
 local lspconfig = require('lspconfig')
 for _, lsp in pairs(servers) do

@@ -57,7 +57,12 @@ packer.startup{
         }
 
         -- Treesitter
-        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = get_config('nvim-treesitter'), }
+        use { 
+            'nvim-treesitter/nvim-treesitter', 
+            run = ':TSUpdate', 
+            requires = 'windwp/nvim-ts-autotag',
+            config = get_config('nvim-treesitter'), 
+        }
 
 
         -- Telescope
