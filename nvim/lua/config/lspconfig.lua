@@ -51,7 +51,7 @@ local servers = {
     'jedi_language_server',
     'clangd',
     'tsserver',
-    'html'
+    'emmet_ls',
 }
 local lspconfig = require('lspconfig')
 for _, lsp in pairs(servers) do

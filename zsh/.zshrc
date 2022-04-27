@@ -2,7 +2,7 @@
 [[ $- != *i* ]] && return
 
 # ENV export
-[ -f $HOME/.config/zsh/profile ] && source $HOME/.config/zsh/.profile
+[ -f $HOME/.config/zsh/.profile ] && source $HOME/.config/zsh/.profile
 [ -f $HOME/.config/zsh/alias ] && source $HOME/.config/zsh/alias
 
 eval "$(starship init zsh)"
