@@ -51,7 +51,6 @@ packer.startup{
             'feline-nvim/feline.nvim',
             config = get_config('feline'),
             requires = {
-                { 'SmiteshP/nvim-gps', requires = 'nvim-treesitter/nvim-treesitter' },
                 { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')},
             },
         }

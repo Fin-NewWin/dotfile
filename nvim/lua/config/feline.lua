@@ -12,8 +12,6 @@ local function lsp_diag(name)
 end
 
 local vi_mode_utils = require('feline.providers.vi_mode')
-local gps = require("nvim-gps")
-require("nvim-gps").setup()
 
 local force_inactive = {
     filetypes = {},
@@ -28,18 +26,18 @@ local components = {
 
 local colors = {
     bg = '#282828',
+    fg = '#ebdbb2',
     black = '#282828',
-    yellow = '#d8a657',
-    cyan = '#89b482',
-    oceanblue = '#45707a',
-    green = '#a9b665',
-    orange = '#e78a4e',
+    yellow = '#fabd2f',
+    cyan = '#8ec07c',
+    oceanblue = '#83a598',
+    green = '#babb26',
+    orange = '#fe8019',
     violet = '#d3869b',
-    magenta = '#c14a4a',
+    magenta = '#b16286',
     white = '#a89984',
-    fg = '#a89984',
-    skyblue = '#7daea3',
-    red = '#ea6962',
+    skyblue = '#458588',
+    red = '#fb4934',
 }
 
 local vi_mode_colors = {
@@ -164,19 +162,19 @@ components.active[1][7] = {
         return vim.fn.expand("%:F")
     end,
     hl = {
-        fg = 'white',
+        fg = 'fg',
         bg = 'bg',
         style = 'bold'
     },
-    right_sep = {
-        str = ' > ',
-        hl = {
-            fg = 'white',
-            bg = 'bg',
-            style = 'bold'
-        },
-        enabled = function() return 1 > 0 end,
-    },
+    -- right_sep = {
+    --     str = ' > ',
+    --     hl = {
+    --         fg = 'white',
+    --         bg = 'bg',
+    --         style = 'bold'
+    --     },
+    --     enabled = function() return 1 > 0 end,
+    -- },
     left_sep = function()
         if vim.b.gitsigns_status ~= nil
         then
@@ -185,19 +183,8 @@ components.active[1][7] = {
         return ''
     end
 }
--- nvimGps
-components.active[1][8] = {
-    provider = function() return gps.get_location() end,
-    enabled = function() return gps.is_available() end,
-    hl = {
-        fg = 'white',
-        bg = 'bg',
-        style = 'bold'
-    }
-}
 
 -- RIGHT
-
 
 -- LspName
 components.active[3][1] = {
@@ -248,12 +235,13 @@ components.active[3][5] = {
         style = 'bold'
     }
 }
+
 -- fileIcon
 components.active[3][6] = {
     provider = function()
-        local filename = vim.fn.expand('%:t')
+        local filetype = vim.bo.filetype
         local extension = vim.fn.expand('%:e')
-        local icon  = require'nvim-web-devicons'.get_icon(filename, extension)
+        local icon,_  = require'nvim-web-devicons'.get_icon_by_filetype(filetype, extension)
         if icon == nil then
             icon = ''
         end
@@ -261,40 +249,31 @@ components.active[3][6] = {
     end,
     hl = function()
         local val = {}
-        local filename = vim.fn.expand('%:t')
+        local filetype = vim.bo.filetype
         local extension = vim.fn.expand('%:e')
-        local icon, name  = require'nvim-web-devicons'.get_icon(filename, extension)
+        local icon, color  = require'nvim-web-devicons'.get_icon_colors_by_filetype(filetype, extension)
+        val.fg = 'white'
         if icon ~= nil then
-            val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
-        else
-            val.fg = 'white'
+            val.fg = color
         end
         val.bg = 'bg'
         val.style = 'bold'
         return val
     end,
     right_sep = ' ',
-    left_sep = function()
-        if lsp_diag(INFO) or lsp_diag(ERROR) or lsp_diag(WARN) or lsp_diag(HINT)
-        then
-            return ' '
-        else
-            return ''
-        end
-    end
+    left_sep = ' ',
 }
 -- fileType
 components.active[3][7] = {
     provider = 'file_type',
     hl = function()
         local val = {}
-        local filename = vim.fn.expand('%:t')
+        local filetype = vim.bo.filetype
         local extension = vim.fn.expand('%:e')
-        local icon, name  = require'nvim-web-devicons'.get_icon(filename, extension)
+        local icon, color  = require'nvim-web-devicons'.get_icon_colors_by_filetype(filetype, extension)
+        val.fg = 'white'
         if icon ~= nil then
-            val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
-        else
-            val.fg = 'white'
+            val.fg = color
         end
         val.bg = 'bg'
         val.style = 'bold'
@@ -305,7 +284,7 @@ components.active[3][7] = {
 -- fileSize
 components.active[3][8] = {
     provider = 'file_size',
-    enabled = function() return vim.fn.getfsize(vim.fn.expand('%:t')) > 0 end,
+    enabled = function() return vim.fn.wordcount().bytes end,
     hl = {
         fg = 'skyblue',
         bg = 'bg',
