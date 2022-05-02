@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Basic export
+export BROWSER=firefox
+export EDITOR=nvim
+export TERMINAL=st
+export TERM=st-256color
+
+# RUST
+export CARGO_HOME=/home/fin/.local/share/cargo
+
+# GNU
+export GNUPGHOME=/home/fin/.local/share/gnupg
+export GTK2_RC_FILES=/home/fin/.config/gtk-2.0/settings.ini
+export GTK_THEME=Adwaita:dark
+
+# Shell
+export HISTFILE=/home/fin/.cache/shell/history
+
+# XDG dir
+export HOME=/home/fin
+export XAUTHORITY=/home/fin/.cache/Xauthority
+export XDG_CACHE_HOME=/home/fin/.cache
+export XDG_CONFIG_HOME=/home/fin/.config
+export XDG_DATA_HOME=/home/fin/.local/share
+export XDG_RUNTIME_DIR=/run/user/1000
+export XDG_SEAT=seat0
+export XDG_SESSION_CLASS=user
+export XDG_SESSION_ID=1
+export XDG_SESSION_TYPE=tty
+export XDG_STATE_HOME=/home/fin/.local/state
+export XDG_VTNR=1
+export XINITRC=/home/fin/.config/X11/xinitrc
+
+# Less
+export LESSHISTFILE=-
+
+# R
+export R_ENVIRON=/home/fin/.config/Renviron
+
+# zsh
+export ZDOTDIR=/home/fin/.config/zsh
+
+# Java
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
+
+# npm
+export npm_config_cache=/home/fin/.cache/npm
+export npm_config_userconfig=/home/fin/.config/npm/config
