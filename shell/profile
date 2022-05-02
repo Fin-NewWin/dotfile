@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# PATH
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+
 # Basic export
 export BROWSER=firefox
 export EDITOR=nvim
