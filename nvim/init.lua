@@ -1,5 +1,5 @@
 require('impatient')
-require('plugin')
+require('plugin.plugin')
 
 require('core.setting')
 require('core.key')

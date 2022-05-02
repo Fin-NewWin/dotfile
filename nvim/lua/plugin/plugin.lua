@@ -12,7 +12,7 @@ local packer = require('packer')
 
 -- Function to get config
 local function get_config(name)
-	return string.format('require("config/%s")', name)
+	return string.format('require("plugin/%s")', name)
 end
 
 packer.startup{
