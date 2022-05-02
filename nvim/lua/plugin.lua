@@ -27,7 +27,7 @@ packer.startup{
         use 'nvim-lua/plenary.nvim'
 
         -- Colorscheme
-        use { 'ellisonleao/gruvbox.nvim', config = get_config('gruvbox') }
+        use { 'ellisonleao/gruvbox.nvim', config = get_config('colorscheme')}
 
         -- LSP with code completion(cmp)
         use {
