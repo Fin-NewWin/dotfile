@@ -7,13 +7,26 @@ stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
 # History in cache directory:
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
+setopt appendhistory
+setopt no_hist_allow_clobber
+setopt no_hist_beep
+setopt share_history
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 
-# Source files
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
+# Source ENV and ALIAS
+for file in "${XDG_CONFIG_HOME:-$HOME/.config}/shell"; do
+    source $file
+done
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -22,5 +35,8 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" history-search-backward
+bindkey "^N" history-search-forward
+
+# Enable searching through history
+bindkey '^R' history-incremental-pattern-search-backward
