@@ -84,11 +84,12 @@ force_inactive.filetypes = {
     'packer',
     'startify',
     'fugitive',
-    'fugitiveblame'
+    'fugitiveblame',
+    'checkhealth',
 }
 
 force_inactive.buftypes = {
-    'terminal'
+    'terminal',
 }
 
 -- LEFT
@@ -284,7 +285,7 @@ components.active[3][7] = {
 -- fileSize
 components.active[3][8] = {
     provider = 'file_size',
-    enabled = function() return vim.fn.wordcount().bytes end,
+    enabled = function() return vim.fn.wordcount().bytes > 0 end,
     hl = {
         fg = 'skyblue',
         bg = 'bg',
@@ -322,7 +323,6 @@ components.active[3][11] = {
 }
 
 -- INACTIVE
-
 -- fileType
 components.inactive[1][1] = {
     provider = 'file_type',
