@@ -261,7 +261,6 @@ components.active[3][6] = {
         val.style = 'bold'
         return val
     end,
-    right_sep = ' ',
     left_sep = ' ',
 }
 -- fileType
@@ -280,6 +279,7 @@ components.active[3][7] = {
         val.style = 'bold'
         return val
     end,
+    left_sep = ' ',
     right_sep = ' '
 }
 -- fileSize

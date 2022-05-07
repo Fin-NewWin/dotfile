@@ -3,7 +3,6 @@ local options = {
     pumheight = 10,
     ruler = true,
     number = true,
-    relativenumber = true,
     linebreak = true,
     breakindent = true,
     tabstop = 4,
