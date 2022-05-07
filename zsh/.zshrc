@@ -24,9 +24,12 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 
 # Source ENV and ALIAS
-for file in "${XDG_CONFIG_HOME:-$HOME/.config}/shell"; do
+for file in ${XDG_CONFIG_HOME:-$HOME/.config}/shell/*; do
     source $file
 done
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
+
 
 # Basic auto/tab complete:
 autoload -U compinit
