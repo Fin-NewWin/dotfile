@@ -44,7 +44,9 @@ local on_attach = function(client, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
+local lspconfig = require('lspconfig')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
@@ -53,7 +55,6 @@ local servers = {
     'tsserver',
     'emmet_ls',
 }
-local lspconfig = require('lspconfig')
 for _, lsp in pairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
