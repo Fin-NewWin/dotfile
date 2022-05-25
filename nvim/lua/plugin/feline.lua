@@ -304,23 +304,23 @@ components.active[3][9] = {
     right_sep = ' '
 }
 -- linePercent
-components.active[3][10] = {
-    provider = 'line_percentage',
-    hl = {
-        fg = 'white',
-        bg = 'bg',
-        style = 'bold'
-    },
-    right_sep = ' '
-}
+-- components.active[3][10] = {
+--     provider = 'line_percentage',
+--     hl = {
+--         fg = 'white',
+--         bg = 'bg',
+--         style = 'bold'
+--     },
+--     right_sep = ' '
+-- }
 -- scrollBar
-components.active[3][11] = {
-    provider = 'scroll_bar',
-    hl = {
-        fg = 'yellow',
-        bg = 'bg',
-    },
-}
+-- components.active[3][11] = {
+--     provider = 'scroll_bar',
+--     hl = {
+--         fg = 'yellow',
+--         bg = 'bg',
+--     },
+-- }
 
 -- INACTIVE
 -- fileType
