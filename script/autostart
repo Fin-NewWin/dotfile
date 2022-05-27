@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Notify
+dunst &
+
+# Picom for all display
+picom -b
+
+# Set wallpaper
+setwall
+
+# Keybindings Daemon
+sxhkd &
+
+# Set keyboard speed
+xset r rate 280 40 s off -dpms
+
+# Bluelight filter using lat and long
+redshift -l 36.778259:-119.417931 -P 2500 -r &
