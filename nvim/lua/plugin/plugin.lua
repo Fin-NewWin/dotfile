@@ -46,15 +46,6 @@ packer.startup{
             }
         }
 
-        -- Status line
-        use {
-            'feline-nvim/feline.nvim',
-            config = get_config('feline'),
-            requires = {
-                { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')},
-            },
-        }
-
         -- Treesitter
         use { 
             'nvim-treesitter/nvim-treesitter', 
@@ -80,6 +71,7 @@ packer.startup{
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
         use { 'norcalli/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('nvim-lastplace') }
+        use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns') }
 
 	end,
     config = {

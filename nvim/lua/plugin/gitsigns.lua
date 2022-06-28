@@ -4,6 +4,11 @@ if not status_ok then
 end
 
 gitsigns.setup {
-    signcolumn = false,
-    numhl = true,
+    signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+    },
 }
