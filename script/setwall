@@ -18,7 +18,7 @@ setWall(){
     xwallpaper --zoom $BG_LOCATION 
 }
 
-if [ $# -ne 0 ]
+if [ $# -eq 1 ]
 then
     FULL_PATH=$(readlink -f $1)
     # if directory
@@ -28,13 +28,11 @@ then
         WALLPAPER=$(find "${FULL_PATH}" -iregex '.*.\(jpg\|jpeg\|png\)' | shuf -n 1)
         # Check if WALLPAPER is not empty
         [ -z "$WALLPAPER" ] && echo "Directory no have immmmmmmage, try again" && exit
-        # Soft linking > cp
     # if file
     elif [ -f "$FULL_PATH" ]
     then
         case $(file -b "$FULL_PATH" | awk '{print $1}') in
             'JPEG'|'PNG'|'JPG')
-                # Soft linking > cp
                 WALLPAPER="$FULL_PATH"
                 ;;
             *)
