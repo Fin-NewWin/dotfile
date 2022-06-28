@@ -1,9 +1,14 @@
+#!/bin/sh
 
 # Enable colors and change prompt:
-autoload -U colors && colors	# Load colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-stty stop undef	
+autoload -Uz colors && colors	# Load colors
+
+# useful options
+unsetopt BEEP
+setopt extendedglob nomatch menucomplete
 setopt interactive_comments
+stty stop undef	
+zle_highlight=('paste:none')
 
 # History in cache directory:
 setopt hist_expire_dups_first
@@ -23,18 +28,27 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 
 # Source ENV and ALIAS
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
 
 # Basic auto/tab complete:
-autoload -U compinit
+autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-compinit
 _comp_options+=(globdots)		
-
-bindkey "^P" history-search-backward
-bindkey "^N" history-search-forward
 
 # Enable searching through history
 bindkey '^R' history-incremental-pattern-search-backward
+bindkey "^P" history-search-backward
+bindkey "^N" history-search-forward
+
+# functions
+source "$ZDOTDIR/zsh-functions"
+
+# Add-ons
+zsh_add_file "zsh-prompt"
+
+# Plugins
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+compinit
