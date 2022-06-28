@@ -27,23 +27,26 @@ setopt share_history
 HISTSIZE=10000000
 SAVEHIST=10000000
 
+set colored-stats on
+
 # Source ENV and ALIAS
 source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
+source "$ZDOTDIR/zsh-functions"
 
 # Basic auto/tab complete:
+eval `dircolors -b`
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 autoload -Uz compinit
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select 
 zmodload zsh/complist
+compinit
 _comp_options+=(globdots)		
 
 # Enable searching through history
-bindkey '^R' history-incremental-pattern-search-backward
 bindkey "^P" history-search-backward
 bindkey "^N" history-search-forward
-
-# functions
-source "$ZDOTDIR/zsh-functions"
+bindkey "^R" history-incremental-search-backward
 
 # Add-ons
 zsh_add_file "zsh-prompt"
@@ -54,4 +57,8 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=()
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-compinit
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
