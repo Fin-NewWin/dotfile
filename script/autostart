@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Status bar
+polybar &
+
 # Notify
 dunst &
 
@@ -16,4 +19,8 @@ sxhkd &
 xset r rate 280 40 s off -dpms
 
 # Bluelight filter using lat and long
-redshift -l 36.778259:-119.417931 -P 2500 -r &
+redshift -l 36.778259:-119.417931 -P 3000 -r &
+
+# sleep
+killall xidlehook
+xidlehook --not-when-audio --not-when-fullscreen --timer 300 'systemctl suspend' ''
