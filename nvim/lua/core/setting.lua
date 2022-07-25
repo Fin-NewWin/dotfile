@@ -1,6 +1,8 @@
 local options = {
+    conceallevel = 0,
     termguicolors = true,
     pumheight = 10,
+    showmode = false,                        
     ruler = true,
     number = true,
     linebreak = true,
@@ -22,7 +24,7 @@ local options = {
     wrapscan = true,
     completeopt = { 'menu', 'menuone', 'noselect' },
     colorcolumn = '80',
-    -- signcolumn = 'number',
+    signcolumn = 'number',
     synmaxcol = 240,
     updatetime = 50,
     cmdheight = 1,
@@ -30,6 +32,8 @@ local options = {
     errorbells = false,
     clipboard = 'unnamedplus',
 }
+
+vim.opt.shortmess:append "c"
 
 for k, v in pairs(options) do
   vim.opt[k] = v

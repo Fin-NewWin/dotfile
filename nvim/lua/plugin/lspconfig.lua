@@ -10,6 +10,27 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 -- Border Hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = "single" })
+local config = {
+		-- disable virtual text
+		virtual_text = false,
+		-- show signs
+		signs = {
+			active = signs,
+		},
+		update_in_insert = true,
+		underline = true,
+		severity_sort = true,
+		float = {
+			focusable = false,
+			style = "minimal",
+			border = "single",
+			source = "always",
+			header = "",
+			prefix = "",
+		},
+	}
+
+vim.diagnostic.config(config)
 
 local win = require('lspconfig.ui.windows')
 local _default_opts = win.default_opts
@@ -22,14 +43,6 @@ end
 
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
-
--- LSP Status Symbols
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -84,13 +97,14 @@ cmp.setup {
     },
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
         { name = 'luasnip' },
+        { name = 'buffer' },
         { name = 'path' },
     },
     formatting = {
         fields = {'kind', 'abbr', 'menu'},
         format = function(entry, vim_item)
-            -- vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
             vim_item.kind = string.format("%s", lspkind.presets.default[vim_item.kind])
             vim_item.menu = ({
                 buffer = "[Buffer]",
