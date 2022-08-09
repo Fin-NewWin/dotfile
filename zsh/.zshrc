@@ -32,7 +32,8 @@ set colored-stats on
 
 # Basic auto/tab complete:
 eval `dircolors -b`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}"
 autoload -Uz compinit
 zstyle ':completion:*' menu select 
 zmodload zsh/complist
@@ -40,11 +41,11 @@ compinit
 _comp_options+=(globdots)		
 
 # Functions
-source "$ZDOTDIR/zsh-functions"
+[ -f "$ZDOTDIR/zsh-functions" ] && source "$ZDOTDIR/zsh-functions"
 
 # Aliasa and ENV
-zsh_add_file "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-zsh_add_file "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
 
 # Add-ons
 
