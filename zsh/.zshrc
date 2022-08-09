@@ -29,10 +29,6 @@ SAVEHIST=10000000
 
 set colored-stats on
 
-# Source ENV and ALIAS
-source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
-source "$ZDOTDIR/zsh-functions"
 
 # Basic auto/tab complete:
 eval `dircolors -b`
@@ -43,22 +39,32 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		
 
-# Enable searching through history
-bindkey "^P" history-search-backward
-bindkey "^N" history-search-forward
-bindkey "^R" history-incremental-search-backward
+# Functions
+source "$ZDOTDIR/zsh-functions"
+
+# Aliasa and ENV
+zsh_add_file "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+zsh_add_file "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
 
 # Add-ons
-zsh_add_file "zsh-prompt"
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-
-ZSH_AUTOSUGGEST_MANUAL_REBIND=()
+ZSH_AUTOSUGGEST_MANUAL_REBIND=""
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
+
+## zsh_add_plugin "marlonrichert/zsh-autocomplete"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+
+# Enable searching through history
+bindkey "^P" history-search-backward
+bindkey "^N" history-search-forward
+bindkey "^R" history-incremental-search-backward
+
+# Enable colors and change prompt:
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
