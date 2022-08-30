@@ -1,4 +1,4 @@
--- Install packer if not already
+-- Bootstrap packer
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -8,7 +8,10 @@ end
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'init.lua' })
 
-local packer = require('packer')
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+    return
+end
 
 -- Function to get config
 local function get_config(name)
@@ -40,7 +43,6 @@ packer.startup{
                     requires = {
                         'hrsh7th/cmp-nvim-lsp',
                         'hrsh7th/cmp-nvim-lua',
-                        'hrsh7th/cmp-buffer',
                         'hrsh7th/cmp-path',
                         { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' },
                     }
@@ -68,12 +70,22 @@ packer.startup{
             config = get_config('telescope')
         }
 
+
         -- Util and QOL
         use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
         use { 'norcalli/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
+        use { 'mrshmllow/document-color.nvim', config = get_config('document-color') }
         use { 'ethanholz/nvim-lastplace', config = get_config('nvim-lastplace') }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns') }
+        use { 
+            'nvim-lualine/lualine.nvim', 
+            requires = { 
+                'kyazdani42/nvim-web-devicons', 
+                'lewis6991/gitsigns.nvim' 
+		    }, 
+            config = get_config('statusline'),
+        }
 
 	end,
     config = {
