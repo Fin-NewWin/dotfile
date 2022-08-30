@@ -9,4 +9,6 @@ alias \
 alias \
     cp="cp -iv" \
 	mv="mv -iv" \
-	rm="rm -vI" \
+	rm="nocorrect rm -vI" \
+
+alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
