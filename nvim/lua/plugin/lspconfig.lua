@@ -10,25 +10,36 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 -- Border Hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = "single" })
+
+local signs = {
+    Error   =   "",
+    Warn    =   "",
+    Hint    =   "",
+    Info    =   "",
+}
+
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
+
 local config = {
-		-- disable virtual text
-		virtual_text = false,
-		-- show signs
-		signs = {
-			active = signs,
-		},
-		update_in_insert = true,
-		underline = true,
-		severity_sort = true,
-		float = {
-			focusable = false,
-			style = "minimal",
-			border = "single",
-			source = "always",
-			header = "",
-			prefix = "",
-		},
-	}
+    virtual_text = true,
+    signs = {
+        active = signs,
+    },
+    update_in_insert = true,
+    underline = true,
+    severity_sort = true,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "single",
+        source = "always",
+        header = "",
+        prefix = "",
+    },
+}
 
 vim.diagnostic.config(config)
 
@@ -36,9 +47,9 @@ local win = require('lspconfig.ui.windows')
 local _default_opts = win.default_opts
 
 win.default_opts = function(options)
-  local opts = _default_opts(options)
-  opts.border = 'single'
-  return opts
+    local opts = _default_opts(options)
+    opts.border = 'single'
+    return opts
 end
 
 -- Pipe commands into telescope
@@ -60,6 +71,8 @@ end
 local lspconfig = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.colorProvider = true
+
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
@@ -99,7 +112,6 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'nvim_lua' },
         { name = 'luasnip' },
-        { name = 'buffer' },
         { name = 'path' },
     },
     formatting = {
