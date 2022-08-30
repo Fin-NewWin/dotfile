@@ -33,6 +33,7 @@ export XDG_SESSION_ID=1
 export XDG_SESSION_TYPE=tty
 export XDG_STATE_HOME=/home/fin/.local/state
 export XDG_VTNR=1
+export XDG_DATA_DIRS=/usr/local/share:/usr/share
 export XINITRC=/home/fin/.config/X11/xinitrc
 
 # Less
