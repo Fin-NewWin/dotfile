@@ -3,15 +3,17 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 # Set LS_COLORS to use for autocomplete
 if [[ -z "$LS_COLORS" ]]; then 
-(( $+commands[dircolors] )) && eval "$(dircolors -b)" 
+    (( $+commands[dircolors] )) && eval "$(dircolors -b)" 
 fi 
 
-ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
+# ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
+set +o list_types
 zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}" # Enable dir colors
 zstyle ':completion:*' menu select 
+zstyle ':completion:*' special-dirs false
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*' # case insensitive and partial completion
-zstyle ':completion:*' group-name '' # group results by category
+# zstyle ':completion:*' group-name '' # group results by category
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 
