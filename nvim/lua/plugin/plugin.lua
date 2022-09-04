@@ -51,11 +51,11 @@ packer.startup{
         }
 
         -- Treesitter
-        use { 
-            'nvim-treesitter/nvim-treesitter', 
-            run = ':TSUpdate', 
+        use {
+            'nvim-treesitter/nvim-treesitter',
+            run = ':TSUpdate',
             requires = 'windwp/nvim-ts-autotag',
-            config = get_config('nvim-treesitter'), 
+            config = get_config('nvim-treesitter'),
         }
 
 
@@ -74,18 +74,9 @@ packer.startup{
         -- Util and QOL
         use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
-        use { 'norcalli/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
-        use { 'mrshmllow/document-color.nvim', config = get_config('document-color') }
+        use { 'Akianonymus/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('nvim-lastplace') }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns') }
-        use { 
-            'nvim-lualine/lualine.nvim', 
-            requires = { 
-                'kyazdani42/nvim-web-devicons', 
-                'lewis6991/gitsigns.nvim' 
-		    }, 
-            config = get_config('statusline'),
-        }
 
 	end,
     config = {
