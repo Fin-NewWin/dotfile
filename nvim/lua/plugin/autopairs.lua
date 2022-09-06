@@ -22,6 +22,7 @@ autopairs.setup({
         highlight = "PmenuSel",
         highlight_grey = "LineNr",
     },
+    enable_check_bracket_line = false,
 })
 
 local cmp_autopairs = require "nvim-autopairs.completion.cmp"
