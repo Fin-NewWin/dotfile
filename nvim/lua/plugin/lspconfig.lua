@@ -91,25 +91,60 @@ for _, lsp in pairs(servers) do
     }
 end
 
-lspconfig.sumneko_lua.setup {
+
+local function get_lua_runtime()
+    local result = {};
+    for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
+        local lua_path = path .. "/lua/";
+        if vim.fn.isdirectory(lua_path) then
+            result[lua_path] = true
+        end
+    end
+
+    -- This loads the `lua` files from nvim into the runtime.
+    result[vim.fn.expand("$VIMRUNTIME/lua")] = true
+
+    -- TODO: Figure out how to get these to work...
+    --  Maybe we need to ship these instead of putting them in `src`?...
+    result[vim.fn.expand("~/build/neovim/src/nvim/lua")] = true
+
+    return result;
+end
+
+lspconfig.sumneko_lua.setup ({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = runtime_path,
+                version = "LuaJIT",
+
+            },
+            completion = {
+                keywordSnippet = "Disable",
+                showWord = "Disable",
             },
             diagnostics = {
-                globals = { 'vim' },
+                enable = true,
+                disable = config.disabled_diagnostics or {
+                    "trailing-space",
+                    "unused-local",
+                },
+                globals = vim.list_extend({
+                    "vim",
+                    "describe", "it", "before_each", "after_each", "teardown", "pending", "clear",
+                },
+                config.globals or {}),
             },
-            workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+            workspace = {
+                library = vim.list_extend(get_lua_runtime(), config.library or {}),
+                maxPreload = 10000,
+                preloadFileSize = 10000,
+            },
             telemetry = { enable = false, },
         },
     },
-}
+})
 
 -- nvim-cmp setup
 local cmp = require('cmp')
