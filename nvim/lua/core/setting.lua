@@ -38,9 +38,3 @@ vim.opt.shortmess:append "c"
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
-
--- Remove auto comments
-vim.api.nvim_create_autocmd('FileType', { command = 'set formatoptions=' })
-
--- Remove trailing white space
-vim.api.nvim_create_autocmd('BufWritePre', { command = [[%s/\s\+$//e]] })
