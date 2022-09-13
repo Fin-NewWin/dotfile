@@ -220,3 +220,7 @@ cmp.setup {
         documentation = cmp.config.window.bordered(),
     },
 }
+
+local fidget = require('fidget')
+
+fidget.setup{}
