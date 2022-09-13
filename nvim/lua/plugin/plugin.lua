@@ -50,7 +50,8 @@ packer.startup{
                         'hrsh7th/cmp-path',
                         { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' },
                     }
-                }
+                },
+                'j-hui/fidget.nvim'
             }
         }
 
@@ -81,6 +82,8 @@ packer.startup{
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('nvim-lastplace') }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns') }
+
+
         if packer_bootstrap then
             require('packer').sync()
         end
