@@ -2,7 +2,7 @@
 
 alias startx="startx $XINITRC"
 
-alias ls="ls -h --color=auto" 
+alias ls="ls -h --color=auto"
 
 alias \
 	grep="grep --color=auto" \
@@ -13,3 +13,5 @@ alias \
 	rm="nocorrect rm -vI" \
 
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
+
+alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""

@@ -52,3 +52,5 @@ export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
 # npm
 export npm_config_cache=/home/fin/.cache/npm
 export npm_config_userconfig=/home/fin/.config/npm/config
+
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
