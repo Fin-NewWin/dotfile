@@ -1,8 +1,8 @@
-super + Return 
+super + Return
     st
 
 XF86Audio{RaiseVolume,LowerVolume}
-    pamixer {-i,-d} 2 
+    pamixer {-i,-d} 2
 
 XF86Audio{Mic,_}Mute
     pamixer {--default-source,_} -t
@@ -11,8 +11,8 @@ XF86MonBrightness{Down,Up}
     xbacklight -{dec,inc} 5
 
 
-super + p
-    rofi -show drun
+super + {_,shift +} p
+    rofi -show {drun,filebrowser}
 
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
