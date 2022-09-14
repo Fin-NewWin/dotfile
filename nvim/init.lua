@@ -1,5 +1,5 @@
 require('impatient')
-require('plugin.plugin')
+require('plugin')
 
 require('core.setting')
 require('core.autocmd')
