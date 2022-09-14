@@ -19,7 +19,7 @@ end
 
 -- Function to get config
 local function get_config(name)
-	return string.format('require("plugin/%s")', name)
+	return string.format('require("plugin/config/%s")', name)
 end
 
 packer.startup{
@@ -29,7 +29,7 @@ packer.startup{
 		use 'wbthomason/packer.nvim'
 
 		-- Init first
-        use { 'nathom/filetype.nvim', config = get_config('filetype') }
+        use { 'nathom/filetype.nvim' }
 		use 'lewis6991/impatient.nvim'
         use 'nvim-lua/plenary.nvim'
 
@@ -79,9 +79,9 @@ packer.startup{
         -- Util and QOL
         use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
-        use { 'Akianonymus/nvim-colorizer.lua', config = get_config('nvim-colorizer') }
-        use { 'ethanholz/nvim-lastplace', config = get_config('nvim-lastplace') }
-        use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns') }
+        use { 'Akianonymus/nvim-colorizer.lua' }
+        use { 'ethanholz/nvim-lastplace' }
+        use { 'lewis6991/gitsigns.nvim'}
 
 
         if packer_bootstrap then
@@ -94,3 +94,5 @@ packer.startup{
         }
     }
 }
+
+require('plugin.config.others')
