@@ -147,11 +147,19 @@ lspconfig.sumneko_lua.setup ({
 })
 
 -- nvim-cmp setup
-local cmp = require('cmp')
-local luasnip = require('luasnip')
-local lspkind = require('lspkind')
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
+    return
+end
+
+local snip_status_ok, luasnip = pcall(require, "luasnip")
+if not snip_status_ok then
+    return
+end
 
 require("luasnip.loaders.from_vscode").lazy_load()
+local lspkind = require('lspkind')
+
 
 cmp.setup {
     snippet = {
@@ -221,6 +229,9 @@ cmp.setup {
     },
 }
 
-local fidget = require('fidget')
+local fidget_status_ok, fidget = pcall(require, "fidget")
+if not fidget_status_ok then
+    return
+end
 
 fidget.setup{}
