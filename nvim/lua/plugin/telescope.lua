@@ -9,7 +9,7 @@ local key = vim.api.nvim_set_keymap
 telescope.setup{
     defaults = {
         prompt_prefix = " ",
-        selection_caret = " ",
+        selection_caret = "ﰲ ",
         file_sorter = require("telescope.sorters").get_fzy_sorter,
         file_previewer = require("telescope.previewers").vim_buffer_cat.new,
         path_display = { "truncate" },
@@ -60,7 +60,7 @@ telescope.setup{
             '--smart-case',
             '--hidden',
         },
-        file_ignore_patterns = { "node_modules" },
+        file_ignore_patterns = { ".git/", "node_modules" },
     }
 }
 telescope.load_extension('fzy_native')
