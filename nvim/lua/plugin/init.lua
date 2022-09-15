@@ -43,17 +43,20 @@ packer.startup{
             config = get_config('lspconfig'),
             requires = {
                 'onsails/lspkind.nvim',
-                {
-                    'hrsh7th/nvim-cmp',
-                    requires = {
-                        'hrsh7th/cmp-nvim-lsp',
-                        'hrsh7th/cmp-nvim-lua',
-                        'hrsh7th/cmp-path',
-                        { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' },
-                    }
-                },
                 'j-hui/fidget.nvim'
             }
+        }
+
+        -- Autcomplete
+        use {
+            'hrsh7th/nvim-cmp',
+            requires = {
+                'hrsh7th/cmp-nvim-lsp',
+                'hrsh7th/cmp-nvim-lua',
+                'hrsh7th/cmp-path',
+                { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' },
+            },
+            config = get_config('cmp')
         }
 
         -- Treesitter
@@ -88,7 +91,7 @@ packer.startup{
         if packer_bootstrap then
             require('packer').sync()
         end
-	end,
+    end,
     config = {
         display = {
             prompt_border = 'single'
