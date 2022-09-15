@@ -63,7 +63,6 @@ packer.startup{
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
-            requires = 'windwp/nvim-ts-autotag',
             config = get_config('nvim-treesitter'),
         }
 
@@ -86,6 +85,7 @@ packer.startup{
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
+        use {'windwp/nvim-ts-autotag', requires = {'nvim-treesitter/nvim-treesitter'} }
 
 
         if packer_bootstrap then
