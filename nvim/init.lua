@@ -1,4 +1,8 @@
 require('impatient')
+require('filetype')
+
+
+
 require('plugin')
 
 require('core.setting')
