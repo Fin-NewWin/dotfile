@@ -10,12 +10,14 @@ BG_LOCATION=$XDG_CONFIG_HOME/wallpaper
 WALLPAPER=""
 
 setWall(){
-    if [ "$WALLPAPER" != "" ] 
+    if [ "$WALLPAPER" != "" ]
     then
         ln -sf "$WALLPAPER" "$BG_LOCATION"
     fi
-    notify-send -i $BG_LOCATION "set wallpaper" "$WALLPAPER" -u low
-    xwallpaper --zoom $BG_LOCATION 
+    xwallpaper --zoom $BG_LOCATION && \
+    notify-send -i $BG_LOCATION "set wallpaper" "$WALLPAPER" -u low || \
+    echo "Unexpected Error"
+
 }
 
 if [ $# -eq 1 ]
