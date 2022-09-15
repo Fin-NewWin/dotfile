@@ -19,7 +19,7 @@ end
 
 -- Function to get config
 local function get_config(name)
-    return string.format('require("config.%s")', name)
+    return string.format('require("plugin.config.%s")', name)
 end
 
 
@@ -59,7 +59,7 @@ packer.startup{
             config = get_config('cmp')
         }
 
-        -- Treesitter
+        -- Treesitter/Syntax highlight
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
