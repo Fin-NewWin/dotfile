@@ -79,7 +79,6 @@ local servers = {
     'jedi_language_server',
     'clangd',
     'tsserver',
-    'emmet_ls',
 }
 for _, lsp in pairs(servers) do
     lspconfig[lsp].setup {
