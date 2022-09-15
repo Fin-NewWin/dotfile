@@ -19,19 +19,19 @@ end
 
 -- Function to get config
 local function get_config(name)
-	return string.format('require("config.%s")', name)
+    return string.format('require("config.%s")', name)
 end
 
 
 packer.startup{
-	function(use)
+    function(use)
 
-		-- Packer can manage itself
+        -- Packer can manage itself
         use 'wbthomason/packer.nvim'
 
-		-- Init first
+        -- Init first
         use { 'nathom/filetype.nvim' }
-		use 'lewis6991/impatient.nvim'
+        use 'lewis6991/impatient.nvim'
         use 'nvim-lua/plenary.nvim'
 
         -- Colorscheme
