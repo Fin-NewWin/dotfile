@@ -27,7 +27,7 @@ packer.startup{
 	function(use)
 
 		-- Packer can manage itself
-		use 'wbthomason/packer.nvim'
+        use 'wbthomason/packer.nvim'
 
 		-- Init first
         use { 'nathom/filetype.nvim' }
