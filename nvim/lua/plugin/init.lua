@@ -54,16 +54,17 @@ packer.startup{
                 'hrsh7th/cmp-nvim-lsp',
                 'hrsh7th/cmp-nvim-lua',
                 'hrsh7th/cmp-path',
-                { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' },
             },
             config = get_config('cmp')
         }
+        use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' }
+        use { 'rafamadriz/friendly-snippets' }
 
         -- Treesitter/Syntax highlight
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
-            config = get_config('nvim-treesitter'),
+            config = get_config('treesitter'),
         }
 
 
