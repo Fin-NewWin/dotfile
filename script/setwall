@@ -17,7 +17,7 @@ setWall(){
     xwallpaper --zoom $BG_LOCATION && \
     notify-send -i $BG_LOCATION "set wallpaper" "$WALLPAPER" -u low || \
     # if fail somehow
-    echo "Unexpected Error"
+    return
 
 }
 
