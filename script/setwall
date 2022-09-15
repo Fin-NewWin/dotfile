@@ -44,7 +44,7 @@ then
         esac
     # If doesn't exist
     else
-        echo "Does not exist" && exit
+        echo "Does not exist" && return
     fi
 fi
 
