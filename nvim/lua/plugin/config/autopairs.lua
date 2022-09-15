@@ -1,9 +1,9 @@
-local status_ok, autopairs = pcall(require, "nvim-autopairs")
+local status_ok, npairs = pcall(require, "nvim-autopairs")
 if not status_ok then
     return
 end
 
-autopairs.setup({
+npairs.setup({
     check_ts = true,
     ts_config = {
         lua = { "string", "source" },
@@ -31,3 +31,41 @@ if not cmp_status_ok then
     return
 end
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
+
+local npairs_rule = require("nvim-autopairs.rule")
+local ts_conds = require("nvim-autopairs.ts-conds")
+
+-- lua
+npairs.add_rules({
+    npairs_rule("%", "%", "lua")
+    :with_pair(ts_conds.is_ts_node({ "string", "comment" })),
+    npairs_rule("$", "$", "lua")
+    :with_pair(ts_conds.is_not_ts_node({ "function" }))
+})
+
+-- Add spaces between parentheses
+npairs.add_rules {
+    npairs_rule(' ', ' ')
+    :with_pair(function (opts)
+        local pair = opts.line:sub(opts.col - 1, opts.col)
+        return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+    end),
+    npairs_rule('( ', ' )')
+    :with_pair(function() return false end)
+    :with_move(function(opts)
+        return opts.prev_char:match('.%)') ~= nil
+    end)
+    :use_key(')'),
+    npairs_rule('{ ', ' }')
+    :with_pair(function() return false end)
+    :with_move(function(opts)
+        return opts.prev_char:match('.%}') ~= nil
+    end)
+    :use_key('}'),
+    npairs_rule('[ ', ' ]')
+    :with_pair(function() return false end)
+    :with_move(function(opts)
+        return opts.prev_char:match('.%]') ~= nil
+    end)
+    :use_key(']')
+}
