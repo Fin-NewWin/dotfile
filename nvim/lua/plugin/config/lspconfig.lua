@@ -20,7 +20,7 @@ local signs = {
 
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
 local config = {
@@ -71,8 +71,15 @@ end
 local lspconfig = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 capabilities.textDocument.colorProvider = true
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 
@@ -151,4 +158,11 @@ if not fidget_status_ok then
     return
 end
 
-fidget.setup{}
+fidget.setup{
+    text = {
+        spinner = "pipe",         -- animation shown when tasks are ongoing
+        done = "✓",               -- character shown when all tasks are complete
+        commenced = "Started",    -- message shown when task starts
+        completed = "Completed",  -- message shown when task completes
+    },
+}
