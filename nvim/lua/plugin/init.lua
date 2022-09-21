@@ -87,7 +87,16 @@ packer.startup{
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
-        use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = get_config('lualine') }
+        use {
+            'feline-nvim/feline.nvim',
+            config = get_config('statusline'),
+            requires = {
+                {
+                    'SmiteshP/nvim-gps',
+                    requires = 'nvim-treesitter/nvim-treesitter'
+                }
+            },
+        }
 
 
         if packer_bootstrap then
