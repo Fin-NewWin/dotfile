@@ -11,7 +11,7 @@ XF86MonBrightness{Down,Up}
     xbacklight -{dec,inc} 5
 
 
-super + {_,shift +} p
+super + {_,shift +} space
     rofi -show {drun,filebrowser}
 
 super + {_,shift + }{1-9,0}
@@ -28,3 +28,6 @@ super + shift + q
 
 super + {h,j,k,l}
     bspc node --focus {west,south,north,east}
+
+Print
+    flameshot gui
