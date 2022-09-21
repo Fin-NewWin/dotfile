@@ -1,3 +1,8 @@
+local status_ok, feline= pcall(require, "feline")
+if not status_ok then
+    return
+end
+
 local lsp = require('feline.providers.lsp')
 local vi_mode_utils = require('feline.providers.vi_mode')
 local gps = require("nvim-gps")
@@ -465,7 +470,7 @@ winbar_components.inactive[1][1] = {
     }
 }
 
-require('feline').setup({
+feline.setup({
     theme = gruvbox,
     default_bg = bg,
     default_fg = fg,
