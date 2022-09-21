@@ -17,6 +17,7 @@ local function get_config(name)
     return string.format('require("plugin.config.%s")', name)
 end
 
+local packer = require('packer')
 
 packer.startup{
     function(use)
