@@ -1,9 +1,18 @@
 #!/bin/sh
 
+killall flameshot
+killall polybar
+killall picom
+killall dunst
+killall sxhkd
+killall xidlehook
+
+flameshot &
+
 # Status bar
 polybar &
 
-# Notify
+# Notify daemon
 dunst &
 
 # Picom for all display
@@ -22,5 +31,4 @@ xset r rate 280 40 s off -dpms
 redshift -l 37.0:-120.0 -P 3000 -r &
 
 # sleep
-killall xidlehook
 xidlehook --not-when-audio --not-when-fullscreen --timer 300 'systemctl suspend' ''
