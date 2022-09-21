@@ -12,11 +12,6 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
-
 -- Function to get config
 local function get_config(name)
     return string.format('require("plugin.config.%s")', name)
