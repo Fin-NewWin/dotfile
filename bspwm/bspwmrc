@@ -24,3 +24,4 @@ bspc config pointer_action3                 resize_corner
 bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled
 bspc rule -a firefox follow=on
+bspc rule -a firefox:Toolkit sticky=on state=floating
