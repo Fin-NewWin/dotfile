@@ -251,7 +251,7 @@ components.active[3][1] = {
         local extension = vim.fn.expand('%:e')
         local icon  = require'nvim-web-devicons'.get_icon(filename, extension)
         if icon == nil then
-            icon = ''
+            icon = ''
         end
         return icon
     end,
@@ -274,6 +274,14 @@ components.active[3][1] = {
 -- fileType
 components.active[3][2] = {
     provider = 'file_type',
+    enabled = function()
+        local file =vim.fn.expand('%:p')
+        if file == nil or #file == 0 then
+            return false
+        end
+        local size = vim.fn.getfsize(file)
+        return size > 0
+    end,
     hl = function()
         local val = {}
         local filename = vim.fn.expand('%:t')
@@ -293,7 +301,14 @@ components.active[3][2] = {
 -- fileSize
 components.active[3][3] = {
     provider = 'file_size',
-    enabled = function() return vim.fn.getfsize(vim.fn.expand('%:t')) > 0 end,
+    enabled = function()
+        local file =vim.fn.expand('%:p')
+        if file == nil or #file == 0 then
+            return false
+        end
+        local size = vim.fn.getfsize(file)
+        return size > 0
+    end,
     hl = {
         fg = 'skyblue',
         bg = 'bg',
@@ -301,19 +316,18 @@ components.active[3][3] = {
     },
     right_sep = ' '
 }
--- fileFormat
-components.active[3][4] = {
-    provider = function() return '' .. vim.bo.fileformat:upper() .. '' end,
-    hl = {
-        fg = 'white',
-        bg = 'bg',
-        style = 'bold'
-    },
-    right_sep = ' '
-}
+
 -- fileEncode
-components.active[3][5] = {
+components.active[3][4] = {
     provider = 'file_encoding',
+    enabled = function()
+        local file =vim.fn.expand('%:p')
+        if file == nil or #file == 0 then
+            return false
+        end
+        local size = vim.fn.getfsize(file)
+        return size > 0
+    end,
     hl = {
         fg = 'white',
         bg = 'bg',
@@ -321,7 +335,7 @@ components.active[3][5] = {
     },
     right_sep = ' '
 }
-components.active[3][6] = {
+components.active[3][5] = {
     provider = 'position',
     hl = {
         fg = 'white',
@@ -331,7 +345,7 @@ components.active[3][6] = {
     right_sep = ' '
 }
 -- linePercent
-components.active[3][7] = {
+components.active[3][6] = {
     provider = 'line_percentage',
     hl = {
         fg = 'white',
@@ -341,7 +355,7 @@ components.active[3][7] = {
     right_sep = ' '
 }
 -- scrollBar
-components.active[3][8] = {
+components.active[3][7] = {
     provider = 'scroll_bar',
     hl = {
         fg = 'yellow',
@@ -353,29 +367,14 @@ components.active[3][8] = {
 
 -- fileType
 components.inactive[1][1] = {
-    provider = 'file_type',
+    provider = function()
+        return vim.fn.expand("%:F")
+    end,
     hl = {
-        fg = 'black',
-        bg = 'cyan',
+        fg = 'fg',
+        -- bg = 'cyan',
         style = 'bold'
     },
-    left_sep = {
-        str = ' ',
-        hl = {
-            fg = 'NONE',
-            bg = 'cyan'
-        }
-    },
-    right_sep = {
-        {
-            str = ' ',
-            hl = {
-                fg = 'NONE',
-                bg = 'cyan'
-            }
-        },
-        ' '
-    }
 }
 
 -- WINBAR
