@@ -15,3 +15,8 @@ alias \
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
+
+alias \
+    gcm="git commit -m" \
+    ga="git add" \
+    gp='git push'
