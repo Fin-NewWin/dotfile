@@ -75,21 +75,24 @@ packer.startup{
             config = get_config('telescope')
         }
 
+        -- git
+        use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+        use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
+
 
         -- Util and QOL
         use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
-        use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
         use {
             'feline-nvim/feline.nvim',
             config = get_config('statusline'),
             requires = {
                 {
-                    'SmiteshP/nvim-gps',
-                    requires = 'nvim-treesitter/nvim-treesitter'
+                    "SmiteshP/nvim-navic",
+                    requires = "neovim/nvim-lspconfig"
                 }
             },
         }
