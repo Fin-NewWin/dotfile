@@ -247,13 +247,17 @@ components.active[2][4] = {
 -- fileIcon
 components.active[3][1] = {
     provider = function()
-        local filename = vim.fn.expand('%:t')
-        local extension = vim.fn.expand('%:e')
-        local icon  = require'nvim-web-devicons'.get_icon(filename, extension)
-        if icon == nil then
-            icon = ''
+        local ok, devicons = pcall(require, 'nvim-web-devicons')
+        if ok then
+            local icon
+            local f_name, f_extension = vim.fn.expand('%:t'), vim.fn.expand('%:e')
+            f_extension = f_extension ~= '' and f_extension or vim.bo.filetype
+            local icon,_ = devicons.get_icon(f_name, f_extension)
+            if icon == nil then
+                icon = ''
+            end
+            return icon
         end
-        return icon
     end,
     hl = function()
         local val = {}
