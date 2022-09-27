@@ -5,7 +5,7 @@ end
 
 local lsp = require('feline.providers.lsp')
 local vi_mode_utils = require('feline.providers.vi_mode')
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 local force_inactive = {
     filetypes = {},
@@ -127,20 +127,6 @@ local vi_mode_text = {
     CONFIRM         = '|>'
 }
 
-local buffer_not_empty = function()
-    if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
-        return true
-    end
-    return false
-end
-
-local checkwidth = function()
-    local squeeze_width  = vim.fn.winwidth(0) / 2
-    if squeeze_width > 40 then
-        return true
-    end
-    return false
-end
 
 force_inactive.filetypes = {
     'NvimTree',
@@ -249,7 +235,6 @@ components.active[3][1] = {
     provider = function()
         local ok, devicons = pcall(require, 'nvim-web-devicons')
         if ok then
-            local icon
             local f_name, f_extension = vim.fn.expand('%:t'), vim.fn.expand('%:e')
             f_extension = f_extension ~= '' and f_extension or vim.bo.filetype
             local icon,_ = devicons.get_icon(f_name, f_extension)
@@ -374,11 +359,6 @@ components.inactive[1][1] = {
     provider = function()
         return vim.fn.expand("%:F")
     end,
-    hl = {
-        fg = 'fg',
-        -- bg = 'cyan',
-        style = 'bold'
-    },
 }
 
 -- WINBAR
@@ -386,12 +366,12 @@ components.inactive[1][1] = {
 
 -- nvimGps
 winbar_components.active[1][1] = {
-    provider = function() return gps.get_location() end,
-    enabled = function() return gps.is_available() end,
-    hl = {
-        fg = 'orange',
-        style = 'bold'
-    }
+    provider = function()
+        return navic.get_location()
+    end,
+    enabled = function()
+        return navic.is_available()
+    end
 }
 
 -- MID
@@ -449,28 +429,6 @@ winbar_components.active[3][5] = {
 -- fileType
 winbar_components.inactive[1][1] = {
     provider = 'file_type',
-    hl = {
-        fg = 'black',
-        bg = 'cyan',
-        style = 'bold'
-    },
-    left_sep = {
-        str = ' ',
-        hl = {
-            fg = 'NONE',
-            bg = 'cyan'
-        }
-    },
-    right_sep = {
-        {
-            str = ' ',
-            hl = {
-                fg = 'NONE',
-                bg = 'cyan'
-            }
-        },
-        ' '
-    }
 }
 
 feline.setup({
@@ -482,7 +440,7 @@ feline.setup({
     force_inactive = force_inactive,
 })
 
--- require('feline').winbar.setup({
---     components = winbar_components,
---     force_inactive = force_inactive,
--- })
+require('feline').winbar.setup({
+    components = winbar_components,
+    force_inactive = force_inactive,
+})
