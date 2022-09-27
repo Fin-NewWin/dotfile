@@ -21,6 +21,7 @@ gruvbox.setup({
         DiagnosticSignHint  =   {fg="#8ec07c"},
         DiagnosticSignInfo  =   {fg="#83a598"},
 
+        -- navic
         NavicIconsFile          =   {link = "CmpItemKindFile",          bold = 1},
         NavicIconsModule        =   {link = "CmpItemKindClass",         bold = 1},
         NavicIconsNamespace     =   {link = "CmpItemKindClass",         bold = 1},
