@@ -31,6 +31,7 @@ local options = {
     scrolloff = 10,
     errorbells = false,
     clipboard = 'unnamedplus',
+    laststatus = 2,
 }
 
 vim.opt.shortmess:append "c"
