@@ -55,6 +55,42 @@ end
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
 
+local navic = require("nvim-navic")
+navic.setup {
+    icons = {
+        File          = " ",
+        Module        = " ",
+        Namespace     = " ",
+        Package       = " ",
+        Class         = " ",
+        Method        = " ",
+        Property      = " ",
+        Field         = " ",
+        Constructor   = " ",
+        Enum          = "練",
+        Interface     = "練",
+        Function      = " ",
+        Variable      = " ",
+        Constant      = " ",
+        String        = " ",
+        Number        = " ",
+        Boolean       = "◩ ",
+        Array         = " ",
+        Object        = " ",
+        Key           = " ",
+        Null          = "ﳠ ",
+        EnumMember    = " ",
+        Struct        = " ",
+        Event         = " ",
+        Operator      = " ",
+        TypeParameter = " ",
+    },
+    highlight = true,
+    separator = " > ",
+    depth_limit = 0,
+    depth_limit_indicator = "..",
+}
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -65,6 +101,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    navic.attach(client, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -74,11 +111,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.colorProvider = true
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
 }
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
