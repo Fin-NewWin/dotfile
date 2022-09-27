@@ -4,19 +4,19 @@ alias startx="startx $XINITRC"
 
 alias ls="ls -h --color=auto"
 
-alias \
-	grep="grep --color=auto" \
+alias grep="grep --color=auto"
 
-alias \
-    cp="cp -iv" \
-	mv="mv -iv" \
-	rm="nocorrect rm -vI" \
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="nocorrect rm -vI"
 
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
 
 alias \
-    gcm="git commit -m" \
-    ga="git add" \
-    gp='git push'
+    gcm="git commit -m"     \
+    ga="git add"            \
+    gp='git push'           \
+    gd='git diff'           \
+    gs='git status'         \
