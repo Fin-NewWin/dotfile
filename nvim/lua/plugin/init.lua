@@ -33,7 +33,7 @@ packer.startup{
         -- Colorscheme
         use { 'ellisonleao/gruvbox.nvim', config = get_config('colorscheme')}
 
-        -- LSP with code completion(cmp)
+        -- LSP
         use {
             'neovim/nvim-lspconfig',
             config = get_config('lspconfig'),
@@ -42,6 +42,7 @@ packer.startup{
                 'j-hui/fidget.nvim'
             }
         }
+        use { 'j-hui/fidget.nvim', config = get_config('fidget')}
 
         -- Autcomplete
         use {
@@ -96,6 +97,9 @@ packer.startup{
                 }
             },
         }
+        use { 'gbprod/cutlass.nvim', config = get_config('cutlass') }
+        use { 'stevearc/dressing.nvim', config = get_config('dressing') }
+        use { 'RRethy/vim-illuminate', config = get_config('illuminate')}
 
 
         if packer_bootstrap then

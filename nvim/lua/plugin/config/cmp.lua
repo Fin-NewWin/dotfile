@@ -11,6 +11,7 @@ end
 
 require("luasnip.loaders.from_vscode").lazy_load()
 local lspkind = require('lspkind')
+local compare = require "cmp.config.compare"
 
 
 cmp.setup {
@@ -24,10 +25,23 @@ cmp.setup {
         select = false,
     },
     sources = {
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
-        { name = 'luasnip' },
-        { name = 'path' },
+        {
+            name = 'nvim_lsp',
+            filter = function(entry, ctx)
+                local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
+                if kind == "Snippet" and ctx.prev_context.filetype == "java" then
+                    return true
+                end
+
+                if kind == "Text" then
+                    return true
+                end
+            end,
+            group_index = 2,
+        },
+        { name = 'nvim_lua', group_index = 2 },
+        { name = 'luasnip', group_index = 2 },
+        { name = 'path', group_index = 2 },
     },
     formatting = {
         fields = {'kind', 'abbr', 'menu'},
@@ -78,6 +92,19 @@ cmp.setup {
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
+    },
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            compare.offset,
+            compare.exact,
+            compare.score,
+            compare.recently_used,
+            compare.locality,
+            compare.sort_text,
+            compare.length,
+            compare.order,
+        },
     },
 }
 
