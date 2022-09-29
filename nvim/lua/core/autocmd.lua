@@ -1,7 +1,7 @@
 local au = vim.api.nvim_create_autocmd
 
 -- Remove auto comments
-au('FileType', { command = 'set formatoptions=' })
+au('FileType', { command = 'set formatoptions-=cro' })
 
 -- Remove trailing white space
 au('BufWritePre', { command = [[%s/\s\+$//e]] })
