@@ -73,20 +73,21 @@ local components = {
     inactive = {{}, {}, {}},
 }
 
+local colors = require('gruvbox.palette')
 local gruvbox = {
-    bg          = '#282828',
-    black       = '#282828',
-    yellow      = '#fabd2f',
-    cyan        = '#83a598',
-    oceanblue   = '#448588',
-    green       = '#b8bb26',
-    orange      = '#fe8019',
-    violet      = '#d3869b',
-    magenta     = '#b16286',
-    white       = '#fbf1c7',
-    fg          = '#ebdbb2',
-    skyblue     = '#7daea3',
-    red         = '#fb4934',
+    bg          = colors.dark0,
+    black       = colors.dark0,
+    yellow      = colors.bright_yellow,
+    cyan        = colors.bright_aqua,
+    oceanblue   = colors.bright_blue,
+    green       = colors.bright_green,
+    orange      = colors.bright_orange,
+    violet      = colors.bright_purple,
+    magenta     = colors.neutral_purple,
+    white       = colors.light0,
+    fg          = colors.light1,
+    skyblue     = colors.bright_blue,
+    red         = colors.bright_red,
 }
 
 local vi_mode_colors = {

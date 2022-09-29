@@ -3,6 +3,8 @@ if not status_ok then
     return
 end
 
+local colors = require('gruvbox.palette')
+
 gruvbox.setup({
     overrides = {
 
@@ -11,15 +13,15 @@ gruvbox.setup({
         FloatBorder     = {link = "TelescopeBorder" },
 
         -- Git Colors
-        GitSignsAdd     = {fg = "#b8bb26", bg = "NONE"},
-        GitSignsChange  = {fg = "#fe8019", bg = "NONE"},
-        GitSignsDelete  = {fg = "#fb4934", bg = "NONE"},
+        GitSignsAdd     = {fg = colors.bright_green,    bg = "NONE"},
+        GitSignsChange  = {fg = colors.bright_orange,   bg = "NONE"},
+        GitSignsDelete  = {fg = colors.bright_red,      bg = "NONE"},
 
         -- LSP
-        DiagnosticSignError =   {fg="#fb4934"},
-        DiagnosticSignWarn  =   {fg="#fabd2f"},
-        DiagnosticSignHint  =   {fg="#8ec07c"},
-        DiagnosticSignInfo  =   {fg="#83a598"},
+        DiagnosticSignError =   {fg = colors.bright_red},
+        DiagnosticSignWarn  =   {fg = colors.bright_yellow},
+        DiagnosticSignHint  =   {fg = colors.bright_aqua},
+        DiagnosticSignInfo  =   {fg = colors.bright_blue},
 
         -- navic
         NavicIconsFile          =   {link = "CmpItemKindFile",          bold = 1},
@@ -48,8 +50,9 @@ gruvbox.setup({
         NavicIconsEvent         =   {link = "CmpItemKindEvent",         bold = 1},
         NavicIconsOperator      =   {link = "CmpItemKindOperator",      bold = 1},
         NavicIconsTypeParameter =   {link = "CmpItemKindTypeParameter", bold = 1},
-
-    }
+    },
+    contrast = "hard",
+    transparent_mode = true,
 })
 
 local function colorscheme(name)
