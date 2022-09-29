@@ -16,7 +16,7 @@ polybar &
 dunst &
 
 # Picom for all display
-picom -b
+picom -b --experimental-backends
 
 # Set wallpaper
 setwall
