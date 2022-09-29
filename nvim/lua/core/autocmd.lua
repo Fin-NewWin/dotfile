@@ -17,10 +17,8 @@ au('CursorHold', {
 })
 
 -- Highlight yanked text
-vim.api.nvim_create_autocmd('TextYankPost', {
+au('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank(
-            { igroup="IncSearch", timeout=150, on_visual=true }
-        )
+        vim.highlight.on_yank({ igroup="IncSearch", timeout=150, on_visual=true })
     end,
 })
