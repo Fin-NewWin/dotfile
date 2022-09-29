@@ -18,5 +18,5 @@ alias \
     gcm="git commit -m"     \
     ga="git add"            \
     gp='git push'           \
-    gd='git diff'           \
+    gd='git diff 2> /dev/null || echo "Not a git repository"'           \
     gs='git status'         \
