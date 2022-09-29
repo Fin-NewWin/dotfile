@@ -5,6 +5,7 @@ local options = {
     showmode = false,
     ruler = true,
     number = true,
+    relativenumber = true,
     linebreak = true,
     breakindent = true,
     tabstop = 4,
