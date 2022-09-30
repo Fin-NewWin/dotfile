@@ -434,8 +434,6 @@ winbar_components.inactive[1][1] = {
 
 feline.setup({
     theme = gruvbox,
-    default_bg = bg,
-    default_fg = fg,
     vi_mode_colors = vi_mode_colors,
     components = components,
     force_inactive = force_inactive,
