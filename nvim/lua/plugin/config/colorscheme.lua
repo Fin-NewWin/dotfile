@@ -51,7 +51,6 @@ gruvbox.setup({
         NavicIconsOperator      =   {link = "CmpItemKindOperator",      bold = 1},
         NavicIconsTypeParameter =   {link = "CmpItemKindTypeParameter", bold = 1},
     },
-    contrast = "hard",
     transparent_mode = true,
 })
 

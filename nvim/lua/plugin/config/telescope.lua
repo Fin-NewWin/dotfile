@@ -112,6 +112,7 @@ telescope.setup{
             "%.epub",
             "%.flac",
             "%.tar.gz",
+            "%.o",
         },
     }
 }

@@ -22,3 +22,5 @@ au('TextYankPost', {
         vim.highlight.on_yank({ igroup="IncSearch", timeout=150, on_visual=true })
     end,
 })
+
+au('FileType', {pattern = 'yaml', command = 'setlocal ts=4 sts=4 sw=4 expandtab'})
