@@ -26,7 +26,6 @@ packer.startup{
         use 'wbthomason/packer.nvim'
 
         -- Init first
-        use { 'nathom/filetype.nvim' }
         use 'lewis6991/impatient.nvim'
         use 'nvim-lua/plenary.nvim'
 

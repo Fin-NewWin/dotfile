@@ -1,5 +1,4 @@
 require('impatient')
-require('filetype')
 
 
 
