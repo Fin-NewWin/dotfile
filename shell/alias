@@ -18,5 +18,9 @@ alias \
     gcm="git commit -m"     \
     ga="git add"            \
     gp='git push'           \
-    gd='git diff 2> /dev/null || echo "Not a git repository"'           \
+    gd='git diff'           \
     gs='git status'         \
+
+alias \
+    e="$EDTIOR"             \
+    se="sudoedit"           \

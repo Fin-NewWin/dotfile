@@ -1,5 +1,5 @@
 super + Return
-    st
+    $TERMINAL
 
 XF86Audio{RaiseVolume,LowerVolume}
     pamixer {-i,-d} 2
