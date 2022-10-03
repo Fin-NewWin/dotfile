@@ -8,6 +8,7 @@ vim.g.maplocalleader = ' '
 
 -- Exit terminal and return to last
 key('t', '<Esc>', '<C-\\><C-n><C-o>', opts)
+key('t', '<C-[>', '<C-\\><C-n><C-o>', opts)
 
 -- Navigate between splits on term
 key('t', '<Leader>h', '<C-\\><C-n><C-w>h', opts)

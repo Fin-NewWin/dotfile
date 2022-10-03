@@ -96,9 +96,8 @@ packer.startup{
                 }
             },
         }
-        use { 'gbprod/cutlass.nvim', config = get_config('cutlass') }
         use { 'stevearc/dressing.nvim', config = get_config('dressing') }
-        use { 'RRethy/vim-illuminate', config = get_config('illuminate')}
+        -- use { 'RRethy/vim-illuminate', config = get_config('illuminate')}
 
 
         if packer_bootstrap then
