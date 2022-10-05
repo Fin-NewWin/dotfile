@@ -196,7 +196,7 @@ components.active[1][3] = {
 components.active[2][1] = {
     provider = 'git_branch',
     hl = {
-        fg = 'yellow',
+        fg = 'violet',
         bg = 'bg',
         style = 'bold'
     }
