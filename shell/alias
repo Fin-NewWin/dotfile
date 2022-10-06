@@ -15,11 +15,20 @@ alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
 
 alias \
-    gcm="git commit -m"     \
-    ga="git add"            \
-    gp='git push'           \
-    gd='git diff'           \
-    gs='git status'         \
+    gl="git log --pretty=format:\"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]\"" \
+    ga="git add" \
+    gap="git add -p" \
+    gc="git commit --verbose" \
+    gca="git commit -a --verbose" \
+    gcm="git commit -m" \
+    gcam="git commit -a -m" \
+    gm="git commit --amend --verbose" \
+    gd="git diff" \
+    gds="git diff --stat" \
+    gdc="git diff --cached" \
+    gs="git status -s" \
+    gco="git checkout" \
+    gcob="git checkout -b" \
 
 alias \
     e="$EDTIOR"             \
