@@ -1,0 +1,12 @@
+#! /bin/sh
+
+PICDIR=$HOME/media/pic/screenshot/
+DATE=$(date +%Y%m%d%s).png
+
+if [ $1 = "clip" ]
+then
+
+    maim -s --format png /dev/stdout | xclip -selection clipboard -t image/png -i
+    notify-send -u low "Screenshot taken" "saved to clipboar"
+
+fi
