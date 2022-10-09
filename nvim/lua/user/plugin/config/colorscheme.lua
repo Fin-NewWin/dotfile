@@ -50,6 +50,9 @@ gruvbox.setup({
         NavicIconsEvent         =   {link = "GruvboxOrange",         bold = 1},
         NavicIconsOperator      =   {link = "GruvboxOrange",      bold = 1},
         NavicIconsTypeParameter =   {link = "GruvboxYellow", bold = 1},
+
+        -- LSP
+        LspInfoBorder     = {link = "TelescopeBorder" },
     },
     transparent_mode = true,
 })

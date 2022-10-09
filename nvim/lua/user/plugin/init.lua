@@ -14,7 +14,7 @@ local packer_bootstrap = ensure_packer()
 
 -- Function to get config
 local function get_config(name)
-    return string.format('require("plugin.config.%s")', name)
+    return string.format('require("user.plugin.config.%s")', name)
 end
 
 local packer = require('packer')

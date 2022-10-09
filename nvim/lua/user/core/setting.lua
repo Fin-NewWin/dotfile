@@ -33,6 +33,8 @@ local options = {
     errorbells = false,
     clipboard = 'unnamedplus',
     laststatus = 2,
+    syntax = "OFF",
+    mouse = "",
 }
 
 vim.opt.shortmess:append "c"

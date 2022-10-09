@@ -27,3 +27,6 @@ key('n', '<Leader>z', ':lua require("nabla").popup()<CR>', opts)
 --Remap for dealing with word wrap
 key('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 key('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+key('n', 'q', "<nop>", opts)
+key('n', 'qq', "q", opts)
