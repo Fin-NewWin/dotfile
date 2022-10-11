@@ -1,14 +1,11 @@
 #!/bin/sh
 
-killall flameshot
 killall polybar
 killall picom
 killall dunst
 killall sxhkd
 killall xidlehook
 killall redshift
-
-flameshot &
 
 # Status bar
 polybar &

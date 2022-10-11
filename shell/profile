@@ -20,7 +20,7 @@ export GTK_THEME=Adwaita:dark
 # Shell
 export HISTFILE=/home/fin/.cache/shell/history
 
-# XDG dir
+# XDG
 export HOME=/home/fin
 export XAUTHORITY=/home/fin/.cache/Xauthority
 export XDG_CACHE_HOME=/home/fin/.cache
@@ -40,17 +40,18 @@ export XINITRC=/home/fin/.config/X11/xinitrc
 export LESSHISTFILE=-
 
 # R
-export R_ENVIRON=/home/fin/.config/Renviron
+export R_ENVIRON="$HOME/.config/Renviron"
 
 # zsh
-export ZDOTDIR=/home/fin/.config/zsh
+export ZDOTDIR="$HOME/.config/zsh"
 
 # Java
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
 
 # npm
-export npm_config_cache=/home/fin/.cache/npm
-export npm_config_userconfig=/home/fin/.config/npm/config
+export npm_config_cache="$HOME/.cache/npm"
+export npm_config_userconfig="$HOME/.config/npm/config"
 
+# wget
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
