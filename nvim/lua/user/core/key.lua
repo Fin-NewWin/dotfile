@@ -1,5 +1,6 @@
 local key = vim.keymap.set
 local opts = {noremap = true, silent = true}
+local term_opts= {silent = true}
 
 -- Leader key
 key({ 'n', 'v' }, '<Space>', '<Nop>', opts)
@@ -30,3 +31,15 @@ key('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 key('n', 'q', "<nop>", opts)
 key('n', 'qq', "q", opts)
+
+-- esc to hide matches
+key("n", "<Esc>", ":noh<CR>", term_opts)
+key("n", "<C-[>", ":noh<CR>", term_opts)
+
+-- Stay in indent mode
+key("v", "<", "<gv", opts)
+key("v", ">", ">gv", opts)
+
+
+-- Select All
+key("n", "<C-a>", "gg<S-v>G", opts)

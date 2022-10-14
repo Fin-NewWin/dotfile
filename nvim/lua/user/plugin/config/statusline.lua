@@ -261,6 +261,7 @@ components.active[3][1] = {
     end,
     right_sep = ' '
 }
+
 -- fileType
 components.active[3][2] = {
     provider = 'file_type',

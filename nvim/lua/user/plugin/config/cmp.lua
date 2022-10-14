@@ -10,8 +10,34 @@ if not snip_status_ok then
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
-local lspkind = require('lspkind')
-local compare = require "cmp.config.compare"
+
+local cmp_kinds = {
+    Text = '  ',
+    Method = '  ',
+    Function = '  ',
+    Constructor = '  ',
+    Field = '  ',
+    Variable = '  ',
+    Class = '  ',
+    Interface = '  ',
+    Module = '  ',
+    Property = '  ',
+    Unit = '  ',
+    Value = '  ',
+    Enum = '  ',
+    Keyword = '  ',
+    Snippet = '  ',
+    Color = '  ',
+    File = '  ',
+    Reference = '  ',
+    Folder = '  ',
+    EnumMember = '  ',
+    Constant = '  ',
+    Struct = '  ',
+    Event = '  ',
+    Operator = '  ',
+    TypeParameter = '  ',
+}
 
 
 cmp.setup {
@@ -25,42 +51,17 @@ cmp.setup {
         select = false,
     },
     sources = {
-        {
-            name = 'nvim_lsp',
-            filter = function(entry, ctx)
-                local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
-                if kind == "Snippet" and ctx.prev_context.filetype == "java" then
-                    return true
-                end
-
-                if kind == "Text" then
-                    return true
-                end
-            end,
-            group_index = 2,
-        },
-        { name = 'nvim_lua', group_index = 2 },
-        { name = 'luasnip', group_index = 2 },
-        { name = 'path', group_index = 2 },
+        { name = 'nvim_lsp', },
+        { name = 'nvim_lua' },
+        { name = 'luasnip' },
+        { name = 'path' },
     },
     formatting = {
-        fields = {'kind', 'abbr', 'menu'},
-        format = function(entry, vim_item)
-            vim_item.kind = string.format("%s", lspkind.presets.default[vim_item.kind])
-            vim_item.menu = ({
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                ultisnips = "[UltiSnips]",
-                nvim_lua = "[Lua]",
-                cmp_tabnine = "[TabNine]",
-                look = "[Look]",
-                path = "[Path]",
-                spell = "[Spell]",
-                calc = "[Calc]",
-                emoji = "[Emoji]"
-            })[entry.source.name]
+        fields = { "kind", "abbr", "menu" },
+        format = function(_, vim_item)
+            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
             return vim_item
-        end
+        end,
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -92,19 +93,6 @@ cmp.setup {
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
-    },
-    sorting = {
-        priority_weight = 2,
-        comparators = {
-            compare.offset,
-            compare.exact,
-            compare.score,
-            compare.recently_used,
-            compare.locality,
-            compare.sort_text,
-            compare.length,
-            compare.order,
-        },
     },
 }
 

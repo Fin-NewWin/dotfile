@@ -37,7 +37,6 @@ packer.startup{
             'neovim/nvim-lspconfig',
             config = get_config('lspconfig'),
             requires = {
-                'onsails/lspkind.nvim',
                 'j-hui/fidget.nvim'
             }
         }
