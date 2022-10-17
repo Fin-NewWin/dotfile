@@ -231,102 +231,8 @@ components.active[2][4] = {
 
 -- RIGHT
 
--- fileIcon
+-- Line and Col number
 components.active[3][1] = {
-    provider = function()
-        local ok, devicons = pcall(require, 'nvim-web-devicons')
-        if ok then
-            local f_name, f_extension = vim.fn.expand('%:t'), vim.fn.expand('%:e')
-            f_extension = f_extension ~= '' and f_extension or vim.bo.filetype
-            local icon,_ = devicons.get_icon(f_name, f_extension)
-            if icon == nil then
-                icon = ''
-            end
-            return icon
-        end
-    end,
-    hl = function()
-        local val = {}
-        local filename = vim.fn.expand('%:t')
-        local extension = vim.fn.expand('%:e')
-        local icon, name  = require'nvim-web-devicons'.get_icon(filename, extension)
-        if icon ~= nil then
-            val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
-        else
-            val.fg = 'white'
-        end
-        val.bg = 'bg'
-        val.style = 'bold'
-        return val
-    end,
-    right_sep = ' '
-}
-
--- fileType
-components.active[3][2] = {
-    provider = 'file_type',
-    enabled = function()
-        local file =vim.fn.expand('%:p')
-        if file == nil or #file == 0 then
-            return false
-        end
-        local size = vim.fn.getfsize(file)
-        return size > 0
-    end,
-    hl = function()
-        local val = {}
-        local filename = vim.fn.expand('%:t')
-        local extension = vim.fn.expand('%:e')
-        local icon, name  = require'nvim-web-devicons'.get_icon(filename, extension)
-        if icon ~= nil then
-            val.fg = vim.fn.synIDattr(vim.fn.hlID(name), 'fg')
-        else
-            val.fg = 'white'
-        end
-        val.bg = 'bg'
-        val.style = 'bold'
-        return val
-    end,
-    right_sep = ' '
-}
--- fileSize
-components.active[3][3] = {
-    provider = 'file_size',
-    enabled = function()
-        local file =vim.fn.expand('%:p')
-        if file == nil or #file == 0 then
-            return false
-        end
-        local size = vim.fn.getfsize(file)
-        return size > 0
-    end,
-    hl = {
-        fg = 'skyblue',
-        bg = 'bg',
-        style = 'bold'
-    },
-    right_sep = ' '
-}
-
--- fileEncode
-components.active[3][4] = {
-    provider = 'file_encoding',
-    enabled = function()
-        local file =vim.fn.expand('%:p')
-        if file == nil or #file == 0 then
-            return false
-        end
-        local size = vim.fn.getfsize(file)
-        return size > 0
-    end,
-    hl = {
-        fg = 'white',
-        bg = 'bg',
-        style = 'bold'
-    },
-    right_sep = ' '
-}
-components.active[3][5] = {
     provider = 'position',
     hl = {
         fg = 'white',
@@ -335,8 +241,9 @@ components.active[3][5] = {
     },
     right_sep = ' '
 }
+
 -- linePercent
-components.active[3][6] = {
+components.active[3][2] = {
     provider = 'line_percentage',
     hl = {
         fg = 'white',
@@ -345,8 +252,9 @@ components.active[3][6] = {
     },
     right_sep = ' '
 }
+
 -- scrollBar
-components.active[3][7] = {
+components.active[3][3] = {
     provider = 'scroll_bar',
     hl = {
         fg = 'yellow',
@@ -389,6 +297,7 @@ winbar_components.active[3][1] = {
     },
     right_sep = ' '
 }
+
 -- diagnosticErrors
 winbar_components.active[3][2] = {
     provider = 'diagnostic_errors',
@@ -398,6 +307,7 @@ winbar_components.active[3][2] = {
         style = 'bold'
     }
 }
+
 -- diagnosticWarn
 winbar_components.active[3][3] = {
     provider = 'diagnostic_warnings',
@@ -407,6 +317,7 @@ winbar_components.active[3][3] = {
         style = 'bold'
     }
 }
+
 -- diagnosticHint
 winbar_components.active[3][4] = {
     provider = 'diagnostic_hints',
@@ -416,6 +327,7 @@ winbar_components.active[3][4] = {
         style = 'bold'
     }
 }
+
 -- diagnosticInfo
 winbar_components.active[3][5] = {
     provider = 'diagnostic_info',
