@@ -11,7 +11,7 @@ vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = "single" })
 
-require('lspconfig.ui.windows').default_options.border = 'rounded'
+-- require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 local signs = {
     Error   =   "",
@@ -25,7 +25,7 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
-local config = {
+vim.diagnostic.config = {
     virtual_text = true,
     signs = {
         active = signs,
@@ -36,14 +36,12 @@ local config = {
     float = {
         focusable = false,
         style = "minimal",
-        border = "single",
+        border = "rounded",
         source = "always",
         header = "",
         prefix = "",
     },
 }
-
-vim.diagnostic.config(config)
 
 local win = require('lspconfig.ui.windows')
 local _default_opts = win.default_opts
@@ -57,42 +55,6 @@ end
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
 
-local navic = require("nvim-navic")
-navic.setup {
-    icons = {
-        File          = " ",
-        Module        = " ",
-        Namespace     = " ",
-        Package       = " ",
-        Class         = " ",
-        Method        = " ",
-        Property      = " ",
-        Field         = " ",
-        Constructor   = " ",
-        Enum          = "練",
-        Interface     = "練",
-        Function      = " ",
-        Variable      = " ",
-        Constant      = " ",
-        String        = " ",
-        Number        = " ",
-        Boolean       = "◩ ",
-        Array         = " ",
-        Object        = " ",
-        Key           = " ",
-        Null          = "ﳠ ",
-        EnumMember    = " ",
-        Struct        = " ",
-        Event         = " ",
-        Operator      = " ",
-        TypeParameter = " ",
-    },
-    highlight = true,
-    separator = " > ",
-    depth_limit = 0,
-    depth_limit_indicator = "..",
-}
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -104,7 +66,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-    navic.attach(client, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -113,9 +74,6 @@ local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local servers = {
-    'jedi_language_server',
-    'clangd',
-    'tsserver',
 }
 
 for _, lsp in pairs(servers) do
