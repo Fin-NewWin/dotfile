@@ -23,7 +23,7 @@ packer.startup{
     function(use)
 
         -- Packer can manage itself
-        use 'wbthomason/packer.nvim'
+        use { 'wbthomason/packer.nvim' }
 
         -- Init first
         use 'lewis6991/impatient.nvim'
@@ -36,11 +36,9 @@ packer.startup{
         use {
             'neovim/nvim-lspconfig',
             config = get_config('lspconfig'),
-            requires = {
-                'j-hui/fidget.nvim'
-            }
         }
-        use { 'j-hui/fidget.nvim', config = get_config('fidget')}
+
+        use { "glepnir/lspsaga.nvim", branch = "main", config = get_config('lspsaga')}
 
         -- Autcomplete
         use {
@@ -49,6 +47,7 @@ packer.startup{
                 'hrsh7th/cmp-nvim-lsp',
                 'hrsh7th/cmp-nvim-lua',
                 'hrsh7th/cmp-path',
+                'onsails/lspkind.nvim',
             },
             config = get_config('cmp')
         }
@@ -85,18 +84,7 @@ packer.startup{
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
-        use {
-            'feline-nvim/feline.nvim',
-            config = get_config('statusline'),
-            requires = {
-                {
-                    "SmiteshP/nvim-navic",
-                    requires = "neovim/nvim-lspconfig"
-                }
-            },
-        }
-        use { 'stevearc/dressing.nvim', config = get_config('dressing') }
-        -- use { 'RRethy/vim-illuminate', config = get_config('illuminate')}
+        use { 'feline-nvim/feline.nvim', config = get_config('statusline')}
 
 
         if packer_bootstrap then
@@ -105,7 +93,7 @@ packer.startup{
     end,
     config = {
         display = {
-            prompt_border = 'single'
+            prompt_border = 'rounded'
         }
     }
 }
