@@ -9,35 +9,13 @@ if not snip_status_ok then
     return
 end
 
+local ok, lspkind = pcall(require, "lspkind")
+if not ok then
+  return
+end
+
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local cmp_kinds = {
-    Text = '  ',
-    Method = '  ',
-    Function = '  ',
-    Constructor = '  ',
-    Field = '  ',
-    Variable = '  ',
-    Class = '  ',
-    Interface = '  ',
-    Module = '  ',
-    Property = '  ',
-    Unit = '  ',
-    Value = '  ',
-    Enum = '  ',
-    Keyword = '  ',
-    Snippet = '  ',
-    Color = '  ',
-    File = '  ',
-    Reference = '  ',
-    Folder = '  ',
-    EnumMember = '  ',
-    Constant = '  ',
-    Struct = '  ',
-    Event = '  ',
-    Operator = '  ',
-    TypeParameter = '  ',
-}
 
 
 cmp.setup {
@@ -50,19 +28,28 @@ cmp.setup {
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
     },
+    formatting = {
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[api]",
+                path = "[path]",
+                luasnip = "[snip]",
+                gh_issues = "[issues]",
+                tn = "[TabNine]",
+            },
+
+        },
+    },
     sources = {
+        { name = 'luasnip' },
         { name = 'nvim_lsp', },
         { name = 'nvim_lua' },
-        { name = 'luasnip' },
         { name = 'path' },
     },
-    formatting = {
-        fields = { "kind", "abbr", "menu" },
-        format = function(_, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
-            return vim_item
-        end,
-    },
+
     mapping = cmp.mapping.preset.insert({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
