@@ -9,13 +9,6 @@ au('BufWritePre', { command = [[%s/\s\+$//e]] })
 -- Reload file when chaned outside of nvim
 au({'BufEnter', 'CursorHold'}, { command = 'silent! checktime %'})
 
--- Show diagnostics on dialog on cursor hover
-au('CursorHold', {
-    callback = function()
-        vim.diagnostic.open_float({ focusable = false })
-    end,
-})
-
 -- Highlight yanked text
 au('TextYankPost', {
     callback = function()

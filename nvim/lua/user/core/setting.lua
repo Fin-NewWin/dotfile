@@ -51,7 +51,7 @@ local options = {
     --        PERFORMANCE        --
     -------------------------------
     updatetime = 100,
-     timeoutlen = 200,
+    timeoutlen = 200,
     lazyredraw = true,
 
     -------------------------------

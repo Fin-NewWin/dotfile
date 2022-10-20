@@ -43,3 +43,7 @@ key("v", ">", ">gv", opts)
 
 -- Select All
 key("n", "<C-a>", "gg<S-v>G", opts)
+
+-- Increment and decrement
+key("n", "+", "<C-a>", opts)
+key("n", "-", "<C-x>", opts)

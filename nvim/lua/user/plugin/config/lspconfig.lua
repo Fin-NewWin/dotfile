@@ -1,11 +1,7 @@
--- See `:help vim.lsp.*` for documentation on any of the below functions
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+local status_ok, lspconfig = pcall(require, "lspconfig")
+if not status_ok then
+    return
+end
 
 -- Border Hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
@@ -43,6 +39,8 @@ vim.diagnostic.config = {
     },
 }
 
+local lspsaga_ok,_ = pcall(require, "lspsaga")
+
 local win = require('lspconfig.ui.windows')
 local _default_opts = win.default_opts
 
@@ -55,21 +53,58 @@ end
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
 
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
+local key = vim.keymap.set
 local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-end
 
--- nvim-cmp supports additional completion capabilities
-local lspconfig = require('lspconfig')
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+
+    if lspsaga_ok then
+
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        key("n", "gh", "<cmd>Lspsaga lsp_finderCR>", bufopts)
+        key({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
+        key("n", "gr", "<cmd>Lspsaga rename<CR>", bufopts)
+        key("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+        key("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
+        key("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
+        key("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
+        key("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
+        key("n", "[D", function()
+            require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+        end, bufopts)
+        key("n", "]E", function()
+            require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+        end, bufopts)
+        key("n","<leader>o", "<cmd>LSoutlineToggle<CR>",bufopts)
+        key("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
+        -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", bufopts)
+        -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm lazygit<CR>", bufopts)
+        -- key("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], bufopts)
+
+    else
+
+        key('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        key('n', 'gd', vim.lsp.buf.definition, bufopts)
+        key('n', 'K', vim.lsp.buf.hover, bufopts)
+        key('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        key('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+        key('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+        key('n', '<leader>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, bufopts)
+        key('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+        key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+        key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+        key('n', 'gr', vim.lsp.buf.references, bufopts)
+        key('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    end
+
+end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
