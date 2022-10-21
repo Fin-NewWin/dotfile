@@ -4,10 +4,12 @@ if not status_ok then
 end
 
 -- Border Hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { border = "single" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = "single" })
+local lsphandlers = vim.lsp.handlers
+local lspwith = vim.lsp.with
+lsphandlers["textDocument/hover"] = lspwith( lsphandlers.hover, { border = "rounded" })
+lsphandlers["textDocument/signatureHelp"] = lspwith( lsphandlers.signature_help, { border = "rounded" })
 
--- require('lspconfig.ui.windows').default_options.border = 'rounded'
+require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 local signs = {
     Error   =   "",
@@ -46,7 +48,7 @@ local _default_opts = win.default_opts
 
 win.default_opts = function(options)
     local default_opts = _default_opts(options)
-    default_opts.border = 'single'
+    default_opts.border = 'rounded'
     return default_opts
 end
 
@@ -66,7 +68,7 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         key("n", "gh", "<cmd>Lspsaga lsp_finderCR>", bufopts)
         key({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
-        key("n", "gr", "<cmd>Lspsaga rename<CR>", bufopts)
+        key("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
         key("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
         key("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
         key("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
@@ -108,16 +110,57 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local servers = {
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
 }
+capabilities.textDocument.codeAction = {
+    dynamicRegistration = false,
+    codeActionLiteralSupport = {
+        codeActionKind = {
+            valueSet = {
+                "",
+                "quickfix",
+                "refactor",
+                "refactor.extract",
+                "refactor.inline",
+                "refactor.rewrite",
+                "source",
+                "source.organizeImports",
+            },
+        },
+    },
+}
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
+local lspflags = {
+    -- This is the default in Nvim 0.7+
+    debounce_text_changes = 150,
+}
+
+local servers = {
+    'tsserver',
+}
+
 
 for _, lsp in pairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
-        }
+        flags = lspflags,
     }
 end
 
