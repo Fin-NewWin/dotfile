@@ -17,7 +17,8 @@ super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}'
 
 super + Escape
-    pkill -USR1 -x sxhkd
+    pkill -usr1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
+
 
 super + alt + Escape
     bspc quit 1
@@ -25,7 +26,20 @@ super + alt + Escape
 super + shift + q
 	bspc node --close
 
-super + {h,j,k,l}
-    bspc node --focus {west,south,north,east}
+# change and move windows
+super + {_,alt + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}.local
 
-# Print
+Print
+    flameshot gui
+
+# expand a window by moving one of its side outward
+super + shift + {h,j,k,l}
+    STEP=20; SELECTION={1,2,3,4}; \
+        bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+        bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+
+# hide all windows desktop
+super +d
+    bspc node @/ -g hidden
