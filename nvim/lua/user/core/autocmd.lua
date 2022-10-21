@@ -17,5 +17,3 @@ au('TextYankPost', {
 })
 
 au('FileType', {pattern = 'yaml', command = 'setlocal ts=4 sts=4 sw=4 expandtab'})
-
-au("BufWritePost", { pattern = "*/plugin/init.lua", command = "source <afile> | PackerSync" })

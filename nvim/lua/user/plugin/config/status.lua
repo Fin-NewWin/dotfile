@@ -1,110 +1,70 @@
-local ViMode = {
-    -- get vim current mode, this information will be required by the provider
-    -- and the highlight functions, so we compute it only once per component
-    -- evaluation and store it as a component attribute
-    init = function(self)
-        self.mode = vim.fn.mode(1) -- :h mode()
+local status_ok, heirline = pcall(require, "heirline")
+if not status_ok then
+    return
+end
+local theme = require("gruvbox.groups").setup()
 
-        -- execute this only once, this is required if you want the ViMode
-        -- component to be updated on operator pending mode
-        if not self.once then
-            vim.api.nvim_create_autocmd("ModeChanged", {
-                pattern = "*:*o",
-                command = 'redrawstatus'
-            })
-            self.once = true
-        end
+-- stylua: ignore
+local map = {
+    ['n']       = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['no']      = {'O-PENDING', theme.GruvboxGreen.fg   },
+    ['nov']     = {'O-PENDING', theme.GruvboxGreen.fg   },
+    ['noV']     = {'O-PENDING', theme.GruvboxGreen.fg   },
+    ['no\22']   = {'O-PENDING', theme.GruvboxGreen.fg   },
+    ['niI']     = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['niR']     = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['niV']     = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['nt']      = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['ntT']     = {'NORMAL',    theme.GruvboxGreen.fg   },
+    ['v']       = {'VISUAL',    theme.GruvboxOrange.fg  },
+    ['vs']      = {'VISUAL',    theme.GruvboxOrange.fg  },
+    ['V']       = {'V-LINE',    theme.GruvboxOrange.fg  },
+    ['Vs']      = {'V-LINE',    theme.GruvboxOrange.fg  },
+    ['\22']     = {'V-BLOCK',   theme.GruvboxOrange.fg  },
+    ['\22s']    = {'V-BLOCK',   theme.GruvboxOrange.fg  },
+    ['s']       = {'SELECT',    theme.GruvboxOrange.fg  },
+    ['S']       = {'S-LINE',    theme.GruvboxOrange.fg  },
+    ['\19']     = {'S-BLOCK',   theme.GruvboxOrange.fg  },
+    ['i']       = {'INSERT',    theme.GruvboxBlue.fg    },
+    ['ic']      = {'INSERT',    theme.GruvboxBlue.fg    },
+    ['ix']      = {'INSERT',    theme.GruvboxBlue.fg    },
+    ['R']       = {'REPLACE',   theme.GruvboxRed.fg     },
+    ['Rc']      = {'REPLACE',   theme.GruvboxRed.fg     },
+    ['Rx']      = {'REPLACE',   theme.GruvboxRed.fg     },
+    ['Rv']      = {'V-REPLACE', theme.GruvboxOrange.fg  },
+    ['Rvc']     = {'V-REPLACE', theme.GruvboxOrange.fg  },
+    ['Rvx']     = {'V-REPLACE', theme.GruvboxOrange.fg  },
+    ['c']       = {'COMMAND',   theme.GruvboxGreen.fg   },
+    ['cv']      = {'EX',        theme.GruvboxGreen.fg   },
+    ['ce']      = {'EX',        theme.GruvboxOrange.fg  },
+    ['r']       = {'REPLACE',   theme.GruvboxOrange.fg  },
+    ['rm']      = {'MORE',      theme.GruvboxOrange.fg  },
+    ['r?']      = {'CONFIRM',   theme.GruvboxOrange.fg  },
+    ['!']       = {'SHELL',     theme.GruvboxOrange.fg  },
+    ['t']       = {'TERMINAL',  theme.GruvboxOrange.fg  },
+}
+
+local ViMode = {
+    init = function(self)
+        self.mode = vim.api.nvim_get_mode().mode
     end,
-    -- Now we define some dictionaries to map the output of mode() to the
-    -- corresponding string and color. We can put these into `static` to compute
-    -- them at initialisation time.
-    static = {
-        mode_names = { -- change the strings if you like it vvvvverbose!
-            n = "N",
-            no = "N?",
-            nov = "N?",
-            noV = "N?",
-            ["no\22"] = "N?",
-            niI = "Ni",
-            niR = "Nr",
-            niV = "Nv",
-            nt = "Nt",
-            v = "V",
-            vs = "Vs",
-            V = "V_",
-            Vs = "Vs",
-            ["\22"] = "^V",
-            ["\22s"] = "^V",
-            s = "S",
-            S = "S_",
-            ["\19"] = "^S",
-            i = "I",
-            ic = "Ic",
-            ix = "Ix",
-            R = "R",
-            Rc = "Rc",
-            Rx = "Rx",
-            Rv = "Rv",
-            Rvc = "Rv",
-            Rvx = "Rv",
-            c = "C",
-            cv = "Ex",
-            r = "...",
-            rm = "M",
-            ["r?"] = "?",
-            ["!"] = "!",
-            t = "T",
-        },
-        mode_colors = {
-            n = "red" ,
-            i = "green",
-            v = "cyan",
-            V =  "cyan",
-            ["\22"] =  "cyan",
-            c =  "orange",
-            s =  "purple",
-            S =  "purple",
-            ["\19"] =  "purple",
-            R =  "orange",
-            r =  "orange",
-            ["!"] =  "red",
-            t =  "red",
-        }
-    },
-    -- We can now access the value of mode() that, by now, would have been
-    -- computed by `init()` and use it to index our strings dictionary.
-    -- note how `static` fields become just regular attributes once the
-    -- component is instantiated.
-    -- To be extra meticulous, we can also add some vim statusline syntax to
-    -- control the padding and make sure our string is always at least 2
-    -- characters long. Plus a nice Icon.
     provider = function(self)
-        return " %2("..self.mode_names[self.mode].."%)"
+        return " " .. map[self.mode][1] .." "
     end,
-    -- Same goes for the highlight. Now the foreground will change according to the current mode.
     hl = function(self)
-        local mode = self.mode:sub(1, 1) -- get only the first mode character
-        return { fg = self.mode_colors[mode], bold = true, }
+        return { bg = map[self.mode][2], bold = true, fg = "#282828" }
     end,
-    -- Re-evaluate the component only on ModeChanged event!
-    -- This is not required in any way, but it's there, and it's a small
-    -- performance improvement.
-    update = {
-        "ModeChanged",
-    },
 }
 
 local DefaultStatusline = {
     ViMode,
 }
+local Align = { provider = "%=" }
 local StatusLines = {
-
-    -- the first statusline with no condition, or which condition returns true is used.
-    -- think of it as a switch case with breaks to stop fallthrough.
     fallthrough = false,
 
-    DefaultStatusline,
+    DefaultStatusline, Align,
+    Align,
 }
 
-require'heirline'.setup(StatusLines)
-
+heirline.setup(StatusLines)

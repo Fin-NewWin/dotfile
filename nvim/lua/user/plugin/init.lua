@@ -84,7 +84,14 @@ packer.startup{
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
+
+        -- Status line and bufferline
+        use { 'akinsho/bufferline.nvim',
+            config = get_config('bufferline'),
+            requires = 'kyazdani42/nvim-web-devicons'
+        }
         use { 'rebelot/heirline.nvim', config = get_config('status')}
+
 
 
         if packer_bootstrap then
