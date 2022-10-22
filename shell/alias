@@ -29,7 +29,11 @@ alias \
     gs="git status -s" \
     gco="git checkout" \
     gcob="git checkout -b" \
+    gp="git push" \
 
 alias \
-    e="$EDTIOR"             \
+    e=$EDITOR               \
     se="sudoedit"           \
+
+alias \
+    pacman="pacman --color=auto"

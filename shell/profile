@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # PATH
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/script/"
 
 # Basic export
 export BROWSER=firefox
@@ -46,6 +46,7 @@ export R_ENVIRON="$HOME/.config/Renviron"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Java
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/bin/java::")
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
 

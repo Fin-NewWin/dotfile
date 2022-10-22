@@ -42,7 +42,7 @@ fi
 if [ $BATTERY_SUM -lt 10 ]
 then
     BATTERY_COLOR="#FB4934"
-    BATTERY_ICON="  "
+    BATTERY_ICON=" "
 elif [ $BATTERY_SUM -le 15 ]
 then
     BATTERY_COLOR="#FB4934"

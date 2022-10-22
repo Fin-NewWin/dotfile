@@ -5,7 +5,7 @@ end
 
 bufferline.setup({
     options = {
-        separator_style = "thick",
+        -- separator_style = "thick",
         offsets = {
             { filetype = "NvimTree", text = "", padding = 1 },
             { filetype = "neo-tree", text = "", padding = 1 },
