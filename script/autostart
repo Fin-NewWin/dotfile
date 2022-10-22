@@ -6,9 +6,13 @@ killall dunst
 killall sxhkd
 killall xidlehook
 killall redshift
+killall flameshot
 
 # Status bar
 polybar &
+
+# Screenshot
+flameshot &
 
 # Notify daemon
 dunst &
@@ -17,7 +21,7 @@ dunst &
 picom -b --experimental-backends
 
 # Set wallpaper
-setwall
+setwall &
 
 # Nightmode
 /usr/lib/geoclue-2.0/demos/agent &
@@ -26,11 +30,13 @@ redshift &
 # Keybindings Daemon
 sxhkd &
 
-# Set keyboard speed
+# Set keyboard options
+setxkbmap -layout us -option ctrl:nocaps
 xset r rate 280 40 s off -dpms
 
 # Bluelight filter using lat and long
 # redshift -l 37.0:-120.0 -P 3000 -r &
 
 # sleep
-xidlehook --not-when-audio --not-when-fullscreen --timer 300 'systemctl suspend' ''
+xidlehook --not-when-audio --not-when-fullscreen \
+    --timer 300 'systemctl suspend' ''
