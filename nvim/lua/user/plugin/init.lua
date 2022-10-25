@@ -91,6 +91,7 @@ packer.startup{
             requires = 'kyazdani42/nvim-web-devicons'
         }
         use { 'rebelot/heirline.nvim', config = get_config('status')}
+        use { 'phaazon/hop.nvim', config = get_config('hop') }
 
 
 

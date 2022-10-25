@@ -1,11 +1,8 @@
 super + Return
     $TERMINAL
 
-XF86Audio{RaiseVolume,LowerVolume}
-    pamixer {-i,-d} 2
-
-XF86Audio{Mic,_}Mute
-    pamixer {--default-source,_} -t
+XF86Audio{RaiseVolume,LowerVolume,Mute,MicMute}
+    changevol {up,down,mute,mic}
 
 XF86MonBrightness{Down,Up}
     xbacklight -{dec,inc} 5
