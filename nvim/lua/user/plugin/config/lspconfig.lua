@@ -3,13 +3,31 @@ if not status_ok then
     return
 end
 
--- Border Hover
-local lsphandlers = vim.lsp.handlers
-local lspwith = vim.lsp.with
-lsphandlers["textDocument/hover"] = lspwith( lsphandlers.hover, { border = "rounded" })
-lsphandlers["textDocument/signatureHelp"] = lspwith( lsphandlers.signature_help, { border = "rounded" })
+local neodev_ok, neodev = pcall(require, "neodev")
+if not neodev_ok then
+    return
+end
 
-require('lspconfig.ui.windows').default_options.border = 'rounded'
+neodev.setup()
+
+local border = {
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}
+
+-- Border Hover
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
 local signs = {
     Error   =   "",
@@ -161,13 +179,16 @@ for _, lsp in pairs(servers) do
         on_attach = on_attach,
         capabilities = capabilities,
         flags = lspflags,
+        handlers = handlers,
     }
 end
+
 
 lspconfig.sumneko_lua.setup ({
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lspflags,
+    handlers = handlers,
     settings = {
         Lua = {
             type = {
@@ -196,6 +217,7 @@ lspconfig.sumneko_lua.setup ({
             },
             diagnostics = {
                 globals = { "vim" },
+                unusedLocalExclude = { "_*" },
             },
             workspace = {
                 library = {
@@ -207,6 +229,9 @@ lspconfig.sumneko_lua.setup ({
             telemetry = {
                 enable = false,
             },
+            completion = {
+                callSnippet = "Replace"
+            }
         },
     },
 })

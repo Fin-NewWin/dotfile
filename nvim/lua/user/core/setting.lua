@@ -52,13 +52,13 @@ local options = {
     -------------------------------
     updatetime = 100,
     timeoutlen = 200,
-    lazyredraw = true,
 
     -------------------------------
     --          OTHER            --
     -------------------------------
     syntax = "OFF",                             -- Treesistter for suntax
     mouse = "a",                                -- Disable mouse
+    mousemoveevent = true,
     scrolloff = 10,
     sidescrolloff = 8,
     errorbells = false,

@@ -53,6 +53,7 @@ packer.startup{
         }
         use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' }
         use { 'rafamadriz/friendly-snippets' }
+        use "folke/neodev.nvim"
 
         -- Treesitter/Syntax highlight
         use {
@@ -91,7 +92,15 @@ packer.startup{
             requires = 'kyazdani42/nvim-web-devicons'
         }
         use { 'rebelot/heirline.nvim', config = get_config('status')}
-        use { 'phaazon/hop.nvim', config = get_config('hop') }
+        use({
+            "folke/noice.nvim",
+            event = "VimEnter",
+            config = get_config("noice"),
+            requires = {
+                "MunifTanjim/nui.nvim",
+                {"rcarriga/nvim-notify", config = get_config("notify")},
+            }
+        })
 
 
 
