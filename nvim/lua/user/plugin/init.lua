@@ -38,8 +38,6 @@ packer.startup{
             config = get_config('lspconfig'),
         }
 
-        use { "glepnir/lspsaga.nvim", branch = "main", config = get_config('lspsaga')}
-
         -- Autcomplete
         use {
             'hrsh7th/nvim-cmp',
@@ -92,16 +90,6 @@ packer.startup{
             requires = 'kyazdani42/nvim-web-devicons'
         }
         use { 'rebelot/heirline.nvim', config = get_config('status')}
-        use({
-            "folke/noice.nvim",
-            event = "VimEnter",
-            config = get_config("noice"),
-            requires = {
-                "MunifTanjim/nui.nvim",
-                {"rcarriga/nvim-notify", config = get_config("notify")},
-            }
-        })
-
 
 
         if packer_bootstrap then

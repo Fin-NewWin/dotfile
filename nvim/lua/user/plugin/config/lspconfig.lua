@@ -3,30 +3,12 @@ if not status_ok then
     return
 end
 
-local neodev_ok, neodev = pcall(require, "neodev")
-if not neodev_ok then
-    return
-end
-
-neodev.setup()
-
-local border = {
-      {"🭽", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {"🭾", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {"🭿", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {"🭼", "FloatBorder"},
-      {"▏", "FloatBorder"},
-}
-
 -- Border Hover
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "rounded"
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
 local signs = {
@@ -78,11 +60,8 @@ vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_r
 -- after the language server attaches to the current buffer
 local key = vim.keymap.set
 local on_attach = function(client, bufnr)
-
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
-
     if lspsaga_ok then
-
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         key("n", "gh", "<cmd>Lspsaga lsp_finderCR>", bufopts)
         key({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
@@ -103,9 +82,8 @@ local on_attach = function(client, bufnr)
         -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", bufopts)
         -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm lazygit<CR>", bufopts)
         -- key("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], bufopts)
-
+        key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     else
-
         key('n', 'gD', vim.lsp.buf.declaration, bufopts)
         key('n', 'gd', vim.lsp.buf.definition, bufopts)
         key('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -121,7 +99,6 @@ local on_attach = function(client, bufnr)
         key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
         key('n', 'gr', vim.lsp.buf.references, bufopts)
         key('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-
     end
 
 end
@@ -179,16 +156,19 @@ for _, lsp in pairs(servers) do
         on_attach = on_attach,
         capabilities = capabilities,
         flags = lspflags,
-        handlers = handlers,
     }
 end
 
+local neodev_ok, neodev = pcall(require, "neodev")
+if not neodev_ok then
+    return
+end
 
+neodev.setup()
 lspconfig.sumneko_lua.setup ({
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lspflags,
-    handlers = handlers,
     settings = {
         Lua = {
             type = {

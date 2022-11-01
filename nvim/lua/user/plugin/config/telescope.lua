@@ -124,3 +124,5 @@ key('n', '<Leader>pf', '<cmd>lua require("telescope.builtin").find_files()<cr>',
 key('n', '<Leader>pg', '<cmd>noh<cr><cmd>lua require("telescope.builtin").live_grep()<cr>', opt)
 key('n', '<Leader>pb', '<cmd>lua require("telescope.builtin").buffers()<cr>', opt)
 key('n', '<Leader>ph', '<cmd>lua require("telescope.builtin").help_tags()<cr>', opt)
+
+vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
