@@ -37,6 +37,10 @@ packer.startup{
             'neovim/nvim-lspconfig',
             config = get_config('lspconfig'),
         }
+        use {
+            "SmiteshP/nvim-navic",
+            requires = "neovim/nvim-lspconfig"
+        }
 
         -- Autcomplete
         use {
@@ -58,6 +62,10 @@ packer.startup{
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
             config = get_config('treesitter'),
+        }
+        use {
+            'm-demare/hlargs.nvim',
+            requires = { 'nvim-treesitter/nvim-treesitter' }
         }
 
 
@@ -85,10 +93,10 @@ packer.startup{
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
 
         -- Status line and bufferline
-        use { 'akinsho/bufferline.nvim',
-            config = get_config('bufferline'),
-            requires = 'kyazdani42/nvim-web-devicons'
-        }
+        -- use { 'akinsho/bufferline.nvim',
+        --     config = get_config('bufferline'),
+        --     requires = 'kyazdani42/nvim-web-devicons'
+        -- }
         use { 'rebelot/heirline.nvim', config = get_config('status')}
 
 

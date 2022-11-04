@@ -10,18 +10,16 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts.border = opts.border or "rounded"
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+require('lspconfig.ui.windows').default_options.border = 'rounded'
 
+
+-- LSP diagnostics signs
 local signs = {
     Error   =   "",
     Warn    =   "",
     Hint    =   "",
     Info    =   "",
 }
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
 
 vim.diagnostic.config = {
     virtual_text = true,
@@ -41,16 +39,11 @@ vim.diagnostic.config = {
     },
 }
 
-local lspsaga_ok,_ = pcall(require, "lspsaga")
-
-local win = require('lspconfig.ui.windows')
-local _default_opts = win.default_opts
-
-win.default_opts = function(options)
-    local default_opts = _default_opts(options)
-    default_opts.border = 'rounded'
-    return default_opts
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
+
 
 -- Pipe commands into telescope
 vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
@@ -60,47 +53,28 @@ vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_r
 -- after the language server attaches to the current buffer
 local key = vim.keymap.set
 local on_attach = function(client, bufnr)
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    if lspsaga_ok then
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        key("n", "gh", "<cmd>Lspsaga lsp_finderCR>", bufopts)
-        key({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
-        key("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
-        key("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-        key("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
-        key("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
-        key("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
-        key("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
-        key("n", "[D", function()
-            require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-        end, bufopts)
-        key("n", "]E", function()
-            require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-        end, bufopts)
-        key("n","<leader>o", "<cmd>LSoutlineToggle<CR>",bufopts)
-        key("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
-        -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", bufopts)
-        -- key("n", "<A-d>", "<cmd>Lspsaga open_floaterm lazygit<CR>", bufopts)
-        -- key("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], bufopts)
-        key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    else
-        key('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        key('n', 'gd', vim.lsp.buf.definition, bufopts)
-        key('n', 'K', vim.lsp.buf.hover, bufopts)
-        key('n', 'gi', vim.lsp.buf.implementation, bufopts)
-        key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-        key('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-        key('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-        key('n', '<leader>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, bufopts)
-        key('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-        key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-        key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-        key('n', 'gr', vim.lsp.buf.references, bufopts)
-        key('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    local navic_ok, navic = pcall(require, "nvim-navic")
+    if navic_ok then
+        navic.attach(client, bufnr)
     end
 
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    key('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    key('n', 'gd', vim.lsp.buf.definition, bufopts)
+    -- key('n', 'K', vim.lsp.buf.hover, bufopts)
+    key('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    key('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    key('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    key('n', '<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    key('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    key('n', 'gr', vim.lsp.buf.references, bufopts)
+    key('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -148,6 +122,7 @@ local lspflags = {
 
 local servers = {
     'tsserver',
+    'cssls',
 }
 
 
@@ -160,12 +135,11 @@ for _, lsp in pairs(servers) do
 end
 
 local neodev_ok, neodev = pcall(require, "neodev")
-if not neodev_ok then
-    return
+if neodev_ok then
+    neodev.setup()
 end
 
-neodev.setup()
-lspconfig.sumneko_lua.setup ({
+lspconfig['sumneko_lua'].setup ({
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lspflags,

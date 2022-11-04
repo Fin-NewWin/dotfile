@@ -20,3 +20,4 @@ treesitter.setup {
         enable = true,
     }
 }
+require('hlargs').setup()

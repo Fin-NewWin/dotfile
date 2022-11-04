@@ -47,3 +47,10 @@ key("n", "<C-a>", "gg<S-v>G", opts)
 -- Increment and decrement
 key("n", "+", "<C-a>", opts)
 key("n", "-", "<C-x>", opts)
+
+-- Other
+key("n", "<C-s>", ":w<cr>", opts)
+
+-- Remove Keybindings
+key("n", "<S-k>", "<Nop>", opts)
+key("n", "<C-[", "<Nop>", opts)

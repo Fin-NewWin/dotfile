@@ -10,6 +10,7 @@ gruvbox.setup({
     overrides = {
 
         NormalFloat     = {bg = "NONE"},
+        TabLineFill = {bg = "NONE"},
         SignColumn      = {bg = "NONE"},
         FloatBorder     = {link = "TelescopeBorder" },
 
