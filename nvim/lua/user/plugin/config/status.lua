@@ -115,6 +115,7 @@ local Git = {
         hl = { fg = theme.GruvboxOrange.fg, bold = true},
     },
 }
+
 local SearchResults = {
     condition = function(self)
         local query = fn.getreg("/")
@@ -149,13 +150,6 @@ local SearchResults = {
 
 
 local Ruler = {
-    -- :help 'statusline'
-    -- ------------------
-    -- %-2 : make item takes at least 2 cells and be left justified
-    -- %l  : current line number
-    -- %L  : number of lines in the buffer
-    -- %c  : column number
-    -- %V  : virtual column number as -{num}.  Not displayed if equal to '%c'.
     provider = ' %l:%L% ',
     hl = { fg = theme.GruvboxFg0.fg, bold = true }
 }
@@ -331,7 +325,7 @@ local Tabpage = {
 
 local TabpageClose = {
     provider = "%999X  %X",
-    hl = "TabLine",
+     l = "TabLine",
 }
 
 local TabPages = {

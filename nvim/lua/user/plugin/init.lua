@@ -86,17 +86,16 @@ packer.startup{
 
 
         -- Util and QOL
-        use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
         use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
+
+        -- autopair plugins
+        use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
 
-        -- Status line and bufferline
-        -- use { 'akinsho/bufferline.nvim',
-        --     config = get_config('bufferline'),
-        --     requires = 'kyazdani42/nvim-web-devicons'
-        -- }
+        -- UI
+        use { 'rcarriga/nvim-notify', config = get_config('notify')}
         use { 'rebelot/heirline.nvim', config = get_config('status')}
 
 
