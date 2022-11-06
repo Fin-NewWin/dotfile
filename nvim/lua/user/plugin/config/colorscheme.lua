@@ -14,6 +14,8 @@ gruvbox.setup({
         SignColumn      = {bg = "NONE"},
         FloatBorder     = {link = "TelescopeBorder" },
 
+        Statusline = {bg = "#282828"},
+
         -- Git Colors
         GitSignsAdd     = {fg = colors.bright_green,    bg = "NONE"},
         GitSignsChange  = {fg = colors.bright_orange,   bg = "NONE"},

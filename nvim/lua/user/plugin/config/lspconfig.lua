@@ -56,7 +56,9 @@ local on_attach = function(client, bufnr)
 
     local navic_ok, navic = pcall(require, "nvim-navic")
     if navic_ok then
-        navic.attach(client, bufnr)
+        if client.server_capabilities.documentSymbolProvider then
+            navic.attach(client, bufnr)
+        end
     end
 
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -123,6 +125,8 @@ local lspflags = {
 local servers = {
     'tsserver',
     'cssls',
+    'html',
+    'clangd',
 }
 
 
@@ -189,3 +193,9 @@ lspconfig['sumneko_lua'].setup ({
         },
     },
 })
+
+
+-- Disable diagnostics in node_modules (0 is current buffer only)
+vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
+vim.api.nvim_create_autocmd("BufNewFile", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
+

@@ -9,6 +9,21 @@ if gruvbox_ok then
     theme = gruvbox_groups.setup()
 end
 
+local conditions = require("heirline.conditions")
+local utils = require("heirline.utils")
+
+
+local api = vim.api
+local fn = vim.fn
+local bo = vim.bo
+
+local priority = {
+    CurrentPath = 60,
+    Git = 40,
+    WorkDir = 25,
+    Lsp = 10,
+}
+
 local ViMode = {
     static = {
         map = {
@@ -62,6 +77,91 @@ local ViMode = {
 }
 
 
+local Git = {
+    condition = conditions.is_git_repo,
+    init = function(self)
+        self.status_dict = vim.b.gitsigns_status_dict
+        self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+    end,
+
+    hl = { fg = theme.GruvboxPurple.fg },
+
+
+    {   -- git branch name
+        provider = function(self)
+            return "  " .. self.status_dict.head
+        end,
+        hl = { bold = true }
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.added or 0
+            return count > 0 and (" +" .. count)
+        end,
+        hl = { fg = theme.GruvboxGreen.fg, bold = true},
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.removed or 0
+            return count > 0 and (" -" .. count)
+        end,
+        hl = { fg = theme.GruvboxRed.fg, bold = true},
+    },
+    {
+        provider = function(self)
+            local count = self.status_dict.changed or 0
+            return count > 0 and (" ~" .. count)
+        end,
+        hl = { fg = theme.GruvboxOrange.fg, bold = true},
+    },
+}
+local SearchResults = {
+    condition = function(self)
+        local query = fn.getreg("/")
+        if query == "" then return end
+
+        if query:find("@") then return end
+
+        local search_count = fn.searchcount({ recompute = 1, maxcount = -1 })
+        local active = false
+        if vim.v.hlsearch and vim.v.hlsearch == 1 and search_count.total > 0 then
+            active = true
+        end
+        if not active then return end
+
+        query = query:gsub([[^\V]], "")
+        query = query:gsub([[\<]], ""):gsub([[\>]], "")
+
+        self.query = query
+        self.count = search_count
+        return true
+    end,
+    {
+        provider = function(self)
+            return table.concat {
+                -- ' ', self.query, ' ', self.count.current, '/', self.count.total, ' '
+                ' [', self.count.current, '/', self.count.total, '] '
+            }
+        end,
+        hl = { fg = theme.GruvboxFg0.fg },
+    },
+}
+
+
+local Ruler = {
+    -- :help 'statusline'
+    -- ------------------
+    -- %-2 : make item takes at least 2 cells and be left justified
+    -- %l  : current line number
+    -- %L  : number of lines in the buffer
+    -- %c  : column number
+    -- %V  : virtual column number as -{num}.  Not displayed if equal to '%c'.
+    provider = ' %l:%L% ',
+    hl = { fg = theme.GruvboxFg0.fg, bold = true }
+}
+
+--------------------------------------------------------------------------------
+
 local Navic
 local navic_ok, navic = pcall(require, "nvim-navic")
 if navic_ok then
@@ -74,7 +174,8 @@ if navic_ok then
         end,
         enabled = function()
             return navic.is_available()
-        end
+        end,
+        update = 'CursorMoved'
     }
 
 end
@@ -89,8 +190,7 @@ local TablineBufnr = {
 }
 
 -- we redefine the filename component, as we probably only want the tail and not the relative path
-
-local FileIcon = {
+local TabLineFileIcon = {
     init = function(self)
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ":e")
@@ -103,7 +203,9 @@ local FileIcon = {
         return { fg = self.icon_color }
     end
 }
-local utils = require("heirline.utils")
+
+
+
 local TablineFileName = {
     provider = function(self)
         -- self.filename will be defined later, just keep looking at the example!
@@ -112,7 +214,10 @@ local TablineFileName = {
         return filename
     end,
     hl = function(self)
-        return { bold = self.is_active or self.is_visible, italic = true }
+        if self.is_active then
+            return {fg = theme.GruvboxFg0.fg, bold = true}
+        end
+        return { italic = true}
     end,
 }
 
@@ -169,7 +274,7 @@ local TablineFileNameBlock = {
         name = "heirline_tabline_buffer_callback",
     },
     TablineBufnr,
-    FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
+    TabLineFileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
     TablineFileName,
     TablineFileFlags,
 }
@@ -268,18 +373,21 @@ local TabLineOffset = {
     end,
 }
 
-local Align = { provider = "%=" }
-
+local Align = {
+    provider = '%=',
+    hl = { bg = "NONE"}
+}
 local DefaultStatusline = {
     ViMode,
+    SearchResults,
     Align,
-    Align,
+    Ruler,
 }
 
 local DefaultWinbar = {
     Navic,
     Align,
-    Align,
+    Git,
 }
 
 local StatusLines = {
@@ -298,3 +406,5 @@ heirline.setup(StatusLines, WinBars, TabLine)
 -- Yep, with heirline we're driving manual!
 vim.o.showtabline = 2
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+
+vim.api.nvim_create_augroup("Heirline", {clear = true})
