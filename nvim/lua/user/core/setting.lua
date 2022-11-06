@@ -6,6 +6,8 @@ local options = {
     writebackup = false,
     swapfile = false,
     undofile = true,
+    viminfo        = "'1000",                   -- Increase the size of file history
+    wildignore     = "*node_modules/**",        -- Don't search inside Node.js modules (works for gutentag)
 
     -------------------------------
     --          Search           --
@@ -27,10 +29,11 @@ local options = {
     ruler = true,                               -- Always show tab
     number = true,
     relativenumber = true,
-    colorcolumn = '80',
+    colorcolumn = '120',
     signcolumn = "yes",
-    cmdheight = 1,                              -- Height when using cmd
-    laststatus = 2,
+    cmdheight = 0,                              -- Height when using cmd
+    laststatus = 3,
+
 
     -------------------------------
     --          TABS             --

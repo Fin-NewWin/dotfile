@@ -17,3 +17,7 @@ au('TextYankPost', {
 })
 
 au('FileType', {pattern = 'yaml', command = 'setlocal ts=4 sts=4 sw=4 expandtab'})
+
+-- Enable spell checking for certain file types
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "*.tex" },
+    command = "setlocal spell" })
