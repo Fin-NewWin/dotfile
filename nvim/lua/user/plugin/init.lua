@@ -41,6 +41,8 @@ packer.startup{
             "SmiteshP/nvim-navic",
             requires = "neovim/nvim-lspconfig"
         }
+        use "folke/neodev.nvim"
+        use "p00f/clangd_extensions.nvim"
 
         -- Autcomplete
         use {
@@ -49,23 +51,19 @@ packer.startup{
                 'hrsh7th/cmp-nvim-lsp',
                 'hrsh7th/cmp-nvim-lua',
                 'hrsh7th/cmp-path',
+                'hrsh7th/cmp-buffer',
                 'onsails/lspkind.nvim',
             },
             config = get_config('cmp')
         }
         use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' }
         use { 'rafamadriz/friendly-snippets' }
-        use "folke/neodev.nvim"
 
         -- Treesitter/Syntax highlight
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
             config = get_config('treesitter'),
-        }
-        use {
-            'm-demare/hlargs.nvim',
-            requires = { 'nvim-treesitter/nvim-treesitter' }
         }
 
 
@@ -81,13 +79,12 @@ packer.startup{
         }
 
         -- git
-        use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
         use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
 
 
         -- Util and QOL
         use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
-        use { 'Akianonymus/nvim-colorizer.lua', config = get_config('colorizer') }
+        use { 'NvChad/nvim-colorizer.lua', config = get_config('colorizer') }
         use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
 
         -- autopair plugins
@@ -95,8 +92,8 @@ packer.startup{
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
 
         -- UI
-        use { 'rcarriga/nvim-notify', config = get_config('notify')}
         use { 'rebelot/heirline.nvim', config = get_config('status')}
+        use { 'rcarriga/nvim-notify', config = get_config('notify') }
 
 
         if packer_bootstrap then

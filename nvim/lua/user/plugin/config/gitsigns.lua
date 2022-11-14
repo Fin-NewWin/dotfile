@@ -9,6 +9,7 @@ return gitsigns.setup {
         delete          = { hl = "GitSignsDelete", text = "▍", numhl="GitSignsDeleteNr", linehl="GitSignsDeleteLn" },
         changedelete    = { hl = "GitSignsChange", text = "▍", numhl="GitSignsChangeNr", linehl="GitSignsChangeLn" },
         topdelete       = { hl = "GitSignsDelete", text = "‾", numhl="GitSignsDeleteNr", linehl="GitSignsDeleteLn" },
+        untracked       = { hl = "GitSignsAdd"   , text = "▍", numhl="GitSignsAddNr"   , linehl="GitSignsAddLn" },
     },
     watch_gitdir = {
         interval = 1000,

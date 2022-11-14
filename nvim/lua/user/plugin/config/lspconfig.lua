@@ -26,7 +26,7 @@ vim.diagnostic.config = {
     signs = {
         active = signs,
     },
-    update_in_insert = true,
+    update_in_insert = false,
     underline = true,
     severity_sort = true,
     float = {
@@ -54,6 +54,9 @@ vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_r
 local key = vim.keymap.set
 local on_attach = function(client, bufnr)
 
+    client.server_capabilities.documentFormattingProvider = true
+    client.server_capabilities.documentRangeFormattingProvider = false
+
     local navic_ok, navic = pcall(require, "nvim-navic")
     if navic_ok then
         if client.server_capabilities.documentSymbolProvider then
@@ -67,16 +70,8 @@ local on_attach = function(client, bufnr)
     -- key('n', 'K', vim.lsp.buf.hover, bufopts)
     key('n', 'gi', vim.lsp.buf.implementation, bufopts)
     key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    key('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    key('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    key('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    key('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
     key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    key('n', 'gr', vim.lsp.buf.references, bufopts)
-    key('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -123,10 +118,11 @@ local lspflags = {
 }
 
 local servers = {
+    'eslint',
     'tsserver',
     'cssls',
     'html',
-    'clangd',
+    -- 'clangd',
 }
 
 
@@ -149,43 +145,16 @@ lspconfig['sumneko_lua'].setup ({
     flags = lspflags,
     settings = {
         Lua = {
-            type = {
-                -- weakUnionCheck = true,
-                -- weakNilCheck = true,
-                -- castNumberToInteger = true,
-            },
-            format = {
-                enable = false,
-            },
-            hint = {
-                enable = true,
-                arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
-                await = true,
-                paramName = "Disable", -- "All", "Literal", "Disable"
-                paramType = false,
-                semicolon = "Disable", -- "All", "SameLine", "Disable"
-                setType = true,
-            },
-            -- spell = {"the"}
-            runtime = {
-                version = "LuaJIT",
-                special = {
-                    reload = "require",
-                },
-            },
             diagnostics = {
                 globals = { "vim" },
-                unusedLocalExclude = { "_*" },
             },
             workspace = {
                 library = {
                     [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                    [vim.fn.stdpath "config" .. "/lua"] = true,
-                    -- [vim.fn.datapath "config" .. "/lua"] = true,
+                    [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
                 },
-            },
-            telemetry = {
-                enable = false,
+                maxPreload = 100000,
+                preloadFileSize = 10000,
             },
             completion = {
                 callSnippet = "Replace"
@@ -194,8 +163,49 @@ lspconfig['sumneko_lua'].setup ({
     },
 })
 
+if vim.fn.executable("clangd") then
+
+    local ok_clang, clang_ex  = pcall(require, "clangd_extensions")
+
+    if ok_clang then
+
+        local clangd_capabilities = {
+            textDocument = {
+                completion = {
+                    editsNearCursor = true,
+                },
+            },
+            offsetEncoding = { 'utf-16' },
+        }
+
+        clang_ex.setup {
+            server = {
+                on_attach = on_attach,
+                capabilities = vim.tbl_deep_extend('keep', capabilities, clangd_capabilities),
+                cmd = {'clangd', '--header-insertion=never'},
+            },
+            extensions = {
+                memory_usage = {
+                    border = "rounded",
+                },
+                symbol_info = {
+                    border = "rounded",
+                },
+            }
+        }
+    else
+        lspconfig['clangd'].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            flags = lspflags,
+        }
+    end
+end
+
 
 -- Disable diagnostics in node_modules (0 is current buffer only)
 vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
 vim.api.nvim_create_autocmd("BufNewFile", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
 
+-- Using Eslint to format on save
+vim.api.nvim_create_autocmd("BufWritePre", { pattern = {"*.tsx", "*.ts", "*.jsx", "*.js"}, command = "EslintFixAll" })
