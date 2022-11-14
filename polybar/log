@@ -1,0 +1,14 @@
+polybar|notice:  Parsing config file: /home/fin/.config/polybar/config.ini
+polybar|notice:  Listening for IPC messages (PID: 58900)
+polybar|notice:  Loading module 'xworkspaces' of type 'internal/xworkspaces'
+polybar|notice:  Loading module 'date' of type 'internal/date'
+polybar|notice:  Loading module 'backlight' of type 'internal/backlight'
+polybar|notice:  Loading module 'vol' of type 'internal/pulseaudio'
+polybar|notice:  pulseaudio: using default sink alsa_output.pci-0000_00_1f.3.analog-stereo
+polybar|notice:  Loading module 'bat' of type 'custom/script'
+polybar|notice:  Loaded 5 modules
+polybar|notice:  Loaded font "FiraCode Nerd Font:weight=bold:size=10" (name=FiraCode Nerd Font, offset=3, file=/usr/share/fonts/nerd-fonts-complete/TTF/Fira Code Bold Nerd Font Complete.ttf)
+polybar|notice:  Loaded font "FiraCode Nerd Font:size=12" (name=FiraCode Nerd Font, offset=2, file=/usr/share/fonts/nerd-fonts-complete/TTF/Fira Code Regular Nerd Font Complete.ttf)
+polybar|notice:  Loaded font "FiraCode Nerd Font:size=13" (name=FiraCode Nerd Font, offset=4, file=/usr/share/fonts/nerd-fonts-complete/TTF/Fira Code Regular Nerd Font Complete.ttf)
+polybar|notice:  pulseaudio: using default sink alsa_output.pci-0000_00_1f.3.analog-stereo
+polybar|notice:  pulseaudio: using default sink alsa_output.pci-0000_00_1f.3.analog-stereo
