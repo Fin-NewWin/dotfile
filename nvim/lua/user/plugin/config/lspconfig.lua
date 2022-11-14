@@ -63,6 +63,7 @@ local on_attach = function(client, bufnr)
             navic.attach(client, bufnr)
         end
     end
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     key('n', 'gD', vim.lsp.buf.declaration, bufopts)
