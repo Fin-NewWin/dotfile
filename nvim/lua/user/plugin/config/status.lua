@@ -150,7 +150,7 @@ local SearchResults = {
 
 
 local Ruler = {
-    provider = ' %l:%L% ',
+    provider = ' %l:%c:%L ',
     hl = { fg = theme.GruvboxFg0.fg, bold = true }
 }
 

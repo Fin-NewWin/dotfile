@@ -3,7 +3,7 @@ if not status_ok then
     return
 end
 
-local colors = require('gruvbox.palette')
+local theme = require('gruvbox.palette')
 -- vim.api.nvim_cmd()
 
 gruvbox.setup({
@@ -17,15 +17,15 @@ gruvbox.setup({
         Statusline = {bg = "#282828"},
 
         -- Git Colors
-        GitSignsAdd     = {fg = colors.bright_green,    bg = "NONE"},
-        GitSignsChange  = {fg = colors.bright_orange,   bg = "NONE"},
-        GitSignsDelete  = {fg = colors.bright_red,      bg = "NONE"},
+        GitSignsAdd     = {fg = theme.bright_green,    bg = "NONE"},
+        GitSignsChange  = {fg = theme.bright_orange,   bg = "NONE"},
+        GitSignsDelete  = {fg = theme.bright_red,      bg = "NONE"},
 
         -- LSP
-        DiagnosticSignError =   {fg = colors.bright_red},
-        DiagnosticSignWarn  =   {fg = colors.bright_yellow},
-        DiagnosticSignHint  =   {fg = colors.bright_aqua},
-        DiagnosticSignInfo  =   {fg = colors.bright_blue, bg = ""},
+        DiagnosticSignError =   {fg = theme.bright_red},
+        DiagnosticSignWarn  =   {fg = theme.bright_yellow},
+        DiagnosticSignHint  =   {fg = theme.bright_aqua},
+        DiagnosticSignInfo  =   {fg = theme.bright_blue, bg = ""},
 
         -- LSP
         LspInfoBorder     = {link = "TelescopeBorder" },
@@ -42,4 +42,3 @@ local function colorscheme(name)
 end
 
 colorscheme('gruvbox')
-

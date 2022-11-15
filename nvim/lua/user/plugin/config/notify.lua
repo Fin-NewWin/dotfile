@@ -3,36 +3,22 @@ if not status_ok then
     return
 end
 
+vim.notify = notify
+
+print = function(...)
+    local print_safe_args = {}
+    local _ = { ... }
+    for i = 1, #_ do
+        table.insert(print_safe_args, tostring(_[i]))
+    end
+    notify(table.concat(print_safe_args, ' '), "info", { title = "Neovim"} )
+end
 
 notify.setup{
     background_colour = "#000000",
-    views = {
-        cmdline_popup = {
-            border = {
-                style = 'rounded',
-                padding = { 0, 1 },
-            },
-            position = {
-                row = 5,
-                col = "50%",
-            },
-            size = {
-                width = 120,
-                height = "auto",
-            },
-            -- filter_options = {},
-            -- win_options = {
-            -- winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-            -- },
-        },
-        popupmenu = {
-            enabled = false
-        },
-    },
     level = 0,
 }
 
-vim.notify = notify
 
 
 -- Utility functions for LSP
@@ -64,9 +50,9 @@ vim.api.nvim_create_autocmd({'UIEnter'}, {
                         if not ctx.done then
                             if not s then
                                 spinners[c.id][token] = Spinner(
-                                    format_msg(ctx.message, ctx.percentage), vim.log.levels.INFO, {
-                                        title = ctx.title and string.format('%s: %s', c.name, ctx.title) or c.name
-                                    })
+                                format_msg(ctx.message, ctx.percentage), vim.log.levels.INFO, {
+                                    title = ctx.title and string.format('%s: %s', c.name, ctx.title) or c.name
+                                })
                             else
                                 s:update(format_msg(ctx.message, ctx.percentage))
                             end

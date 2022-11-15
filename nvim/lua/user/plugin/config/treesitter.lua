@@ -20,6 +20,7 @@ treesitter.setup {
     autotag = {
         enable = true,
     },
+
     -- Disable treesitter for big file
     disable = function(lang, buf)
         local max_filesize = 100 * 1024 -- 100 KB
