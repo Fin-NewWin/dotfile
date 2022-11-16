@@ -10,6 +10,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts.border = opts.border or "rounded"
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
 require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 
@@ -81,7 +82,7 @@ local on_attach = function(client, bufnr)
     key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -120,7 +121,6 @@ capabilities.textDocument.foldingRange = {
 }
 
 local lspflags = {
-    -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
 

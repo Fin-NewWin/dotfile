@@ -89,3 +89,4 @@ vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
         end,
     })
 end
+

@@ -98,8 +98,17 @@ packer.startup{
 
         -- UI
         use { 'rebelot/heirline.nvim', config = get_config('status')}
-        use { 'rcarriga/nvim-notify', config = get_config('notify') }
-
+        use {
+            "folke/noice.nvim",
+            config = get_config('noice'),
+            requires = {
+                "MunifTanjim/nui.nvim",
+                {
+                    "rcarriga/nvim-notify",
+                    config = get_config('notify')
+                },
+            }
+        }
 
         if packer_bootstrap then
             require('packer').sync()

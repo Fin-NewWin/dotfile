@@ -83,10 +83,7 @@ local Git = {
         self.status_dict = vim.b.gitsigns_status_dict
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
     end,
-
     hl = { fg = theme.GruvboxPurple.fg },
-
-
     {   -- git branch name
         provider = function(self)
             return "  " .. self.status_dict.head
@@ -148,6 +145,23 @@ local SearchResults = {
     },
 }
 
+local LSPActive = {
+    condition = conditions.lsp_attached,
+    update = {'LspAttach', 'LspDetach'},
+    provider  = function()
+        local names = {}
+        for i, server in pairs(vim.lsp.get_active_clients()) do
+            table.insert(names, server.name)
+        end
+        return "  [" .. table.concat(names, " ") .. "] "
+    end,
+    hl = {
+        fg = theme.GruvboxGreen.fg,
+        bg = theme.GruvboxBg1.fg,
+        bold = true
+    },
+}
+
 
 local Ruler = {
     provider = ' %l:%c:%L ',
@@ -183,7 +197,6 @@ local TablineBufnr = {
     hl = "Comment",
 }
 
--- we redefine the filename component, as we probably only want the tail and not the relative path
 local TabLineFileIcon = {
     init = function(self)
         local filename = self.filename
@@ -337,6 +350,7 @@ local TabPages = {
     utils.make_tablist(Tabpage),
     TabpageClose,
 }
+
 local TabLineOffset = {
     condition = function(self)
         local win = vim.api.nvim_tabpage_list_wins(0)[1]
@@ -371,6 +385,12 @@ local Align = {
     provider = '%=',
     hl = { bg = "NONE"}
 }
+
+local Space = {
+    provider = ' ',
+    hl = { bg = "NONE"}
+}
+
 local DefaultStatusline = {
     ViMode,
     SearchResults,
@@ -379,6 +399,8 @@ local DefaultStatusline = {
 }
 
 local DefaultWinbar = {
+    LSPActive,
+    Space,
     Navic,
     Align,
     Git,
@@ -393,6 +415,7 @@ local WinBars = {
     fallthrough = false,
     DefaultWinbar,
 }
+
 local TabLine = { TabLineOffset, BufferLine, TabPages }
 
 heirline.setup(StatusLines, WinBars, TabLine)
