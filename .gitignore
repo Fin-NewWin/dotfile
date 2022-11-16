@@ -2,3 +2,5 @@ nvim/plugin
 script/test
 .zcompdump
 zsh/repo
+
+log
