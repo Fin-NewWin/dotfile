@@ -54,7 +54,6 @@ local options = {
     --        PERFORMANCE        --
     -------------------------------
     updatetime = 100,
-    timeoutlen = 200,
 
     -------------------------------
     --          OTHER            --

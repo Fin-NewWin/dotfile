@@ -52,6 +52,13 @@ vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_r
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local key = vim.keymap.set
+
+local opts = { noremap=true, silent=true }
+key('n', '<space>e', vim.diagnostic.open_float, opts)
+key('n', '[d', vim.diagnostic.goto_prev, opts)
+key('n', ']d', vim.diagnostic.goto_next, opts)
+key('n', '<space>q', vim.diagnostic.setloclist, opts)
+
 local on_attach = function(client, bufnr)
 
     client.server_capabilities.documentFormattingProvider = true
@@ -68,7 +75,6 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     key('n', 'gD', vim.lsp.buf.declaration, bufopts)
     key('n', 'gd', vim.lsp.buf.definition, bufopts)
-    -- key('n', 'K', vim.lsp.buf.hover, bufopts)
     key('n', 'gi', vim.lsp.buf.implementation, bufopts)
     key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
@@ -123,7 +129,7 @@ local servers = {
     'tsserver',
     'cssls',
     'html',
-    -- 'clangd',
+    'clangd',
 }
 
 
@@ -163,45 +169,6 @@ lspconfig['sumneko_lua'].setup ({
         },
     },
 })
-
-if vim.fn.executable("clangd") then
-
-    local ok_clang, clang_ex  = pcall(require, "clangd_extensions")
-
-    if ok_clang then
-
-        local clangd_capabilities = {
-            textDocument = {
-                completion = {
-                    editsNearCursor = true,
-                },
-            },
-            offsetEncoding = { 'utf-16' },
-        }
-
-        clang_ex.setup {
-            server = {
-                on_attach = on_attach,
-                capabilities = vim.tbl_deep_extend('keep', capabilities, clangd_capabilities),
-                cmd = {'clangd', '--header-insertion=never'},
-            },
-            extensions = {
-                memory_usage = {
-                    border = "rounded",
-                },
-                symbol_info = {
-                    border = "rounded",
-                },
-            }
-        }
-    else
-        lspconfig['clangd'].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            flags = lspflags,
-        }
-    end
-end
 
 
 -- Disable diagnostics in node_modules (0 is current buffer only)
