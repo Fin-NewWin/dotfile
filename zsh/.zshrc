@@ -25,12 +25,23 @@ zinit light-mode for \
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/alias"
 
+
+sources=(
+    'function'
+)
+
+for s in "${sources[@]}"; do
+    source $HOME/.config/zsh/include/${s}.zsh
+done
+
+
 #############################################
 #               history                     #
 #############################################
 
-HISTSIZE=1200
-SAVEHIST=1000
+export HISTSIZE=100000000
+export SAVEHIST=$HISTSIZE
+
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY

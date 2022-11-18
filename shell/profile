@@ -5,9 +5,18 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/script/"
 
 # Basic export
 export BROWSER=firefox
-export EDITOR=nvim
+
+if hash nvim 2>/dev/null; then
+    export EDITOR=nvim
+    export MANPAGER='nvim +Man!'
+else
+    export EDITOR=vim
+fi
+
 export TERMINAL=st
 export TERM=st-256color
+
+export LANG=en_US.UTF8
 
 # RUST
 export CARGO_HOME=/home/fin/.local/share/cargo
