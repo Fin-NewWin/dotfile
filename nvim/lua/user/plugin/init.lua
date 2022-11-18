@@ -52,6 +52,8 @@ packer.startup{
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-buffer',
                 'onsails/lspkind.nvim',
+                'lukas-reineke/cmp-under-comparator'
+
             },
             config = get_config('cmp')
         }
@@ -66,7 +68,7 @@ packer.startup{
         }
 
 
-        -- Telescope
+        -- Fuzzy/Grep
         use {
             'nvim-telescope/telescope.nvim',
             requires = {
@@ -91,6 +93,7 @@ packer.startup{
                 require('Comment').setup()
             end
         }
+        use { 'RRethy/vim-illuminate', config = get_config('illuminate') }
 
         -- autopair plugins
         use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
@@ -98,17 +101,6 @@ packer.startup{
 
         -- UI
         use { 'rebelot/heirline.nvim', config = get_config('status')}
-        use {
-            "folke/noice.nvim",
-            config = get_config('noice'),
-            requires = {
-                "MunifTanjim/nui.nvim",
-                {
-                    "rcarriga/nvim-notify",
-                    config = get_config('notify')
-                },
-            }
-        }
 
         if packer_bootstrap then
             require('packer').sync()

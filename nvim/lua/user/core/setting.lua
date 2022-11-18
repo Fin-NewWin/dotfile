@@ -29,7 +29,7 @@ local options = {
     ruler = true,                               -- Always show tab
     number = true,
     relativenumber = true,
-    colorcolumn = '120',
+    colorcolumn = '80',
     signcolumn = "yes",
     cmdheight = 0,                              -- Height when using cmd
     laststatus = 3,
@@ -53,7 +53,7 @@ local options = {
     -------------------------------
     --        PERFORMANCE        --
     -------------------------------
-    updatetime = 100,
+    updatetime = 1000,
 
     -------------------------------
     --          OTHER            --

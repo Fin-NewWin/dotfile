@@ -27,7 +27,7 @@ vim.diagnostic.config = {
     signs = {
         active = signs,
     },
-    update_in_insert = false,
+    update_in_insert = true,
     underline = true,
     severity_sort = true,
     float = {
@@ -176,4 +176,4 @@ vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command =
 vim.api.nvim_create_autocmd("BufNewFile", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
 
 -- Using Eslint to format on save
-vim.api.nvim_create_autocmd("BufWritePre", { pattern = {"*.tsx", "*.ts", "*.jsx", "*.js"}, command = "EslintFixAll" })
+-- vim.api.nvim_create_autocmd("BufWritePre", { pattern = {"*.tsx", "*.ts", "*.jsx", "*.js"}, command = "EslintFixAll" })

@@ -51,6 +51,18 @@ cmp.setup {
 
         },
     },
+    sorting = {
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require "cmp-under-comparator".under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
     sources = {
         { name = 'luasnip' },
         { name = 'nvim_lsp', keyword_length = 2 },
@@ -77,21 +89,21 @@ cmp.setup {
                 fallback()
             end
         end, {
-                "i",
-                "s",
-            }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif require("luasnip").jumpable(-1) then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-            else
-                fallback()
-            end
-        end, {
-                "i",
-                "s",
-            }),
+        "i",
+        "s",
+    }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            cmp.select_prev_item()
+        elseif require("luasnip").jumpable(-1) then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+        else
+            fallback()
+        end
+    end, {
+    "i",
+    "s",
+}),
     },
     window = {
         completion = cmp.config.window.bordered(),

@@ -6,9 +6,6 @@ au('FileType', { command = 'set formatoptions-=cro' })
 -- Remove trailing white space
 au('BufWritePre', { command = [[%s/\s\+$//e]] })
 
--- Reload file when chaned outside of nvim
-au({'BufEnter', 'CursorHold'}, { command = 'silent! checktime %'})
-
 -- Highlight yanked text
 au('TextYankPost', {
     callback = function()

@@ -12,17 +12,8 @@ end
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 
-
-local api = vim.api
 local fn = vim.fn
-local bo = vim.bo
 
-local priority = {
-    CurrentPath = 60,
-    Git = 40,
-    WorkDir = 25,
-    Lsp = 10,
-}
 
 local ViMode = {
     static = {
@@ -83,12 +74,25 @@ local Git = {
         self.status_dict = vim.b.gitsigns_status_dict
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
     end,
-    hl = { fg = theme.GruvboxPurple.fg },
     {   -- git branch name
         provider = function(self)
-            return "  " .. self.status_dict.head
+            return "   " .. self.status_dict.head .. "  "
         end,
         hl = { bold = true }
+    },
+    hl = { fg = theme.GruvboxPurple.fg,  bg = theme.GruvboxBg1.fg },
+}
+
+local GitSigns = {
+    condition = conditions.is_git_repo,
+    init = function(self)
+        self.status_dict = vim.b.gitsigns_status_dict
+        self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+    end,
+    {
+        provider = function(self)
+            return " "
+        end,
     },
     {
         provider = function(self)
@@ -111,6 +115,12 @@ local Git = {
         end,
         hl = { fg = theme.GruvboxOrange.fg, bold = true},
     },
+    {
+        provider = function(self)
+            return "  "
+        end,
+    },
+    hl = { fg = theme.GruvboxBg0.fg }
 }
 
 local SearchResults = {
@@ -153,10 +163,10 @@ local LSPActive = {
         for i, server in pairs(vim.lsp.get_active_clients()) do
             table.insert(names, server.name)
         end
-        return "  [" .. table.concat(names, " ") .. "] "
+        return "   [" .. table.concat(names, " ") .. "]  "
     end,
     hl = {
-        fg = theme.GruvboxGreen.fg,
+        fg = theme.GruvboxYellow.fg,
         bg = theme.GruvboxBg1.fg,
         bold = true
     },
@@ -164,7 +174,7 @@ local LSPActive = {
 
 
 local Ruler = {
-    provider = ' %l:%c:%L ',
+    provider = ' %l:%2c ',
     hl = { fg = theme.GruvboxFg0.fg, bold = true }
 }
 
@@ -395,6 +405,7 @@ local DefaultStatusline = {
     ViMode,
     SearchResults,
     Align,
+    Git,
     Ruler,
 }
 
@@ -403,7 +414,7 @@ local DefaultWinbar = {
     Space,
     Navic,
     Align,
-    Git,
+    GitSigns,
 }
 
 local StatusLines = {

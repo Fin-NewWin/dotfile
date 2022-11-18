@@ -25,10 +25,6 @@ key('n', '<Leader>l', '<C-w>l', opts)
 
 key('n', '<Leader>z', ':lua require("nabla").popup()<CR>', opts)
 
---Remap for dealing with word wrap
-key('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-key('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 key('n', 'q', "<nop>", opts)
 key('n', 'qq', "q", opts)
 
@@ -54,3 +50,7 @@ key("n", "<C-s>", ":w<cr>", opts)
 -- Remove Keybindings
 key("n", "<S-k>", "<Nop>", opts)
 key("n", "<C-[", "<Nop>", opts)
+
+-- Shortcuts
+key({'n', 'x', 'o'}, '<leader>h', '^')
+key({'n', 'x', 'o'}, '<leader>l', 'g_')
