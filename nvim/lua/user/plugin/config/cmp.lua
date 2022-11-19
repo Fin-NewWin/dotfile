@@ -16,17 +16,15 @@ end
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local cmp_window = require "cmp.utils.window"
-
-cmp_window.info_ = cmp_window.info
-cmp_window.info = function(self)
-    local info = self:info_()
-    info.scrollable = false
-    return info
-end
-
-
 cmp.setup {
+    window = {
+        completion = {
+            border = "rounded",
+            winhighlight = 'Normal:None,FloatBorder:None,CursorLine:CursorLine,Search:None',
+            scrollbar = false,
+        },
+        documentation = cmp.config.window.bordered(),
+    },
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -92,22 +90,5 @@ cmp.setup {
         "i",
         "s",
     }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_prev_item()
-        elseif require("luasnip").jumpable(-1) then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-        else
-            fallback()
-        end
-    end, {
-    "i",
-    "s",
-}),
-    },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
+},
 }
-

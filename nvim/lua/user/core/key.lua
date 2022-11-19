@@ -44,13 +44,6 @@ key("n", "<C-a>", "gg<S-v>G", opts)
 key("n", "+", "<C-a>", opts)
 key("n", "-", "<C-x>", opts)
 
--- Other
-key("n", "<C-s>", ":w<cr>", opts)
-
 -- Remove Keybindings
 key("n", "<S-k>", "<Nop>", opts)
 key("n", "<C-[", "<Nop>", opts)
-
--- Shortcuts
-key({'n', 'x', 'o'}, '<leader>h', '^')
-key({'n', 'x', 'o'}, '<leader>l', 'g_')
