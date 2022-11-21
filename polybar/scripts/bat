@@ -16,9 +16,9 @@ done
 
 BATTERY_SUM=$(( BATTERY_SUM / 2 ))
 
-if $BATTERY_SUM > 100
+if [ $BATTERY_SUM -gt 100 ]
 then
-    $BATTERY_SUM=100
+    BATTERY_SUM=100
 fi
 
 bat_stat () {
