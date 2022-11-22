@@ -90,7 +90,7 @@ local GitSigns = {
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
     end,
     {
-        provider = function(self)
+        provider = function()
             return " "
         end,
     },
@@ -403,9 +403,9 @@ local Space = {
 
 local DefaultStatusline = {
     ViMode,
+    Git,
     SearchResults,
     Align,
-    Git,
     Ruler,
 }
 

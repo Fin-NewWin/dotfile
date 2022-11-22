@@ -36,7 +36,7 @@ local options = {
 
 
     -------------------------------
-    --          TABS             --
+    --          INDENT           --
     -------------------------------
     breakindent = true,
     tabstop = 4,
@@ -65,6 +65,13 @@ local options = {
     sidescrolloff = 8,
     errorbells = false,
     clipboard = 'unnamedplus',                  -- Set nvim to use system clipboard
+
+
+    -------------------------------
+    --          SPLIT            --
+    -------------------------------
+    splitbelow = true,
+	splitright = true,
 }
 
 vim.opt.shortmess:append "c"
