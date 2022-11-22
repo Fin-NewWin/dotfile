@@ -65,13 +65,6 @@ local options = {
     sidescrolloff = 8,
     errorbells = false,
     clipboard = 'unnamedplus',                  -- Set nvim to use system clipboard
-
-
-    -------------------------------
-    --          SPLIT            --
-    -------------------------------
-    splitbelow = true,
-	splitright = true,
 }
 
 vim.opt.shortmess:append "c"

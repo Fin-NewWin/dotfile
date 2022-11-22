@@ -100,7 +100,8 @@ packer.startup{
         use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
 
         -- UI
-        use { 'rebelot/heirline.nvim', config = get_config('status')}
+        use { 'rebelot/heirline.nvim', config = get_config('status') }
+        use { 'goolord/alpha-nvim', config = get_config('alpha') }
 
         if packer_bootstrap then
             require('packer').sync()
