@@ -25,7 +25,7 @@ gruvbox.setup({
         DiagnosticSignError =   {fg = theme.bright_red},
         DiagnosticSignWarn  =   {fg = theme.bright_yellow},
         DiagnosticSignHint  =   {fg = theme.bright_aqua},
-        DiagnosticSignInfo  =   {fg = theme.bright_blue, bg = ""},
+        DiagnosticSignInfo  =   {fg = theme.bright_blue, bg = "NONE"},
 
         -- LSP
         LspInfoBorder     = {link = "TelescopeBorder" },
@@ -34,11 +34,7 @@ gruvbox.setup({
     transparent_mode = true,
     italic = false,
     contrast = "hard",
+    inverse = false,
 })
 
-local function colorscheme(name)
-    vim.g.colors_name = name
-    vim.o.background = vim.o.background
-end
-
-colorscheme('gruvbox')
+vim.cmd.colorscheme("gruvbox")

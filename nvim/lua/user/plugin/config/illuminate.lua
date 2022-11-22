@@ -3,4 +3,10 @@ if not ok then
     return
 end
 
-illuminate.configure()
+illuminate.configure({
+    filetypes_denylist = {
+        'dirvish',
+        'fugitive',
+        'help'
+    },
+})

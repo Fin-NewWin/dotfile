@@ -31,6 +31,7 @@ packer.startup{
 
         -- Colorscheme
         use { 'ellisonleao/gruvbox.nvim', config = get_config('colorscheme')}
+        use { "catppuccin/nvim", as = "catppuccin" }
 
         -- LSP
         use {
