@@ -3,7 +3,7 @@ if not status_ok then
     return
 end
 
-local tele_actions = require('telescope.actions')
+local tele_actions = require("telescope.actions")
 local key = vim.api.nvim_set_keymap
 
 telescope.setup{
@@ -33,11 +33,11 @@ telescope.setup{
         },
         mappings = {
             i = {
-                ['<C-[>'] = tele_actions.close,
-                ['<esc>'] = tele_actions.close,
-                ['<C-c>'] = tele_actions.close,
-                ['<C-u>'] = false,
-                ['<C-d>'] = false,
+                ["<C-[>"] = tele_actions.close,
+                ["<esc>"] = tele_actions.close,
+                ["<C-c>"] = tele_actions.close,
+                ["<C-u>"] = false,
+                ["<C-d>"] = false,
             },
 
         },
@@ -51,14 +51,14 @@ telescope.setup{
         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
         winblend = 0,
         vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--hidden',
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
         },
         file_ignore_patterns = {
             ".git/",
@@ -116,10 +116,10 @@ telescope.setup{
         },
     }
 }
-telescope.load_extension('fzy_native')
+telescope.load_extension("fzy_native")
 
 local opt = { noremap = true }
 
-key('n', '<Leader>pf', '<cmd>lua require("telescope.builtin").find_files()<cr>', opt)
-key('n', '<Leader>pg', '<cmd>noh<cr><cmd>lua require("telescope.builtin").live_grep()<cr>', opt)
-key('n', '<Leader>pb', '<cmd>lua require("telescope.builtin").buffers()<cr>', opt)
+key("n", "<Leader>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>", opt)
+key("n", "<Leader>pg", "<cmd>noh<cr><cmd>lua require('telescope.builtin').live_grep()<cr>", opt)
+key("n", "<Leader>pb", "<cmd>lua require('telescope.builtin').buffers()<cr>", opt)

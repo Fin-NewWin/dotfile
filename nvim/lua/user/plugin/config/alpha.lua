@@ -271,7 +271,7 @@ local opts = {
     layout = {
         { type = "padding", val = 1 },
         header,
-        { type = "padding", val = 2 },
+        { type = "padding", val = 1 },
         greetHeading,
         footer,
         { type = "padding", val = 2 },

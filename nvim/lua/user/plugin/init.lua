@@ -30,19 +30,19 @@ packer.startup{
     function(use)
 
         -- Packer can manage itself
-        use { 'wbthomason/packer.nvim' }
+        use { "wbthomason/packer.nvim" }
 
         -- Init first
-        use 'lewis6991/impatient.nvim'
-        use 'nvim-lua/plenary.nvim'
+        use "lewis6991/impatient.nvim"
+        use "nvim-lua/plenary.nvim"
 
         -- Colorscheme
-        use { 'ellisonleao/gruvbox.nvim', config = get_config('colorscheme')}
+        use { "ellisonleao/gruvbox.nvim", config = get_config("colorscheme")}
 
         -- LSP
         use {
-            'neovim/nvim-lspconfig',
-            config = get_config('lspconfig'),
+            "neovim/nvim-lspconfig",
+            config = get_config("lspconfig"),
         }
         use {
             "SmiteshP/nvim-navic",
@@ -52,71 +52,67 @@ packer.startup{
 
         -- Autcomplete
         use {
-            'hrsh7th/nvim-cmp',
+            "hrsh7th/nvim-cmp",
             requires = {
-                'hrsh7th/cmp-nvim-lsp',
-                'hrsh7th/cmp-nvim-lua',
-                'hrsh7th/cmp-path',
-                'hrsh7th/cmp-buffer',
-                'onsails/lspkind.nvim',
-                'lukas-reineke/cmp-under-comparator'
-
+                "hrsh7th/cmp-nvim-lsp",
+                "hrsh7th/cmp-nvim-lua",
+                "hrsh7th/cmp-path",
+                "hrsh7th/cmp-buffer",
+                "onsails/lspkind.nvim",
+                "lukas-reineke/cmp-under-comparator",
             },
-            config = get_config('cmp')
+            config = get_config("cmp")
         }
-        use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip' }
-        use { 'rafamadriz/friendly-snippets' }
+        use { "L3MON4D3/LuaSnip", requires = "saadparwaiz1/cmp_luasnip" }
+        use { "rafamadriz/friendly-snippets" }
 
         -- Treesitter/Syntax highlight
         use {
-            'nvim-treesitter/nvim-treesitter',
-            run = ':TSUpdate',
-            config = get_config('treesitter'),
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            config = get_config("treesitter"),
         }
 
 
         -- Fuzzy/Grep
         use {
-            'nvim-telescope/telescope.nvim',
+            "nvim-telescope/telescope.nvim",
             requires = {
-                'nvim-lua/plenary.nvim',
-                'nvim-telescope/telescope-fzy-native.nvim',
-                'kyazdani42/nvim-web-devicons',
+                "nvim-lua/plenary.nvim",
+                "nvim-telescope/telescope-fzy-native.nvim",
+                "kyazdani42/nvim-web-devicons",
             },
-            config = get_config('telescope')
+            config = get_config("telescope")
         }
 
         -- git
-        use { 'lewis6991/gitsigns.nvim', config = get_config('gitsigns')}
+        use { "lewis6991/gitsigns.nvim", config = get_config("gitsigns")}
 
 
         -- Util and QOL
-        use { 'lukas-reineke/indent-blankline.nvim', config = get_config('indent-blankline'), after = {'nvim-treesitter'} }
-        use { 'NvChad/nvim-colorizer.lua', config = get_config('colorizer') }
-        use { 'ethanholz/nvim-lastplace', config = get_config('lastplace') }
+        use { "lukas-reineke/indent-blankline.nvim", config = get_config("indent-blankline"), after = {"nvim-treesitter"} }
+        use { "NvChad/nvim-colorizer.lua", config = get_config("colorizer") }
+        use { "ethanholz/nvim-lastplace", config = get_config("lastplace") }
         use {
-            'numToStr/Comment.nvim',
+            "numToStr/Comment.nvim",
             config = function()
-                require('Comment').setup()
+                require("Comment").setup()
             end
         }
-        use { 'RRethy/vim-illuminate', config = get_config('illuminate') }
+        use { "RRethy/vim-illuminate", config = get_config("illuminate") }
 
         -- autopair plugins
-        use { 'windwp/nvim-autopairs', config = get_config('autopairs'), after = {'nvim-treesitter'} }
-        use { 'windwp/nvim-ts-autotag', requires = { 'nvim-treesitter/nvim-treesitter' } }
+        use { "windwp/nvim-autopairs", config = get_config("autopairs"), after = {"nvim-treesitter"} }
+        use { "windwp/nvim-ts-autotag", requires = { "nvim-treesitter/nvim-treesitter" } }
 
         -- UI
-        use { 'rebelot/heirline.nvim', config = get_config('status') }
-        use { 'goolord/alpha-nvim', config = get_config('alpha') }
+        use { "rebelot/heirline.nvim", config = get_config("status") }
+        use { "goolord/alpha-nvim", config = get_config("alpha") }
 
-        if packer_bootstrap then
-            require('packer').sync()
-        end
     end,
     config = {
         display = {
-            prompt_border = 'rounded',
+            prompt_border = "rounded",
             open_fn = function()
                 return require("packer.util").float({ border = "rounded" })
             end,

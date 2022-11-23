@@ -5,9 +5,9 @@ end
 
 illuminate.configure({
     filetypes_denylist = {
-        'dirvish',
-        'fugitive',
-        'help',
-        'alpha'
+        "dirvish",
+        "fugitive",
+        "help",
+        "alpha",
     },
 })

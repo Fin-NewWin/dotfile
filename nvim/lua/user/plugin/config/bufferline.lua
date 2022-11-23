@@ -17,7 +17,7 @@ bufferline.setup({
         hover = {
             enabled = true,
             delay = 50,
-            reveal = {'close'}
+            reveal = {"close"}
         },
         diagnostics = "nvim_lsp",
     }

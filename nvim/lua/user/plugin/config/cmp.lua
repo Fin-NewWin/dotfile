@@ -20,7 +20,7 @@ cmp.setup {
     window = {
         completion = {
             border = "rounded",
-            winhighlight = 'Normal:None,FloatBorder:None,CursorLine:CursorLine,Search:None',
+            winhighlight = "Normal:None,FloatBorder:None,CursorLine:CursorLine,Search:None",
             scrollbar = false,
         },
         documentation = cmp.config.window.bordered(),
@@ -36,6 +36,7 @@ cmp.setup {
     },
     formatting = {
         format = lspkind.cmp_format {
+            maxwidth = 40,
             with_text = true,
             menu = {
                 buffer = "[buf]",
@@ -62,11 +63,11 @@ cmp.setup {
         },
     },
     sources = {
-        { name = 'luasnip' },
-        { name = 'nvim_lsp', keyword_length = 2 },
-        { name = 'buffer' },
-        { name = 'nvim_lua' },
-        { name = 'path' },
+        { name = "luasnip" },
+        { name = "nvim_lsp", keyword_length = 2 },
+        { name = "buffer" },
+        { name = "nvim_lua" },
+        { name = "path" },
     },
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),

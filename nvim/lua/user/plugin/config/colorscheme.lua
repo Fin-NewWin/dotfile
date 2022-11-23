@@ -3,7 +3,7 @@ if not status_ok then
     return
 end
 
-local theme = require('gruvbox.palette')
+local theme = require("gruvbox.palette")
 -- vim.api.nvim_cmd()
 
 gruvbox.setup({

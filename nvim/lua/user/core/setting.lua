@@ -6,7 +6,7 @@ local options = {
     writebackup = false,
     swapfile = false,
     undofile = true,
-    viminfo        = "'1000",                   -- Increase the size of file history
+
     wildignore     = "*node_modules/**",        -- Don't search inside Node.js modules (works for gutentag)
 
     -------------------------------
@@ -23,13 +23,13 @@ local options = {
     conceallevel = 0,
     termguicolors = true,
     pumheight = 10,                             -- pop menu height
-    completeopt = { 'menuone', 'noselect' },
+    completeopt = { "menuone", "noselect", "noinsert" },
     showmode = false,                           -- mode bottom left of cmd but I have statusline
     showtabline = 0,
     ruler = true,                               -- Always show tab
     number = true,
     relativenumber = true,
-    colorcolumn = '80',
+    colorcolumn = "120",
     signcolumn = "yes",
     cmdheight = 0,                              -- Height when using cmd
     laststatus = 3,
@@ -64,7 +64,7 @@ local options = {
     scrolloff = 10,
     sidescrolloff = 8,
     errorbells = false,
-    clipboard = 'unnamedplus',                  -- Set nvim to use system clipboard
+    clipboard = "unnamedplus",                  -- Set nvim to use system clipboard
 }
 
 vim.opt.shortmess:append "c"

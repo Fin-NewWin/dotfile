@@ -11,7 +11,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-require('lspconfig.ui.windows').default_options.border = 'rounded'
+require("lspconfig.ui.windows").default_options.border = "rounded"
 
 
 -- LSP diagnostics signs
@@ -54,10 +54,10 @@ vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_r
 -- after the language server attaches to the current buffer
 local key = vim.keymap.set
 local opts = { noremap = true, silent = true }
-key('n', '<space>e', vim.diagnostic.open_float, opts)
-key('n', '[d', vim.diagnostic.goto_prev, opts)
-key('n', ']d', vim.diagnostic.goto_next, opts)
-key('n', '<space>q', vim.diagnostic.setloclist, opts)
+key("n", "<space>e", vim.diagnostic.open_float, opts)
+key("n", "[d", vim.diagnostic.goto_prev, opts)
+key("n", "]d", vim.diagnostic.goto_next, opts)
+key("n", "<space>q", vim.diagnostic.setloclist, opts)
 
 local on_attach = function(client, bufnr)
 
@@ -72,17 +72,17 @@ local on_attach = function(client, bufnr)
     end
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-    key('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    key('n', 'gd', vim.lsp.buf.definition, bufopts)
-    key('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    key('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    key('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    key('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    key("n", "gD", vim.lsp.buf.declaration, bufopts)
+    key("n", "gd", vim.lsp.buf.definition, bufopts)
+    key("n", "gi", vim.lsp.buf.implementation, bufopts)
+    key("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+    key("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+    key("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 
 local lspflags = {
@@ -90,11 +90,11 @@ local lspflags = {
 }
 
 local servers = {
-    'eslint',
-    'tsserver',
-    'cssls',
-    'html',
-    'clangd',
+    "eslint",
+    "tsserver",
+    "cssls",
+    "html",
+    "clangd",
 }
 
 
@@ -111,7 +111,7 @@ if neodev_ok then
     neodev.setup()
 end
 
-lspconfig['sumneko_lua'].setup({
+lspconfig["sumneko_lua"].setup({
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lspflags,

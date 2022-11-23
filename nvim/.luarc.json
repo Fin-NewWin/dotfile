@@ -1,9 +1,11 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "Lua.diagnostics.disable": [
-        "cast-local-type",
-        "assign-type-mismatch"
+        "redundant-parameter",
+        "param-type-mismatch",
+        "missing-parameter"
     ],
+    "diagnostics.libraryFiles": "Disable",
     "Lua.workspace.library": [
         "/home/fin/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/stable",
         "/usr/share/nvim/runtime",

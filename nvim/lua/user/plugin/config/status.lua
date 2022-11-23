@@ -18,42 +18,42 @@ local fn = vim.fn
 local ViMode = {
     static = {
         map = {
-            ['n']       = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['no']      = {'O-PENDING', theme.GruvboxGreen.fg   },
-            ['nov']     = {'O-PENDING', theme.GruvboxGreen.fg   },
-            ['noV']     = {'O-PENDING', theme.GruvboxGreen.fg   },
-            ['no\22']   = {'O-PENDING', theme.GruvboxGreen.fg   },
-            ['niI']     = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['niR']     = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['niV']     = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['nt']      = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['ntT']     = {'NORMAL',    theme.GruvboxGreen.fg   },
-            ['v']       = {'VISUAL',    theme.GruvboxOrange.fg  },
-            ['vs']      = {'VISUAL',    theme.GruvboxOrange.fg  },
-            ['V']       = {'V-LINE',    theme.GruvboxOrange.fg  },
-            ['Vs']      = {'V-LINE',    theme.GruvboxOrange.fg  },
-            ['\22']     = {'V-BLOCK',   theme.GruvboxOrange.fg  },
-            ['\22s']    = {'V-BLOCK',   theme.GruvboxOrange.fg  },
-            ['s']       = {'SELECT',    theme.GruvboxOrange.fg  },
-            ['S']       = {'S-LINE',    theme.GruvboxOrange.fg  },
-            ['\19']     = {'S-BLOCK',   theme.GruvboxOrange.fg  },
-            ['i']       = {'INSERT',    theme.GruvboxBlue.fg    },
-            ['ic']      = {'INSERT',    theme.GruvboxBlue.fg    },
-            ['ix']      = {'INSERT',    theme.GruvboxBlue.fg    },
-            ['R']       = {'REPLACE',   theme.GruvboxRed.fg     },
-            ['Rc']      = {'REPLACE',   theme.GruvboxRed.fg     },
-            ['Rx']      = {'REPLACE',   theme.GruvboxRed.fg     },
-            ['Rv']      = {'V-REPLACE', theme.GruvboxOrange.fg  },
-            ['Rvc']     = {'V-REPLACE', theme.GruvboxOrange.fg  },
-            ['Rvx']     = {'V-REPLACE', theme.GruvboxOrange.fg  },
-            ['c']       = {'COMMAND',   theme.GruvboxGreen.fg   },
-            ['cv']      = {'EX',        theme.GruvboxGreen.fg   },
-            ['ce']      = {'EX',        theme.GruvboxOrange.fg  },
-            ['r']       = {'REPLACE',   theme.GruvboxOrange.fg  },
-            ['rm']      = {'MORE',      theme.GruvboxOrange.fg  },
-            ['r?']      = {'CONFIRM',   theme.GruvboxOrange.fg  },
-            ['!']       = {'SHELL',     theme.GruvboxOrange.fg  },
-            ['t']       = {'TERMINAL',  theme.GruvboxOrange.fg  },
+            ["n"]       = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["no"]      = {"O-PENDING", theme.GruvboxGreen.fg   },
+            ["nov"]     = {"O-PENDING", theme.GruvboxGreen.fg   },
+            ["noV"]     = {"O-PENDING", theme.GruvboxGreen.fg   },
+            ["no\22"]   = {"O-PENDING", theme.GruvboxGreen.fg   },
+            ["niI"]     = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["niR"]     = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["niV"]     = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["nt"]      = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["ntT"]     = {"NORMAL",    theme.GruvboxGreen.fg   },
+            ["v"]       = {"VISUAL",    theme.GruvboxOrange.fg  },
+            ["vs"]      = {"VISUAL",    theme.GruvboxOrange.fg  },
+            ["V"]       = {"V-LINE",    theme.GruvboxOrange.fg  },
+            ["Vs"]      = {"V-LINE",    theme.GruvboxOrange.fg  },
+            ["\22"]     = {"V-BLOCK",   theme.GruvboxOrange.fg  },
+            ["\22s"]    = {"V-BLOCK",   theme.GruvboxOrange.fg  },
+            ["s"]       = {"SELECT",    theme.GruvboxOrange.fg  },
+            ["S"]       = {"S-LINE",    theme.GruvboxOrange.fg  },
+            ["\19"]     = {"S-BLOCK",   theme.GruvboxOrange.fg  },
+            ["i"]       = {"INSERT",    theme.GruvboxBlue.fg    },
+            ["ic"]      = {"INSERT",    theme.GruvboxBlue.fg    },
+            ["ix"]      = {"INSERT",    theme.GruvboxBlue.fg    },
+            ["R"]       = {"REPLACE",   theme.GruvboxRed.fg     },
+            ["Rc"]      = {"REPLACE",   theme.GruvboxRed.fg     },
+            ["Rx"]      = {"REPLACE",   theme.GruvboxRed.fg     },
+            ["Rv"]      = {"V-REPLACE", theme.GruvboxOrange.fg  },
+            ["Rvc"]     = {"V-REPLACE", theme.GruvboxOrange.fg  },
+            ["Rvx"]     = {"V-REPLACE", theme.GruvboxOrange.fg  },
+            ["c"]       = {"COMMAND",   theme.GruvboxGreen.fg   },
+            ["cv"]      = {"EX",        theme.GruvboxGreen.fg   },
+            ["ce"]      = {"EX",        theme.GruvboxOrange.fg  },
+            ["r"]       = {"REPLACE",   theme.GruvboxOrange.fg  },
+            ["rm"]      = {"MORE",      theme.GruvboxOrange.fg  },
+            ["r?"]      = {"CONFIRM",   theme.GruvboxOrange.fg  },
+            ["!"]       = {"SHELL",     theme.GruvboxOrange.fg  },
+            ["t"]       = {"TERMINAL",  theme.GruvboxOrange.fg  },
         }
     },
     init = function(self)
@@ -147,8 +147,7 @@ local SearchResults = {
     {
         provider = function(self)
             return table.concat {
-                -- ' ', self.query, ' ', self.count.current, '/', self.count.total, ' '
-                ' [', self.count.current, '/', self.count.total, '] '
+                " [", self.count.current, "/", self.count.total, "] "
             }
         end,
         hl = { fg = theme.GruvboxFg0.fg },
@@ -157,7 +156,7 @@ local SearchResults = {
 
 local LSPActive = {
     condition = conditions.lsp_attached,
-    update = {'LspAttach', 'LspDetach'},
+    update = {"LspAttach", "LspDetach"},
     provider  = function()
         local names = {}
         for i, server in pairs(vim.lsp.get_active_clients()) do
@@ -174,7 +173,7 @@ local LSPActive = {
 
 
 local Ruler = {
-    provider = ' %l:%2c ',
+    provider = " %l:%2c ",
     hl = { fg = theme.GruvboxFg0.fg, bold = true }
 }
 
@@ -193,7 +192,7 @@ if navic_ok then
         enabled = function()
             return navic.is_available()
         end,
-        update = 'CursorMoved'
+        update = "CursorMoved"
     }
 
 end
@@ -392,7 +391,7 @@ local TabLineOffset = {
 }
 
 local Align = {
-    provider = '%=',
+    provider = "%=",
     hl = { bg = "NONE"}
 }
 
@@ -433,6 +432,6 @@ heirline.setup(StatusLines, WinBars, TabLine)
 
 -- Yep, with heirline we're driving manual!
 vim.o.showtabline = 2
-vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+vim.cmd([[au FileType * if index(["wipe", "delete"], &bufhidden) >= 0 | set nobuflisted | endif]])
 
 vim.api.nvim_create_augroup("Heirline", {clear = true})

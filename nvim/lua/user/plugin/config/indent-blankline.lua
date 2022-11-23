@@ -33,8 +33,8 @@ indent_blankline.setup {
         "norg",
     },
     buftype_exclude = {
-        'terminal',
-        'nofile',
+        "terminal",
+        "nofile",
     },
 }
 

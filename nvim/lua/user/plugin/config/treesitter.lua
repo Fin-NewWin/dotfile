@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 treesitter.setup {
-    ensure_installed = 'all',
+    ensure_installed = "all",
     sync_install = false,
     highlight = {
         enable = true,
@@ -20,7 +20,6 @@ treesitter.setup {
     autotag = {
         enable = true,
     },
-
     -- Disable treesitter for big file
     disable = function(lang, buf)
         local max_filesize = 100 * 1024 -- 100 KB
