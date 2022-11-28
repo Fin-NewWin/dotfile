@@ -93,12 +93,7 @@ packer.startup{
         use { "lukas-reineke/indent-blankline.nvim", config = get_config("indent-blankline"), after = {"nvim-treesitter"} }
         use { "NvChad/nvim-colorizer.lua", config = get_config("colorizer") }
         use { "ethanholz/nvim-lastplace", config = get_config("lastplace") }
-        use {
-            "numToStr/Comment.nvim",
-            config = function()
-                require("Comment").setup()
-            end
-        }
+        use { "numToStr/Comment.nvim", config = get_config("comment") }
         use { "RRethy/vim-illuminate", config = get_config("illuminate") }
 
         -- autopair plugins

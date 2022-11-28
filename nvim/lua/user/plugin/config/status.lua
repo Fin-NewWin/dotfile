@@ -68,7 +68,7 @@ local ViMode = {
 }
 
 
-local Git = {
+local GitBranch = {
     condition = conditions.is_git_repo,
     init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
@@ -122,6 +122,16 @@ local GitSigns = {
     },
     hl = { fg = theme.GruvboxBg0.fg }
 }
+
+-- -- TODO: recording macro
+-- local ShowMacroRecording = function()
+--     local recording_register = vim.fn.reg_recording()
+--     if recording_register == "" then
+--         return ""
+--     else
+--         return " Recording @" .. recording_register .. " "
+--     end
+-- end
 
 local SearchResults = {
     condition = function(self)
@@ -402,7 +412,7 @@ local Space = {
 
 local DefaultStatusline = {
     ViMode,
-    Git,
+    GitBranch,
     SearchResults,
     Align,
     Ruler,
