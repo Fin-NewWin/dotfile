@@ -57,9 +57,10 @@ local greetHeading = {
 
 -- Foot must be a table so that its height is correctly measured
 local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
+local num_plugins_loaded_opt = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/opt", "*", 0, 1)
 local footer = {
     type = "text",
-    val = { num_plugins_loaded .. " plugins ﮣ loaded" },
+    val = { (num_plugins_loaded + num_plugins_loaded_opt) .. " plugins ﮣ loaded" },
     opts = {
         position = "center",
         hl = "Comment",
