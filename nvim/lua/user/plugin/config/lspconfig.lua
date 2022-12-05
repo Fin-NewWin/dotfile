@@ -63,7 +63,6 @@ local on_attach = function(client, bufnr)
 
     client.server_capabilities.documentFormattingProvider = true
 
-
     local navic_ok, navic = pcall(require, "nvim-navic")
     if navic_ok then
         if client.server_capabilities.documentSymbolProvider then
@@ -82,7 +81,8 @@ local on_attach = function(client, bufnr)
     key("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 end
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 
 local lspflags = {
@@ -92,9 +92,14 @@ local lspflags = {
 local servers = {
     "eslint",
     "tsserver",
+
     "cssls",
     "html",
+
     "clangd",
+    "pyright",
+
+    "bashls",
 }
 
 
@@ -135,12 +140,21 @@ lspconfig["sumneko_lua"].setup({
     },
 })
 
+lspconfig["efm"].setup({
+    init_options = {documentFormatting = true},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            lua = {
+                {formatCommand = "lua-format -i", formatStdin = true}
+            }
+        }
+    }
+})
+
 
 
 
 -- Disable diagnostics in node_modules (0 is current buffer only)
 vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
 vim.api.nvim_create_autocmd("BufNewFile", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
-
--- Using Eslint to format on save
-vim.api.nvim_create_autocmd("BufWritePre", { pattern = { "*.tsx", "*.ts", "*.jsx", "*.js" }, command = "EslintFixAll" })
