@@ -94,7 +94,8 @@ packer.startup{
         use { "NvChad/nvim-colorizer.lua", config = get_config("colorizer") }
         use { "ethanholz/nvim-lastplace", config = get_config("lastplace") }
         use { "numToStr/Comment.nvim", config = get_config("comment") }
-        use { "RRethy/vim-illuminate", config = get_config("illuminate") }
+        -- use { "rrethy/vim-illuminate", config = get_config("illuminate") }
+        use { "nyngwang/murmur.lua", config = get_config("murmur") }
 
         -- autopair plugins
         use { "windwp/nvim-autopairs", config = get_config("autopairs"), after = {"nvim-treesitter"} }
