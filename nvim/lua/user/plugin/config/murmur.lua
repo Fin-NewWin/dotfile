@@ -15,8 +15,9 @@ murmur.setup {
     }
 }
 
+vim.api.nvim_create_augroup("Murmur", {clear = true})
 vim.api.nvim_create_autocmd('CursorHold', {
-    group = Murmur,
+    group = "Murmur",
     pattern = '*',
     callback = function()
         if vim.w.diag_shown then return end
