@@ -141,7 +141,8 @@ lspconfig["sumneko_lua"].setup({
 })
 
 lspconfig["efm"].setup({
-    init_options = {documentFormatting = true},
+    init_options = { documentFormatting = true },
+    filetypes = { 'python','lua' },
     settings = {
         rootMarkers = {".git/"},
         languages = {

@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('CursorHold', {
         if vim.w.diag_shown then return end
         if vim.w.cursor_word ~= '' then
             vim.diagnostic.open_float(nil, {
-                focusable = true,
+                focusable = false,
                 close_events = { 'InsertEnter' },
                 border = 'rounded',
                 source = 'always',

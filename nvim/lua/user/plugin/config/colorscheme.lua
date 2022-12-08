@@ -15,6 +15,7 @@ gruvbox.setup({
         FloatBorder     = {link = "TelescopeBorder" },
 
         Statusline = {bg = "#282828"},
+        Search = {fg = "#1d2021", bg = "#fabd2f" },
 
         -- Git Colors
         GitSignsAdd     = {fg = theme.bright_green,    bg = "NONE"},
