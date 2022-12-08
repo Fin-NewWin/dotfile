@@ -14,8 +14,8 @@ setWall(){
     then
         ln -sf "$WALLPAPER" "$BG_LOCATION"
     fi
-    xwallpaper --zoom $BG_LOCATION && \
-    notify-send -i $BG_LOCATION "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
+    xwallpaper --zoom "$BG_LOCATION" && \
+    notify-send -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
     # if fail somehow
     return
 
@@ -23,7 +23,7 @@ setWall(){
 
 if [ $# -eq 1 ]
 then
-    FULL_PATH=$(readlink -f $1)
+    FULL_PATH=$(readlink -f "$1")
     # if directory
     if [ -d "$FULL_PATH" ]
     then
