@@ -4,3 +4,5 @@ script/test
 zsh/repo
 
 log
+
+.cache/
