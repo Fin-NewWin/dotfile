@@ -14,6 +14,11 @@ if not ok then
     return
 end
 
+luasnip.config.set_config({
+  region_check_events = 'InsertEnter',
+  delete_check_events = 'InsertLeave'
+})
+
 require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup {
@@ -63,11 +68,11 @@ cmp.setup {
         },
     },
     sources = {
-        { name = "luasnip" },
-        { name = "nvim_lsp", keyword_length = 2 },
-        { name = "buffer" },
-        { name = "nvim_lua" },
         { name = "path" },
+        { name = "nvim_lsp", keyword_length = 3 },
+        { name = "buffer", keyword_length = 3 },
+        { name = "luasnip", keyword_length = 2},
+        { name = "nvim_lua" },
     },
     mapping = {
         ["<C-p>"] = cmp.mapping.select_prev_item(),

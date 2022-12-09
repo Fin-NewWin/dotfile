@@ -5,7 +5,7 @@ end
 
 -- Border Hover
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+function orig_util_open_floating_preview(contents, syntax, opts, ...)
     opts = opts or {}
     opts.border = opts.border or "rounded"
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
@@ -23,11 +23,11 @@ local signs = {
 }
 
 vim.diagnostic.config = {
-    virtual_text = true,
+    virtual_text = false,
     signs = {
         active = signs,
     },
-    update_in_insert = true,
+    update_in_insert = false,
     underline = true,
     severity_sort = true,
     float = {
@@ -126,30 +126,20 @@ lspconfig["sumneko_lua"].setup({
                 globals = { "vim" },
             },
             workspace = {
-                library = {
-                    [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                    [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                },
-                maxPreload = 100000,
-                preloadFileSize = 10000,
+                library = vim.api.nvim_get_runtime_file("", true),
             },
-            completion = {
-                callSnippet = "Replace"
-            }
+            telemetry = {
+                enable = false,
+            },
         },
     },
 })
 
 lspconfig["efm"].setup({
     init_options = { documentFormatting = true },
-    filetypes = { 'python','lua' },
+    filetypes = { 'python' },
     settings = {
-        rootMarkers = {".git/"},
-        languages = {
-            lua = {
-                {formatCommand = "lua-format -i", formatStdin = true}
-            }
-        }
+        rootMarkers = { ".git/" },
     }
 })
 
