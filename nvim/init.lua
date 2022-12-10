@@ -10,16 +10,14 @@ end
 
 -- Source basic files to see if not broken
 for _, source in ipairs({
-
-    -- PLUGINS
-    "user.plugin",
-
     -- CORE
+    "user.core.key",
     "user.core.disable_builtin",
     "user.core.setting",
     "user.core.autocmd",
-    "user.core.key",
 
+    -- PLUGINS
+    "user.plugin",
 }) do
     local source_status, source_err_msg = pcall(require, source)
     if not source_status then
