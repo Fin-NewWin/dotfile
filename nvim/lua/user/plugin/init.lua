@@ -104,6 +104,7 @@ packer.startup{
         -- UI
         use { "rebelot/heirline.nvim", config = get_config("status") }
         use { "goolord/alpha-nvim", config = get_config("alpha") }
+        use { "rcarriga/nvim-notify", config = get_config("notify") }
 
     end,
     config = {
