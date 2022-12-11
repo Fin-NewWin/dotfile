@@ -37,7 +37,8 @@ packer.startup{
         -- LSP
         use { "neovim/nvim-lspconfig", }
         use { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" }
-        use "folke/neodev.nvim"
+        use { "folke/neodev.nvim" }
+        use { "ray-x/lsp_signature.nvim" }
 
         -- Autcomplete
         use {
@@ -91,6 +92,10 @@ packer.startup{
         use { "rebelot/heirline.nvim" }
         use { "goolord/alpha-nvim" }
         use { "rcarriga/nvim-notify" }
+        use {
+            "folke/todo-comments.nvim",
+            requires = "nvim-lua/plenary.nvim",
+        }
 
     end,
     config = {
@@ -108,7 +113,6 @@ packer.startup{
 
 
 -- Source config files
-local notify_ok, notify = pcall(require, "notify")
 local path = "user.plugin.config."
 
 for _, source in ipairs({
@@ -119,6 +123,7 @@ for _, source in ipairs({
     "cmp",
 
     "colorscheme",
+    "status",
 
     "autopairs",
     "murmur",
@@ -128,8 +133,7 @@ for _, source in ipairs({
     "gitsigns",
     "indent-blankline",
     "notify",
-
-    "status",
+    "todo",
 
     "alpha",
 
@@ -139,11 +143,7 @@ for _, source in ipairs({
 	local ok, fault = pcall(require, path .. source)
 	if not ok then
 		local err = "Failed to load " .. path .. source .. "\n\n" .. fault
-        if notify_ok then
-            notify(err, "error", {title = "Config Error"})
-        else
-            vim.notify(err, 2, {})
-        end
+        vim.notify(err, "error", {title = "Plugin Config Error"})
 	end
 end
 

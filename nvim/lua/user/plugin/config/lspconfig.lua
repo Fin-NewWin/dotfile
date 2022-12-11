@@ -69,6 +69,11 @@ local on_attach = function(client, bufnr)
             navic.attach(client, bufnr)
         end
     end
+
+    local sig_ok, sig = pcall(require, "lsp_signature")
+    if sig_ok then
+        sig.on_attach(signature_setup, bufnr)
+    end
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -97,9 +102,6 @@ local servers = {
     "html",
 
     "clangd",
-    "pyright",
-
-    "bashls",
 }
 
 
@@ -135,16 +137,40 @@ lspconfig["sumneko_lua"].setup({
     },
 })
 
+lspconfig["pylsp"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lspflags,
+    settings = {
+        pylsp = {
+            plugins = {
+                rope_completion = {
+                    enabled = true,
+                },
+                pyflakes = {
+                    enabled = true,
+                },
+                flake8 = {
+                    enabled = true,
+                },
+                pylint = {
+                    enabled = true,
+                },
+                mypy = {
+                    enabled = true,
+                },
+            }
+        }
+    }
+}
+
 lspconfig["efm"].setup({
     init_options = { documentFormatting = true },
-    filetypes = { 'python' },
+    filetypes = { 'sh' },
     settings = {
         rootMarkers = { ".git/" },
     }
 })
-
-
-
 
 -- Disable diagnostics in node_modules (0 is current buffer only)
 vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
