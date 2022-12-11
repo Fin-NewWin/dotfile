@@ -12,7 +12,7 @@ killall flameshot
 pamixer --default-source --set-volume 30
 
 # Status bar
-polybar 2>$HOME/.config/polybar/log &
+polybar 2>"$HOME"/.config/polybar/log &
 
 # Screenshot
 flameshot &

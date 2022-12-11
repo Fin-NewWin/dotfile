@@ -8,21 +8,21 @@ send_notification() {
 case $1 in
     up)
         pamixer -u -i 5
-        send_notification $1
+        send_notification "$1"
         ;;
     down)
         pamixer -u -d 5
-        send_notification $1
+        send_notification "$1"
         ;;
     mute)
-        if $(pamixer -t --get-mute); then
+        if "$(pamixer -t --get-mute)"; then
             dunstify -i volume-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted" &
         else
             send_notification up
         fi
         ;;
     mic)
-        if $(pamixer --default-source -t --get-mute);
+        if "$(pamixer --default-source -t --get-mute)";
         then
             dunstify -i volume-mic-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted" &
         else
