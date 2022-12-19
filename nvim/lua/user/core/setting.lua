@@ -21,7 +21,6 @@ local options = {
     -------------------------------
     cursorline = true,
     conceallevel = 0,
-    termguicolors = true,
     pumheight = 10,                             -- pop menu height
     completeopt = { "menuone", "noselect", "noinsert" },
     showmode = false,                           -- mode bottom left of cmd but I have statusline

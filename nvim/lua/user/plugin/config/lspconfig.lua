@@ -74,6 +74,10 @@ local on_attach = function(client, bufnr)
     if sig_ok then
         sig.on_attach(signature_setup, bufnr)
     end
+
+
+
+
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -133,6 +137,9 @@ lspconfig["sumneko_lua"].setup({
             telemetry = {
                 enable = false,
             },
+            completion = {
+                callSnippet = "Replace"
+            }
         },
     },
 })
@@ -175,3 +182,5 @@ lspconfig["efm"].setup({
 -- Disable diagnostics in node_modules (0 is current buffer only)
 vim.api.nvim_create_autocmd("BufRead", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
 vim.api.nvim_create_autocmd("BufNewFile", { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
+
+

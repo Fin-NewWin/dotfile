@@ -14,6 +14,18 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.cmd([[packadd packer.nvim]])
 end
 
+-- Function to get config
+local function get_config(name)
+    local source = "user.plugin.config." .. name
+    local source_status, source_err_msg = pcall(require, source)
+    if not source_status then
+        local err_msg = "Failed to load " .. source .. "\n\n" .. source_err_msg
+        vim.notify(err_msg, "error", { title = "Plugin Config Error" })
+        return ""
+    end
+    return string.format('require("%s")', source)
+end
+
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -28,17 +40,30 @@ packer.startup{
         use { "wbthomason/packer.nvim" }
 
         -- Init first
-        use "lewis6991/impatient.nvim"
-        use "nvim-lua/plenary.nvim"
+        use {"lewis6991/impatient.nvim"}
+        use {"nvim-lua/plenary.nvim"}
 
         -- Colorscheme
-        use { "ellisonleao/gruvbox.nvim" }
+        use { "ellisonleao/gruvbox.nvim", config = get_config("colorscheme")}
+
+        -- Treesitter/Syntax highlight
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            config = get_config("treesitter"),
+        }
 
         -- LSP
-        use { "neovim/nvim-lspconfig", }
-        use { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" }
-        use { "folke/neodev.nvim" }
-        use { "ray-x/lsp_signature.nvim" }
+        use {
+            "neovim/nvim-lspconfig",
+            config = get_config("lspconfig"),
+        }
+        use {
+            "SmiteshP/nvim-navic",
+            requires = "neovim/nvim-lspconfig"
+        }
+        use {"folke/neodev.nvim"}
+        use {"ray-x/lsp_signature.nvim"}
 
         -- Autcomplete
         use {
@@ -51,16 +76,10 @@ packer.startup{
                 "onsails/lspkind.nvim",
                 "lukas-reineke/cmp-under-comparator",
             },
+            config = get_config("cmp")
         }
         use { "L3MON4D3/LuaSnip", requires = "saadparwaiz1/cmp_luasnip" }
         use { "rafamadriz/friendly-snippets" }
-
-        -- Treesitter/Syntax highlight
-        use {
-            "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate",
-        }
-
 
         -- Fuzzy/Grep
         use {
@@ -70,32 +89,28 @@ packer.startup{
                 "nvim-telescope/telescope-fzy-native.nvim",
                 "kyazdani42/nvim-web-devicons",
             },
+            config = get_config("telescope")
         }
 
         -- git
-        use { "lewis6991/gitsigns.nvim" }
+        use { "lewis6991/gitsigns.nvim", config = get_config("gitsigns")}
 
 
         -- Util and QOL
-        use { "lukas-reineke/indent-blankline.nvim", after = {"nvim-treesitter"} }
-        use { "NvChad/nvim-colorizer.lua" }
-        use { "ethanholz/nvim-lastplace" }
-        use { "numToStr/Comment.nvim" }
-        -- use { "rrethy/vim-illuminate", config = get_config("illuminate") }
-        use { "nyngwang/murmur.lua" }
+        use { "lukas-reineke/indent-blankline.nvim", config = get_config("indent-blankline"), after = {"nvim-treesitter"} }
+        use { "NvChad/nvim-colorizer.lua", config = get_config("colorizer") }
+        use { "ethanholz/nvim-lastplace", config = get_config("lastplace") }
+        use { "numToStr/Comment.nvim", config = get_config("comment") }
+        use { "nyngwang/murmur.lua", config = get_config("murmur") }
 
         -- autopair plugins
-        use { "windwp/nvim-autopairs" }
+        use { "windwp/nvim-autopairs", config = get_config("autopairs"), after = {"nvim-treesitter"} }
         use { "windwp/nvim-ts-autotag", requires = { "nvim-treesitter/nvim-treesitter" } }
 
         -- UI
-        use { "rebelot/heirline.nvim" }
-        use { "goolord/alpha-nvim" }
-        use { "rcarriga/nvim-notify" }
-        use {
-            "folke/todo-comments.nvim",
-            requires = "nvim-lua/plenary.nvim",
-        }
+        use { "rebelot/heirline.nvim", config = get_config("status") }
+        use { "goolord/alpha-nvim", config = get_config("alpha") }
+        use {"rcarriga/nvim-notify"}
 
     end,
     config = {
@@ -108,42 +123,3 @@ packer.startup{
     },
     compile_on_sync = true,
 }
-
-
-
-
--- Source config files
-local path = "user.plugin.config."
-
-for _, source in ipairs({
-
-    "lspconfig",
-    "treesitter",
-    "telescope",
-    "cmp",
-
-    "colorscheme",
-    "status",
-
-    "autopairs",
-    "murmur",
-    "comment",
-    "colorizer",
-
-    "gitsigns",
-    "indent-blankline",
-    "notify",
-    "todo",
-
-    "alpha",
-
-    "lastplace",
-
-}) do
-	local ok, fault = pcall(require, path .. source)
-	if not ok then
-		local err = "Failed to load " .. path .. source .. "\n\n" .. fault
-        vim.notify(err, "error", {title = "Plugin Config Error"})
-	end
-end
-
