@@ -1,24 +1,41 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
-    return
+local M = {}
+
+function M.config()
+    local status, bufferline = pcall(require, "bufferline")
+    if not status then
+        return
+    end
+
+    local signs = {
+        error   = " ",
+        warning = " ",
+        hint    = " ",
+        info    = " ",
+    }
+
+    local severities = {
+        "error",
+        "warning",
+        -- "hint",
+        -- "info",
+    }
+
+    bufferline.setup({
+        options = {
+            show_close_icon = true,
+            diagnostics = "nvim_lsp",
+            separator_style = "thick",
+            diagnostics_indicator = function(_, _, diag)
+                local s = {}
+                for _, severity in ipairs(severities) do
+                    if diag[severity] then
+                        table.insert(s, signs[severity] .. diag[severity])
+                    end
+                end
+                return table.concat(s, " ")
+            end,
+        },
+    })
 end
 
-bufferline.setup({
-    options = {
-        -- separator_style = "thick",
-        offsets = {
-            { filetype = "NvimTree", text = "", padding = 1 },
-            { filetype = "neo-tree", text = "", padding = 1 },
-            { filetype = "Outline", text = "", padding = 1 },
-        },
-        max_name_length = 14,
-        max_prefix_length = 13,
-        tab_size = 20,
-        hover = {
-            enabled = true,
-            delay = 50,
-            reveal = {"close"}
-        },
-        diagnostics = "nvim_lsp",
-    }
-})
+return M

@@ -2,6 +2,8 @@ local key = vim.keymap.set
 local opts = {noremap = true, silent = true}
 local term_opts= {silent = true}
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Exit terminal and return to last
 key("t", "<Esc>", "<C-\\><C-n><C-o>", opts)

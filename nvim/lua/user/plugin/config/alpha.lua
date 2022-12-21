@@ -1,3 +1,6 @@
+local M = {}
+
+function M.config()
 local status_ok, alpha = pcall(require, "alpha")
 if not status_ok then
     return
@@ -323,3 +326,6 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt.laststatus = 0
     end,
 })
+end
+
+return M
