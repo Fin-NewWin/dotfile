@@ -56,9 +56,7 @@ local name = "Phien"
 local greeting = getGreeting(name)
 
 -- Foot must be a table so that its height is correctly measured
-local plugins = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
-local plugins_opt = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/opt", "*", 0, 1)
-local total_plugins = plugins + plugins_opt
+local plugins = #vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", 0, 1)
 local header = {
     type = "group",
     val = {
@@ -98,7 +96,7 @@ local header = {
         },
         {
             type = "text",
-            val = (total_plugins) .. " plugins ﮣ loaded",
+            val = (plugins) .. " plugins ﮣ loaded",
             opts = {
                 position = "center",
                 hl = "Comment",
@@ -279,7 +277,7 @@ local quick_links = {
         -- dashboard.button("F", "  Find text", ":FzfLua live_grep <CR>"),
         dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
         -- dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-        dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
+        dashboard.button("u", "  Update plugins", ":Lazy update<CR>"),
         dashboard.button("q", "  Quit", ":qa<CR>"),
         { type = "padding", val = 1 },
     },

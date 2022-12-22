@@ -235,7 +235,7 @@ function M.config()
     heirline.setup(StatusLines, WinBars)
 
     -- Yep, with heirline we're driving manual!
-    vim.o.showtabline = 2
+    -- vim.o.showtabline = 2
     vim.cmd([[au FileType * if index(["wipe", "delete"], &bufhidden) >= 0 | set nobuflisted | endif]])
 
     vim.api.nvim_create_augroup("Heirline", { clear = true })

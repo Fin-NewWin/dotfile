@@ -24,7 +24,7 @@ function M.config()
         options = {
             show_close_icon = true,
             diagnostics = "nvim_lsp",
-            separator_style = "thick",
+            -- separator_style = "thick",
             diagnostics_indicator = function(_, _, diag)
                 local s = {}
                 for _, severity in ipairs(severities) do
@@ -36,6 +36,19 @@ function M.config()
             end,
         },
     })
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "AlphaReady",
+        desc = "disable tabline for alpha",
+        callback = function()
+            vim.opt.showtabline = 0
+        end,
+    })
+    vim.api.nvim_create_autocmd("BufUnload", {
+        buffer = 0,
+        desc = "enable tabline after alpha",
+        callback = function()
+            vim.opt.showtabline = 2
+        end,
+    })
 end
-
 return M
