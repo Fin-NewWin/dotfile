@@ -55,6 +55,7 @@ export R_ENVIRON="$HOME/.config/Renviron"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Java
+export JAVA_HOME=/usr/lib/jvm/default
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
 

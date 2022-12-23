@@ -31,7 +31,7 @@ require("lazy").setup({
         -- Colorscheme
         {
             "ellisonleao/gruvbox.nvim",
-            lazy = false,
+            -- lazy = false,
             -- config = get_config("colorscheme").config
             config = get_config("colorscheme").config
         },

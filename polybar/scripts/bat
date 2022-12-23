@@ -26,7 +26,7 @@ bat_stat () {
     do
         if [ "$(cat $i)" = "Charging" ]
         then
-            BATTERY_COLOR="#B8BB26"
+            BATTERY_COLOR="#b8cc26"
             BATTERY_IF_CHARGING="charging"
             break
         fi

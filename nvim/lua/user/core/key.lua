@@ -1,6 +1,6 @@
-local key = vim.keymap.set
-local opts = {noremap = true, silent = true}
-local term_opts= {silent = true}
+local key       = vim.keymap.set
+local opts      = {noremap = true, silent = true}
+local term_opts = {silent = true}
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -23,7 +23,6 @@ key("n", "<Leader>l", "<C-w>l", opts)
 
 key("n", "<Leader>z", ":lua require('nabla').popup()<CR>", opts)
 
--- key("n", "q", "<nop>", opts)
 -- key("n", "qq", "q", opts)
 
 -- esc to hide matches
@@ -45,3 +44,20 @@ key("n", "-", "<C-x>", opts)
 -- Remove Keybindings
 key("n", "<S-k>", "<Nop>", opts)
 key("n", "<C-[", "<Nop>", opts)
+key("n", "Q", "<nop>", opts)
+
+-- move bottom line to this line
+key("n", "J", "mzJ`z")
+
+-- Center when move
+key("n", "<C-d>", "<C-d>zz")
+key("n", "<C-u>", "<C-u>zz")
+key("n", "{", "{zz")
+key("n", "}", "}zz")
+key("n", "n", "nzzzv")
+key("n", "N", "Nzzzv")
+
+
+-- Move by line when in visual
+key("v", "J", ":m '>+1<CR>gv=gv")
+key("v", "K", ":m '<-2<CR>gv=gv")

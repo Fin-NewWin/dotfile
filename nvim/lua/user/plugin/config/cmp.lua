@@ -23,6 +23,8 @@ function M.config()
 
     require("luasnip.loaders.from_vscode").lazy_load()
 
+    local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
     cmp.setup {
         window = {
             completion = {
@@ -73,19 +75,14 @@ function M.config()
             { name = "path" },
             { name = "nvim_lsp", keyword_length = 3 },
             { name = "buffer", keyword_length = 3 },
-            { name = "luasnip", keyword_length = 2},
+            { name = "luasnip", keyword_length = 2 },
             { name = "nvim_lua" },
         },
         mapping = {
-            ["<C-p>"] = cmp.mapping.select_prev_item(),
-            ["<C-n>"] = cmp.mapping.select_next_item(),
-            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-e>"] = cmp.mapping.close(),
-            ["<CR>"] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = false,
-            },
+            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+            ["<C-Space>"] = cmp.mapping.complete(),
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -95,11 +92,11 @@ function M.config()
                     fallback()
                 end
             end, {
-            "i",
-            "s",
-        }),
-    },
-}
+                "i",
+                "s",
+            }),
+        },
+    }
 end
 
 return M
