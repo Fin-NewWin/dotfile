@@ -123,9 +123,9 @@ function M.config()
 
     local opt = { noremap = true }
 
-    key("n", "<Space>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>", opt)
-    key("n", "<Space>pg", "<cmd>noh<cr><cmd>lua require('telescope.builtin').live_grep()<cr>", opt)
-    key("n", "<Space>pb", "<cmd>lua require('telescope.builtin').buffers()<cr>", opt)
+    key("n", "<Leader>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>", opt)
+    key("n", "<Leader>pg", "<cmd>noh<cr><cmd>lua require('telescope.builtin').live_grep()<cr>", opt)
+    key("n", "<Leader>pb", "<cmd>lua require('telescope.builtin').buffers()<cr>", opt)
 end
 
 return M

@@ -61,3 +61,11 @@ key("n", "N", "Nzzzv")
 -- Move by line when in visual
 key("v", "J", ":m '>+1<CR>gv=gv")
 key("v", "K", ":m '<-2<CR>gv=gv")
+
+
+
+-- system clipboard
+key("n", "<leader>p", "\"+p")
+key({"n", "v"}, "<leader>y", "\"+y")
+key("n", "<leader>Y", "\"+Y")
+key({"n", "v"}, "<leader>d", "\"_d")
