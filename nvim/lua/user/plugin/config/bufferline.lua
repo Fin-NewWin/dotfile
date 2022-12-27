@@ -6,6 +6,12 @@ function M.config()
         return
     end
 
+    local theme
+    local gruvbox_ok, gruvbox_groups = pcall(require, "gruvbox.groups")
+    if gruvbox_ok then
+        theme = gruvbox_groups.setup()
+    end
+
     local signs = {
         error   = " ",
         warning = " ",
@@ -21,8 +27,43 @@ function M.config()
     }
 
     bufferline.setup({
+        highlights = {
+            fill = {
+                bg = "#282828"
+            },
+            tab ={
+                bg = "#ff0000"
+            },
+            tab_selected ={
+                bg = "#ff0000"
+            },
+            buffer_selected ={
+                bg = theme.GruvboxBg1.fg
+            },
+            close_button_selected = {
+                bg = theme.GruvboxBg1.fg
+            },
+            diagnostic_selected = {
+                bg = theme.GruvboxBg1.fg
+            },
+            separator_selected = {
+                bg = theme.GruvboxBg1.fg,
+                fg = "#282828"
+            },
+            separator_visible = {
+                fg = "#282828"
+            },
+            pick_selected = {
+                bg = theme.GruvboxBg1.fg,
+            },
+            separator = {
+                fg = "#282828",
+                bg = "#282828"
+            },
+        },
         options = {
             show_close_icon = true,
+            separator_style = "slant",
             diagnostics = "nvim_lsp",
             -- separator_style = "thick",
             diagnostics_indicator = function(_, _, diag)

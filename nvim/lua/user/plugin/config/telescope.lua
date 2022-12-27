@@ -7,6 +7,7 @@ function M.config()
 
     local tele_actions = require("telescope.actions")
     local key = vim.api.nvim_set_keymap
+    local actions = require("telescope.actions")
 
     telescope.setup{
         defaults = {
@@ -40,6 +41,7 @@ function M.config()
                     ["<C-c>"] = tele_actions.close,
                     ["<C-u>"] = false,
                     ["<C-d>"] = false,
+                    ["<C-h>"] = actions.select_horizontal
                 },
 
             },
@@ -119,7 +121,7 @@ function M.config()
         }
     }
 
-    telescope.load_extension("fzf")
+    pcall(require('telescope').load_extension, 'fzf')
 
     local opt = { noremap = true }
 

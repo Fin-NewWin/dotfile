@@ -3,11 +3,12 @@ for _, source in ipairs({
     -- CORE
     "user.core.disable_builtin",
     "user.core.setting",
+    "user.core.globals",
     "user.core.key",
     "user.core.autocmd",
 
     -- PLUGINS
-    "user.core.lazy"
+    "user.core.lazy",
 
 
 }) do

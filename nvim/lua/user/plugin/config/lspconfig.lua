@@ -69,7 +69,6 @@ function M.config()
         local navic_ok, navic = pcall(require, "nvim-navic")
         if navic_ok then
             if client.server_capabilities.documentSymbolProvider then
-                vim.g.navic_silence = true
                 navic.attach(client, bufnr)
             end
         end
@@ -86,16 +85,19 @@ function M.config()
 
         vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-        key("n", "gD", vim.lsp.buf.declaration, bufopts)
         key("n", "gd", vim.lsp.buf.definition, bufopts)
+        key("n", "gr", require('telescope.builtin').lsp_references, bufopts)
         key("n", "gi", vim.lsp.buf.implementation, bufopts)
         key("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
         key("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
         key("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+            vim.lsp.buf.format()
+        end, { desc = 'Format current buffer with LSP' })
     end
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 
     local lspflags = {
@@ -113,8 +115,8 @@ function M.config()
     }
 
 
-    for _, lsp in pairs(servers) do
-        lspconfig[lsp].setup {
+    for _, server in pairs(servers) do
+        lspconfig[server].setup {
             on_attach = on_attach,
             capabilities = capabilities,
             flags = lspflags,
@@ -137,11 +139,6 @@ function M.config()
                 },
                 workspace = {
                     checkThirdParty = false,
-                },
-                misc = {
-                    parameters = {
-                        "--log-level=trace",
-                    },
                 },
                 telemetry = {
                     enable = false,

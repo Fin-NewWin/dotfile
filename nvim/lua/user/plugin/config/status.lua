@@ -75,46 +75,63 @@ function M.config()
         condition = conditions.is_git_repo,
         init = function(self)
             self.status_dict = vim.b.gitsigns_status_dict
-            self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+            self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or
+                self.status_dict.changed ~= 0
         end,
         { -- git branch name
-        provider = function(self)
-            return "   " .. self.status_dict.head
-        end,
-        hl = { bold = true }
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.added or 0
-            return count > 0 and (" +" .. count)
-        end,
-        hl = { fg = theme.GruvboxGreen.fg, bold = true },
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.removed or 0
-            return count > 0 and (" -" .. count)
-        end,
-        hl = { fg = theme.GruvboxRed.fg, bold = true },
-    },
-    {
-        provider = function(self)
-            local count = self.status_dict.changed or 0
-            return count > 0 and (" ~" .. count)
-        end,
-        hl = { fg = theme.GruvboxOrange.fg, bold = true },
-    },
-    {
-        provider = function(self)
-            return "  "
-        end,
-    },
-    hl = { fg = theme.GruvboxPurple.fg, bg = theme.GruvboxBg1.fg },
-}
+            provider = function(self)
+                return "   " .. self.status_dict.head
+            end,
+            hl = {fg = theme.GruvboxPurple.fg},
+        },
+        {
+            provider = function(self)
+                if self.has_changes then
+                    return " ("
+                end
+            end,
+            hl = { fg = theme.GruvboxPurple.fg},
+        },
+        {
+            provider = function(self)
+                local count = self.status_dict.added or 0
+                return count > 0 and ("+" .. count)
+            end,
+            hl = { fg = theme.GruvboxGreen.fg},
+        },
+        {
+            provider = function(self)
+                local count = self.status_dict.removed or 0
+                return count > 0 and ("-" .. count)
+            end,
+            hl = { fg = theme.GruvboxRed.fg},
+        },
+        {
+            provider = function(self)
+                local count = self.status_dict.changed or 0
+                return count > 0 and ("~" .. count)
+            end,
+            hl = { fg = theme.GruvboxOrange.fg},
+        },
+        {
+            provider = function(self)
+                if self.has_changes then
+                    return ")"
+                end
+            end,
+            hl = { fg = theme.GruvboxPurple.fg},
+        },
+        {
+            provider = function(self)
+                return "  "
+            end,
+        },
+        hl = { bg = theme.GruvboxBg1.fg, bold = true},
+    }
 
 
--- -- TODO: recording macro
--- local ShowMacroRecording = function()
+    -- -- TODO: recording macro
+    -- local ShowMacroRecording = function()
     --     local recording_register = vim.fn.reg_recording()
     --     if recording_register == "" then
     --         return ""
@@ -159,15 +176,73 @@ function M.config()
         update    = { "LspAttach", "LspDetach" },
         provider  = function()
             local names = {}
-            for _, server in pairs(vim.lsp.get_active_clients()) do
+            for i, server in pairs(vim.lsp.buf_get_clients(0)) do
                 table.insert(names, server.name)
             end
-            return "   [" .. table.concat(names, " ") .. "]  "
+            return "  [" .. table.concat(names, " ") .. "] "
         end,
-        hl        = {
+        hl = {
             fg = theme.GruvboxYellow.fg,
             bg = theme.GruvboxBg1.fg,
             bold = true
+        },
+    }
+    local Diagnostics = {
+        condition = conditions.has_diagnostics,
+        static = {
+            error_icon = " ",
+            warn_icon  = " ",
+            hint_icon  = " ",
+            info_icon  = " ",
+        },
+        init = function(self)
+            self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+            self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+            self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+            self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+        end,
+        update = { "DiagnosticChanged", "BufEnter" },
+        {
+            provider = function(self)
+                return "  "
+            end,
+            hl = { bg = "NONE" }
+        },
+        {
+            provider = function(self)
+                return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+            end,
+            hl = {
+                fg = "#fb4934",
+                bold = true,
+            },
+        },
+        {
+            provider = function(self)
+                return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+            end,
+            hl = {
+                fg = "#fabd2f",
+                bold = true,
+            },
+        },
+        {
+            provider = function(self)
+                return self.info > 0 and (self.info_icon .. self.info .. " ")
+            end,
+            hl = {
+                fg = "#83a598",
+                bold = true,
+            },
+        },
+        {
+            provider = function(self)
+                return self.hints > 0 and (self.hint_icon .. self.hints)
+            end,
+            hl = {
+                fg = "#8ec07c",
+                bold = true,
+            },
         },
     }
 
@@ -179,23 +254,6 @@ function M.config()
 
     --------------------------------------------------------------------------------
 
-    local Navic
-    local navic_ok, navic = pcall(require, "nvim-navic")
-    if navic_ok then
-        navic.setup {
-            highlight = true,
-        }
-        Navic = {
-            provider = function()
-                return navic.get_location()
-            end,
-            enabled = function()
-                return navic.is_available()
-            end,
-            update = "CursorMoved"
-        }
-
-    end
 
     local Align = {
         provider = "%=",
@@ -210,16 +268,11 @@ function M.config()
     local DefaultStatusline = {
         ViMode,
         GitBranch,
+        Diagnostics,
+        Align,
         SearchResults,
         Align,
         Ruler,
-    }
-
-    local DefaultWinbar = {
-        LSPActive,
-        Space,
-        Navic,
-        Align,
     }
 
     local StatusLines = {
@@ -227,12 +280,7 @@ function M.config()
         DefaultStatusline
     }
 
-    local WinBars = {
-        fallthrough = false,
-        DefaultWinbar,
-    }
-
-    heirline.setup(StatusLines, WinBars)
+    heirline.setup(StatusLines)
 
     -- Yep, with heirline we're driving manual!
     -- vim.o.showtabline = 2

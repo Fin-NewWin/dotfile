@@ -31,9 +31,8 @@ require("lazy").setup({
         -- Colorscheme
         {
             "ellisonleao/gruvbox.nvim",
-            -- lazy = false,
-            -- config = get_config("colorscheme").config
-            config = get_config("colorscheme").config
+            config = get_config("colorscheme").config,
+            lazy = false,
         },
 
         -- Treesitter/Syntax highlight
@@ -99,7 +98,6 @@ require("lazy").setup({
             "lukas-reineke/indent-blankline.nvim",
             event = "BufReadPre",
             config = get_config("indent-blankline").config,
-            after = {"nvim-treesitter"}
         },
         {
             "NvChad/nvim-colorizer.lua",
@@ -109,6 +107,7 @@ require("lazy").setup({
         { "ethanholz/nvim-lastplace", config = get_config("lastplace").config, lazy = false },
         { "numToStr/Comment.nvim", config = get_config("comment").config, event = "BufReadPost"},
         { "nyngwang/murmur.lua", config = get_config("murmur").config, event = "BufReadPost" },
+        { "rcarriga/nvim-notify", config = get_config("notify").config, lazy = false},
 
         -- Autopair
         { "windwp/nvim-autopairs", config = get_config("autopairs").config, event = "InsertEnter" },
@@ -126,9 +125,19 @@ require("lazy").setup({
 
 
         -- Lines
-        { "rebelot/heirline.nvim", config = get_config("status").config, lazy = false},
+        -- { "rebelot/heirline.nvim", config = get_config("status").config, lazy = false},
+        {
+            "utilyre/barbecue.nvim",
+            dependencies = {
+                "neovim/nvim-lspconfig",
+                "SmiteshP/nvim-navic",
+                "kyazdani42/nvim-web-devicons",
+            },
+            config = get_config("barbecue").config,
+            event = "BufReadPost",
+            -- lazy = false,
+        },
         { "goolord/alpha-nvim", config = get_config("alpha").config, lazy = false},
-        { "akinsho/bufferline.nvim", config = get_config("bufferline").config, lazy = false}
 
 }, {
     defaults = { lazy = true },

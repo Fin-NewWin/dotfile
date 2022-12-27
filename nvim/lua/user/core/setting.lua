@@ -3,7 +3,6 @@ local options = {
     breakindent     = true,                                     -- Wrap lines have same indent
     -- clipboard       = "unnamedplus",                            -- Set nvim to use system clipboard
     colorcolumn     = "120",                                    -- vertical column that suggests column limit
-    completeopt     = { "menuone", "noselect", "noinsert" },    -- Menu for completion
     cmdheight       = 0,                                        -- Height when using cmd
     cursorline      = true,                                     -- cursorline that's it
     errorbells      = false,                                    -- no beep

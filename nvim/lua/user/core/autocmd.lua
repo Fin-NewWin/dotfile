@@ -7,14 +7,16 @@ au("FileType", { command = "set formatoptions-=cro" })
 au("BufWritePre", { command = [[%s/\s\+$//e]] })
 
 -- Highlight yanked text
-au("TextYankPost", {
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+au('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank({ igroup="IncSearch", timeout=150, on_visual=true })
+        vim.highlight.on_yank()
     end,
+    group = highlight_group,
+    pattern = '*',
 })
 
-au("FileType", {pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab"})
+au("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
 
 -- Enable spell checking for certain file types
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "*.tex" },
-    command = "setlocal spell" })
+au({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "*.tex" }, command = "setlocal spell" })

@@ -14,6 +14,7 @@ function M.config()
             TabLineFill     = {bg = "NONE"},
             SignColumn      = {bg = "NONE"},
             FloatBorder     = {link = "TelescopeBorder" },
+            -- WinBar          = {bg = "NONE"},
 
             Statusline = {bg = "#282828"},
             Search = {fg = "#1d2021", bg = "#fabd2f" },
