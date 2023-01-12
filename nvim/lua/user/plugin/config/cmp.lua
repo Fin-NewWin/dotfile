@@ -16,9 +16,9 @@ function M.config()
         return
     end
 
-    luasnip.config.set_config({
-        region_check_events = 'InsertEnter',
-        delete_check_events = 'InsertLeave'
+    luasnip.config.setup({
+        history = true,
+        enable_autosnippets = true,
     })
 
     require("luasnip.loaders.from_vscode").lazy_load()
@@ -73,16 +73,19 @@ function M.config()
         },
         sources = {
             { name = "path" },
-            { name = "nvim_lsp", keyword_length = 3 },
-            { name = "buffer", keyword_length = 3 },
-            { name = "luasnip", keyword_length = 2 },
+            { name = "nvim_lsp",    keyword_length = 3 },
+            { name = "buffer",      keyword_length = 3 },
+            { name = "luasnip",     keyword_length = 2 },
             { name = "nvim_lua" },
         },
         mapping = {
             ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
             ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
             ["<C-Space>"] = cmp.mapping.complete(),
+            ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            },
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()

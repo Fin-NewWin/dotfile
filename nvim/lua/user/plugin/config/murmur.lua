@@ -1,15 +1,9 @@
 local M = {}
 
 function M.config()
-    local ok, murmur = pcall(require, "murmur")
-    if not ok then
-        return
-    end
 
+    local murmur = require("murmur")
     murmur.setup {
-        max_len = 80,
-        cursor_rgb = '#504945',
-        exclude_filetypes = {},
         callbacks = {
             function()
                 vim.cmd('doautocmd InsertEnter')

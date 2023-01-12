@@ -14,10 +14,9 @@ function M.config()
             TabLineFill     = {bg = "NONE"},
             SignColumn      = {bg = "NONE"},
             FloatBorder     = {link = "TelescopeBorder" },
-            -- WinBar          = {bg = "NONE"},
-
-            Statusline = {bg = "#282828"},
-            Search = {fg = "#1d2021", bg = "#fabd2f" },
+            WinBar          = {bg = "NONE"},
+            WinBarNC        = {bg = "NONE"},
+            IncSearch       = {fg="#fe8019", bg="#ffffff"},
 
             -- Git Colors
             GitSignsAdd     = {fg = theme.bright_green,    bg = "NONE"},
@@ -29,15 +28,17 @@ function M.config()
             DiagnosticSignWarn  =   {fg = theme.bright_yellow},
             DiagnosticSignHint  =   {fg = theme.bright_aqua},
             DiagnosticSignInfo  =   {fg = theme.bright_blue, bg = "NONE"},
-
-            -- LSP
             LspInfoBorder     = {link = "TelescopeBorder" },
+
+            -- Navic
+            NavicText = {link = "Comment"},
+            NavicSeparator = {link = "Comment"},
 
         },
         transparent_mode = true,
         italic = false,
         contrast = "hard",
-        inverse = false,
+        -- inverse = false,
     })
     vim.cmd.colorscheme("gruvbox")
 end

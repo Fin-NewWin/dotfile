@@ -9,8 +9,6 @@ for _, source in ipairs({
 
     -- PLUGINS
     "user.core.lazy",
-
-
 }) do
     local source_status, source_err_msg = pcall(require, source)
     if not source_status then

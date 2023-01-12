@@ -21,42 +21,42 @@ function M.config()
     local ViMode = {
         static = {
             map = {
-                ["n"]     = { "NORMAL", theme.GruvboxGreen.fg },
-                ["no"]    = { "O-PENDING", theme.GruvboxGreen.fg },
-                ["nov"]   = { "O-PENDING", theme.GruvboxGreen.fg },
-                ["noV"]   = { "O-PENDING", theme.GruvboxGreen.fg },
-                ["no\22"] = { "O-PENDING", theme.GruvboxGreen.fg },
-                ["niI"]   = { "NORMAL", theme.GruvboxGreen.fg },
-                ["niR"]   = { "NORMAL", theme.GruvboxGreen.fg },
-                ["niV"]   = { "NORMAL", theme.GruvboxGreen.fg },
-                ["nt"]    = { "NORMAL", theme.GruvboxGreen.fg },
-                ["ntT"]   = { "NORMAL", theme.GruvboxGreen.fg },
-                ["v"]     = { "VISUAL", theme.GruvboxOrange.fg },
-                ["vs"]    = { "VISUAL", theme.GruvboxOrange.fg },
-                ["V"]     = { "V-LINE", theme.GruvboxOrange.fg },
-                ["Vs"]    = { "V-LINE", theme.GruvboxOrange.fg },
-                ["\22"]   = { "V-BLOCK", theme.GruvboxOrange.fg },
-                ["\22s"]  = { "V-BLOCK", theme.GruvboxOrange.fg },
-                ["s"]     = { "SELECT", theme.GruvboxOrange.fg },
-                ["S"]     = { "S-LINE", theme.GruvboxOrange.fg },
-                ["\19"]   = { "S-BLOCK", theme.GruvboxOrange.fg },
-                ["i"]     = { "INSERT", theme.GruvboxBlue.fg },
-                ["ic"]    = { "INSERT", theme.GruvboxBlue.fg },
-                ["ix"]    = { "INSERT", theme.GruvboxBlue.fg },
-                ["R"]     = { "REPLACE", theme.GruvboxRed.fg },
-                ["Rc"]    = { "REPLACE", theme.GruvboxRed.fg },
-                ["Rx"]    = { "REPLACE", theme.GruvboxRed.fg },
-                ["Rv"]    = { "V-REPLACE", theme.GruvboxOrange.fg },
-                ["Rvc"]   = { "V-REPLACE", theme.GruvboxOrange.fg },
-                ["Rvx"]   = { "V-REPLACE", theme.GruvboxOrange.fg },
-                ["c"]     = { "COMMAND", theme.GruvboxGreen.fg },
-                ["cv"]    = { "EX", theme.GruvboxGreen.fg },
-                ["ce"]    = { "EX", theme.GruvboxOrange.fg },
-                ["r"]     = { "REPLACE", theme.GruvboxOrange.fg },
-                ["rm"]    = { "MORE", theme.GruvboxOrange.fg },
-                ["r?"]    = { "CONFIRM", theme.GruvboxOrange.fg },
-                ["!"]     = { "SHELL", theme.GruvboxOrange.fg },
-                ["t"]     = { "TERMINAL", theme.GruvboxOrange.fg },
+                ["n"]     = { "N", theme.GruvboxGreen.fg },
+                ["no"]    = { "O", theme.GruvboxGreen.fg },
+                ["nov"]   = { "O", theme.GruvboxGreen.fg },
+                ["noV"]   = { "O", theme.GruvboxGreen.fg },
+                ["no\22"] = { "O", theme.GruvboxGreen.fg },
+                ["niI"]   = { "N", theme.GruvboxGreen.fg },
+                ["niR"]   = { "N", theme.GruvboxGreen.fg },
+                ["niV"]   = { "N", theme.GruvboxGreen.fg },
+                ["nt"]    = { "N", theme.GruvboxGreen.fg },
+                ["ntT"]   = { "N", theme.GruvboxGreen.fg },
+                ["v"]     = { "V", theme.GruvboxOrange.fg },
+                ["vs"]    = { "V", theme.GruvboxOrange.fg },
+                ["V"]     = { "V", theme.GruvboxOrange.fg },
+                ["Vs"]    = { "V", theme.GruvboxOrange.fg },
+                ["\22"]   = { "V", theme.GruvboxOrange.fg },
+                ["\22s"]  = { "V", theme.GruvboxOrange.fg },
+                ["s"]     = { "S", theme.GruvboxOrange.fg },
+                ["S"]     = { "S", theme.GruvboxOrange.fg },
+                ["\19"]   = { "S", theme.GruvboxOrange.fg },
+                ["i"]     = { "I", theme.GruvboxBlue.fg },
+                ["ic"]    = { "I", theme.GruvboxBlue.fg },
+                ["ix"]    = { "I", theme.GruvboxBlue.fg },
+                ["R"]     = { "R", theme.GruvboxRed.fg },
+                ["Rc"]    = { "R", theme.GruvboxRed.fg },
+                ["Rx"]    = { "R", theme.GruvboxRed.fg },
+                ["Rv"]    = { "V", theme.GruvboxOrange.fg },
+                ["Rvc"]   = { "V", theme.GruvboxOrange.fg },
+                ["Rvx"]   = { "V", theme.GruvboxOrange.fg },
+                ["c"]     = { "C", theme.GruvboxGreen.fg },
+                ["cv"]    = { "E", theme.GruvboxGreen.fg },
+                ["ce"]    = { "E", theme.GruvboxOrange.fg },
+                ["r"]     = { "R", theme.GruvboxOrange.fg },
+                ["rm"]    = { "M", theme.GruvboxOrange.fg },
+                ["r?"]    = { "C", theme.GruvboxOrange.fg },
+                ["!"]     = { "S", theme.GruvboxOrange.fg },
+                ["t"]     = { "T", theme.GruvboxOrange.fg },
             }
         },
         init = function(self)
@@ -82,7 +82,7 @@ function M.config()
             provider = function(self)
                 return "   " .. self.status_dict.head
             end,
-            hl = {fg = theme.GruvboxPurple.fg},
+            hl = { fg = theme.GruvboxPurple.fg },
         },
         {
             provider = function(self)
@@ -90,28 +90,28 @@ function M.config()
                     return " ("
                 end
             end,
-            hl = { fg = theme.GruvboxPurple.fg},
+            hl = { fg = theme.GruvboxPurple.fg },
         },
         {
             provider = function(self)
                 local count = self.status_dict.added or 0
                 return count > 0 and ("+" .. count)
             end,
-            hl = { fg = theme.GruvboxGreen.fg},
+            hl = { fg = theme.GruvboxGreen.fg },
         },
         {
             provider = function(self)
                 local count = self.status_dict.removed or 0
                 return count > 0 and ("-" .. count)
             end,
-            hl = { fg = theme.GruvboxRed.fg},
+            hl = { fg = theme.GruvboxRed.fg },
         },
         {
             provider = function(self)
                 local count = self.status_dict.changed or 0
                 return count > 0 and ("~" .. count)
             end,
-            hl = { fg = theme.GruvboxOrange.fg},
+            hl = { fg = theme.GruvboxOrange.fg },
         },
         {
             provider = function(self)
@@ -119,14 +119,14 @@ function M.config()
                     return ")"
                 end
             end,
-            hl = { fg = theme.GruvboxPurple.fg},
+            hl = { fg = theme.GruvboxPurple.fg },
         },
         {
             provider = function(self)
                 return "  "
             end,
         },
-        hl = { bg = theme.GruvboxBg1.fg, bold = true},
+        hl = { bg = theme.GruvboxBg1.fg, bold = true },
     }
 
 
@@ -176,12 +176,12 @@ function M.config()
         update    = { "LspAttach", "LspDetach" },
         provider  = function()
             local names = {}
-            for i, server in pairs(vim.lsp.buf_get_clients(0)) do
+            for _, server in pairs(vim.lsp.buf_get_clients(0)) do
                 table.insert(names, server.name)
             end
             return "  [" .. table.concat(names, " ") .. "] "
         end,
-        hl = {
+        hl        = {
             fg = theme.GruvboxYellow.fg,
             bg = theme.GruvboxBg1.fg,
             bold = true
@@ -252,8 +252,97 @@ function M.config()
         hl = { fg = theme.GruvboxFg0.fg, bold = true }
     }
 
-    --------------------------------------------------------------------------------
+    -- Winbar
 
+    local FileNameBlock = {
+        init = function(self)
+            self.filename = vim.api.nvim_buf_get_name(0)
+        end,
+    }
+    local FileIcon = {
+        init = function(self)
+            local filename = self.filename
+            local extension = vim.fn.fnamemodify(filename, ":e")
+            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension,
+                { default = true })
+        end,
+        provider = function(self)
+            return self.icon and (self.icon .. " ")
+        end,
+        hl = function(self)
+            return { fg = self.icon_color }
+        end
+    }
+
+    local FileName = {
+        provider = function(self)
+            local filename = self.filename
+            filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
+            if not conditions.width_percent_below(#filename, 0.25) then
+                filename = vim.fn.pathshorten(filename)
+            end
+            return filename
+        end,
+        -- hl = { fg = utils.get_highlight("Directory").fg },
+    }
+
+    FileNameBlock = utils.insert(
+        FileNameBlock,
+        FileIcon,
+        FileName,
+        { provider = '%<' }
+    )
+
+    local Navic = {}
+    local navic_ok, navic = pcall(require, "nvim-navic")
+    if navic_ok then
+        navic.setup {
+            highlight = true,
+            navic.setup {
+                icons = {
+                    File = ' ',
+                    Module = ' ',
+                    Namespace = ' ',
+                    Package = ' ',
+                    Class = ' ',
+                    Method = ' ',
+                    Property = ' ',
+                    Field = ' ',
+                    Constructor = ' ',
+                    Enum = ' ',
+                    Interface = ' ',
+                    Function = ' ',
+                    Variable = ' ',
+                    Constant = ' ',
+                    String = ' ',
+                    Number = ' ',
+                    Boolean = ' ',
+                    Array = ' ',
+                    Object = ' ',
+                    Key = ' ',
+                    Null = ' ',
+                    EnumMember = ' ',
+                    Struct = ' ',
+                    Event = ' ',
+                    Operator = ' ',
+                    TypeParameter = ' '
+                }
+            }
+        }
+        Navic = {
+            provider = function()
+                if navic.is_available() then
+                    if navic.get_location() == "" then
+                        return ""
+                    end
+                    return "> " .. navic.get_location()
+                end
+                return ""
+            end,
+            update = "CursorMoved"
+        }
+
+    end
 
     local Align = {
         provider = "%=",
@@ -275,18 +364,45 @@ function M.config()
         Ruler,
     }
 
+    local DefaultWinbar = {
+        -- LSPActive,
+        FileNameBlock,
+        Space,
+        Navic,
+        -- Align,
+    }
+
     local StatusLines = {
         fallthrough = false,
         DefaultStatusline
     }
 
-    heirline.setup(StatusLines)
+    local WinBars = {
+        fallthrough = false,
+        DefaultWinbar,
+    }
+
+    heirline.setup({
+        statusline = StatusLines,
+        winbar = WinBars,
+    })
 
     -- Yep, with heirline we're driving manual!
-    -- vim.o.showtabline = 2
     vim.cmd([[au FileType * if index(["wipe", "delete"], &bufhidden) >= 0 | set nobuflisted | endif]])
-
-    vim.api.nvim_create_augroup("Heirline", { clear = true })
+    vim.api.nvim_create_autocmd("User", {
+        pattern = 'HeirlineInitWinbar',
+        callback = function(args)
+            local buf = args.buf
+            local buftype = vim.tbl_contains(
+                { "prompt", "nofile", "help", "quickfix" },
+                vim.bo[buf].buftype
+            )
+            local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
+            if buftype or filetype then
+                vim.opt_local.winbar = nil
+            end
+        end,
+    })
 end
 
 return M

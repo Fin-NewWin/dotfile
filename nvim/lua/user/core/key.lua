@@ -69,3 +69,13 @@ key("n", "<leader>p", "\"+p")
 key({"n", "v"}, "<leader>y", "\"+y")
 key("n", "<leader>Y", "\"+Y")
 key({"n", "v"}, "<leader>d", "\"_d")
+
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+key("n", "n", "'Nn'[v:searchforward]", { expr = true })
+key("x", "n", "'Nn'[v:searchforward]", { expr = true })
+key("o", "n", "'Nn'[v:searchforward]", { expr = true })
+key("n", "N", "'nN'[v:searchforward]", { expr = true })
+key("x", "N", "'nN'[v:searchforward]", { expr = true })
+key("o", "N", "'nN'[v:searchforward]", { expr = true })
+

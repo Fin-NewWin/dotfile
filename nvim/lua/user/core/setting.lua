@@ -25,6 +25,7 @@ local options = {
     syntax          = "OFF",                                    -- Treesistter for suntax
     tabstop         = 4,                                        -- tab
     termguicolors   = true,                                     -- true colors
+    timeoutlen      = 300,                                      -- Keys time out
     undofile        = true,                                     -- undo file
     updatetime      = 1000,                                     -- key press timeout
     wrap            = true,                                     -- enable wrap

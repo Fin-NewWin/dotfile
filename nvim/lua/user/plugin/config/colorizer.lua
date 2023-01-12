@@ -6,8 +6,9 @@ function M.config()
         return
     end
 
-    colorizer.setup{
-        filetypes = { "*" },
+    colorizer.setup {
+        filetypes = { "*", "!lazy" },
+        buftype = { "*", "!prompt", "!nofile" },
         user_default_options = {
             RGB = true, -- #RGB hex codes
             RRGGBB = true, -- #RRGGBB hex codes
