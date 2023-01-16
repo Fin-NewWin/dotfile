@@ -1,7 +1,6 @@
 local options = {
     backup          = false,                                    -- Don't create backup file
     breakindent     = true,                                     -- Wrap lines have same indent
-    -- clipboard       = "unnamedplus",                            -- Set nvim to use system clipboard
     colorcolumn     = "120",                                    -- vertical column that suggests column limit
     cmdheight       = 0,                                        -- Height when using cmd
     cursorline      = true,                                     -- cursorline that's it
@@ -20,14 +19,15 @@ local options = {
     sidescrolloff   = 8,                                        -- similar to scrolloff but horizontal scrolling
     signcolumn      = "yes",                                    -- permanent signcolumn
     smartcase       = true,                                     -- case sensitive when uppercase
+    smartindent     = true,                                     -- Indent true
     softtabstop     = 4,                                        -- tab
     swapfile        = false,                                    -- disable swap
     syntax          = "OFF",                                    -- Treesistter for suntax
     tabstop         = 4,                                        -- tab
     termguicolors   = true,                                     -- true colors
-    timeoutlen      = 300,                                      -- Keys time out
+    timeoutlen      = 400,                                      -- Keys time out
     undofile        = true,                                     -- undo file
-    updatetime      = 1000,                                     -- key press timeout
+    updatetime      = 250,                                      -- key press timeout
     wrap            = true,                                     -- enable wrap
     writebackup     = false,                                    -- disable backup
 }

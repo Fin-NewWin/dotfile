@@ -287,8 +287,7 @@ function M.config()
         {
             provider = function(self)
                 local work_dir = self.work_dir
-                if self.current_file == "" then return end
-                -- if self.current_file == "" then return "[No Name]" end
+                if self.current_file == "" or work_dir == "." then return end
                 work_dir = work_dir:gsub("/", " > ")
                 return work_dir .. " > "
             end,

@@ -39,43 +39,42 @@ require("lazy").setup({
     -- Treesitter/Syntax highlight
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        event = "BufReadPost",
         config = get_config("treesitter").config,
+        event = "BufReadPost",
+        build = ":TSUpdate",
     },
+    { "JoosepAlviste/nvim-ts-context-commentstring" },
 
     -- LSP
-    {
-        "neovim/nvim-lspconfig",
-        event = "BufReadPost",
-        config = get_config("lspconfig").config,
-    },
-    "SmiteshP/nvim-navic",
-    "folke/neodev.nvim",
-    "ray-x/lsp_signature.nvim",
+    { "neovim/nvim-lspconfig", config = get_config("lspconfig").config, event = "BufReadPost" },
+    { "SmiteshP/nvim-navic" },
+    { "folke/neodev.nvim" },
+    { "ray-x/lsp_signature.nvim" },
 
 
     -- Autocomplete
     {
         "hrsh7th/nvim-cmp",
+        config = get_config("cmp").config,
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-cmdline",
             "onsails/lspkind.nvim",
             "lukas-reineke/cmp-under-comparator",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
             "rafamadriz/friendly-snippets",
         },
-        config = get_config("cmp").config
     },
 
     -- Fuzzy/Search
     {
         "nvim-telescope/telescope.nvim",
+        config = get_config("telescope").config,
         event = "BufReadPre",
         cmd = { "Telescope" },
         dependencies = {
@@ -83,53 +82,48 @@ require("lazy").setup({
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
             "kyazdani42/nvim-web-devicons",
         },
-        config = get_config("telescope").config
     },
 
     -- GIT
-    {
-        "lewis6991/gitsigns.nvim",
-        event = "BufReadPre",
-        config = get_config("gitsigns").config
-    },
+    { "lewis6991/gitsigns.nvim", config = get_config("gitsigns").config, event = "BufReadPre", },
 
     -- Util and QOL
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        event = "BufReadPre",
-        config = get_config("indent-blankline").config,
-    },
-    {
-        "NvChad/nvim-colorizer.lua",
-        config = get_config("colorizer").config,
-        event = "BufReadPre",
-    },
-    { "ethanholz/nvim-lastplace", config = get_config("lastplace").config, lazy = false },
+    { "lukas-reineke/indent-blankline.nvim", config = get_config("indent-blankline").config, event = "BufReadPre" },
+    { "NvChad/nvim-colorizer.lua", config = get_config("colorizer").config, event = "BufReadPre", },
     { "numToStr/Comment.nvim", config = get_config("comment").config, event = "BufReadPost" },
     { "rcarriga/nvim-notify", config = get_config("notify").config, lazy = false },
+    {
+        "ggandor/leap.nvim",
+        config = true,
+        event = "VeryLazy",
+        dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
+    },
+    {"nyngwang/murmur.lua", config = get_config("murmur").config, event = "BufReadPre"},
 
     -- Autopair
     { "windwp/nvim-autopairs", config = get_config("autopairs").config, event = "InsertEnter" },
     {
         "windwp/nvim-ts-autotag",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
         ft = {
             "html",
             "jsx",
             "javascript",
             "tsx",
             "typescript"
-        }
+        },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
 
 
-    -- Lines
+    -- UI
+    { "rebelot/heirline.nvim", config = get_config("status").config, event = "BufEnter" },
+    { "goolord/alpha-nvim", config = get_config("alpha").config, event = "VimEnter" },
     {
-        "rebelot/heirline.nvim",
-        config = get_config("status").config,
-        lazy = false,
+        "anuvyklack/windows.nvim",
+        config = true,
+        event = "WinNew",
+        dependencies = "anuvyklack/middleclass",
     },
-    { "goolord/alpha-nvim", config = get_config("alpha").config, lazy = false, priority = 51 },
 
 }, {
     defaults = { lazy = true },

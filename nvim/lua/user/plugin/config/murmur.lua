@@ -4,28 +4,29 @@ function M.config()
 
     local murmur = require("murmur")
     murmur.setup {
-        callbacks = {
-            function()
-                vim.cmd('doautocmd InsertEnter')
-                vim.w.diag_shown = false
-            end,
-        }
+        cursor_rgb = {
+            guibg = '#565656',
+        },
+        min_len = 2,
     }
 
-    vim.api.nvim_create_augroup("Murmur", {clear = true})
-    vim.api.nvim_create_autocmd('CursorHold', {
-        group = "Murmur",
+
+    local group = "Murmur"
+    vim.api.nvim_create_augroup(group, { clear = true })
+    vim.api.nvim_create_autocmd("CursorHold", {
+        group = group,
         pattern = '*',
         callback = function()
-            if vim.w.diag_shown then return end
+
+            -- if vim.w.diag_shown then return end
+
             if vim.w.cursor_word ~= '' then
                 vim.diagnostic.open_float(nil, {
                     focusable = false,
-                    close_events = { 'InsertEnter' },
-                    border = 'rounded',
-                    source = 'always',
-                    prefix = ' ',
-                    scope = 'cursor',
+                    close_events = { "CursorMoved", "InsertEnter"},
+                    border = "rounded",
+                    source = "always",
+                    scope = "cursor",
                 })
                 vim.w.diag_shown = true
             end
