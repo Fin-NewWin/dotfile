@@ -13,12 +13,6 @@ function M.config()
         defaults = {
             prompt_prefix = " ",
             selection_caret = "ﰲ ",
-            file_sorter = require("telescope.sorters").get_fzy_sorter,
-            file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-            path_display = { "smart" },
-            grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-            qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-            selection_strategy = "reset",
             sorting_strategy = "ascending",
             layout_strategy = "horizontal",
             layout_config = {
@@ -44,12 +38,6 @@ function M.config()
                     ["<C-h>"] = actions.select_horizontal
                 },
 
-            },
-            extensions = {
-                fzy_native = {
-                    override_generic_sorter = true,
-                    override_file_sorter = true,
-                }
             },
             color_devicons = true,
             set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,

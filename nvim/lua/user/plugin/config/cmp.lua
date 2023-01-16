@@ -73,10 +73,11 @@ function M.config()
         },
         sources = {
             { name = "path" },
-            { name = "nvim_lsp",    keyword_length = 3 },
-            { name = "buffer",      keyword_length = 3 },
-            { name = "luasnip",     keyword_length = 2 },
+            { name = "nvim_lsp", keyword_length = 3 },
+            { name = "buffer", keyword_length = 3 },
+            { name = "luasnip", keyword_length = 2 },
             { name = "nvim_lua" },
+            { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } }
         },
         mapping = {
             ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),

@@ -126,7 +126,10 @@ function M.config()
                 return "  "
             end,
         },
-        hl = { bg = theme.GruvboxBg1.fg, bold = true },
+        hl = {
+            bg = theme.GruvboxBg1.fg,
+            -- bold = true,
+        },
     }
 
 
@@ -179,12 +182,12 @@ function M.config()
             for _, server in pairs(vim.lsp.buf_get_clients(0)) do
                 table.insert(names, server.name)
             end
-            return "  [" .. table.concat(names, " ") .. "] "
+            return "   [LSP]  "
         end,
         hl        = {
             fg = theme.GruvboxYellow.fg,
             bg = theme.GruvboxBg1.fg,
-            bold = true
+            -- bold = true
         },
     }
     local Diagnostics = {
@@ -202,19 +205,18 @@ function M.config()
             self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
         end,
         update = { "DiagnosticChanged", "BufEnter" },
-        {
-            provider = function(self)
-                return "  "
-            end,
-            hl = { bg = "NONE" }
-        },
+        -- {
+        --     provider = function(self)
+        --         return "  "
+        --     end,
+        -- },
         {
             provider = function(self)
                 return self.errors > 0 and (self.error_icon .. self.errors .. " ")
             end,
             hl = {
                 fg = "#fb4934",
-                bold = true,
+                -- bold = true,
             },
         },
         {
@@ -223,7 +225,7 @@ function M.config()
             end,
             hl = {
                 fg = "#fabd2f",
-                bold = true,
+                -- bold = true,
             },
         },
         {
@@ -232,7 +234,7 @@ function M.config()
             end,
             hl = {
                 fg = "#83a598",
-                bold = true,
+                -- bold = true,
             },
         },
         {
@@ -241,15 +243,25 @@ function M.config()
             end,
             hl = {
                 fg = "#8ec07c",
-                bold = true,
+                -- bold = true,
             },
+        },
+        {
+            provider = function(self)
+                return "  "
+            end,
+        },
+        hl = {
+            -- fg = theme.GruvboxYellow.fg,
+            bg = theme.GruvboxBg1.fg,
+            -- bold = true
         },
     }
 
 
     local Ruler = {
         provider = " %l:%2c ",
-        hl = { fg = theme.GruvboxFg0.fg, bold = true }
+        -- hl = { fg = theme.GruvboxFg0.fg, bold = true }
     }
 
     -- Winbar
@@ -259,36 +271,49 @@ function M.config()
             self.filename = vim.api.nvim_buf_get_name(0)
         end,
     }
-    local FileIcon = {
-        init = function(self)
-            local filename = self.filename
-            local extension = vim.fn.fnamemodify(filename, ":e")
-            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension,
-                { default = true })
-        end,
-        provider = function(self)
-            return self.icon and (self.icon .. " ")
-        end,
-        hl = function(self)
-            return { fg = self.icon_color }
-        end
-    }
 
     local FileName = {
-        provider = function(self)
-            local filename = self.filename
-            filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
-            if not conditions.width_percent_below(#filename, 0.25) then
-                filename = vim.fn.pathshorten(filename)
-            end
-            return filename
+        init = function(self)
+            local file = self.filename
+            local extension = vim.fn.fnamemodify(file, ":e")
+
+            self.work_dir = vim.fn.fnamemodify(file, ":.:h")
+
+            self.current_file = vim.fn.fnamemodify(file, ":t")
+
+            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(file, extension, { default = true })
+
         end,
-        -- hl = { fg = utils.get_highlight("Directory").fg },
+        {
+            provider = function(self)
+                local work_dir = self.work_dir
+                if self.current_file == "" then return end
+                -- if self.current_file == "" then return "[No Name]" end
+                work_dir = work_dir:gsub("/", " > ")
+                return work_dir .. " > "
+            end,
+        },
+        {
+            provider = function(self)
+                return self.icon .. " "
+            end,
+            hl = function(self)
+                return { fg = self.icon_color }
+            end
+        },
+        {
+            provider = function(self)
+                local cf = self.current_file
+                if cf == "" then
+                    return "[No Name]"
+                end
+                return cf
+            end
+        }
     }
 
     FileNameBlock = utils.insert(
         FileNameBlock,
-        FileIcon,
         FileName,
         { provider = '%<' }
     )
@@ -341,7 +366,6 @@ function M.config()
             end,
             update = "CursorMoved"
         }
-
     end
 
     local Align = {
@@ -357,10 +381,11 @@ function M.config()
     local DefaultStatusline = {
         ViMode,
         GitBranch,
+        Align,
+        LSPActive,
         Diagnostics,
         Align,
         SearchResults,
-        Align,
         Ruler,
     }
 
