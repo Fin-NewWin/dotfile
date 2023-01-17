@@ -98,17 +98,3 @@ au("FileType", {
         vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
-
-local FOO = 'Murmur'
-vim.api.nvim_create_augroup(FOO, { clear = true })
-vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-    group = FOO,
-    pattern = '*',
-    callback = function ()
-        -- open float-win when hovering on a cursor-word.
-        if vim.w.cursor_word ~= '' then
-            vim.diagnostic.open_float()
-            vim.w.diag_shown = true
-        end
-    end
-})
