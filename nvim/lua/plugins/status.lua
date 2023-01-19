@@ -293,7 +293,13 @@ return {
                     provider = function(self)
                         local work_dir = self.work_dir
                         if self.current_file == "" or work_dir == "." then return end
+
+                        if work_dir:sub(1,1) == '/' then
+                            work_dir = work_dir:sub(2)
+                        end
+
                         work_dir = work_dir:gsub("/", " > ")
+
                         return work_dir .. " > "
                     end,
                 },

@@ -6,7 +6,7 @@ return {
         config = function()
             local status_ok, indent_blankline = pcall(require, "indent_blankline")
             if not status_ok then
-                vim.notify("Indent Blankline not in path", 4, {title = "Plugin Error"})
+                vim.notify("Indent Blankline not in path", 4, { title = "Plugin Error" })
                 return
             end
 
