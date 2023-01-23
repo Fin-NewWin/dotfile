@@ -3,8 +3,9 @@ return {
         "neovim/nvim-lspconfig",
         event = "BufReadPost",
         dependencies = {
-            { "folke/neodev.nvim" },
-            { "ray-x/lsp_signature.nvim" },
+            "folke/neodev.nvim",
+            "ray-x/lsp_signature.nvim",
+            "lvimuser/lsp-inlayhints.nvim",
         },
         config = function()
             local status_ok, lspconfig = pcall(require, "lspconfig")
@@ -91,6 +92,7 @@ return {
                         hint_prefix = "",
                     }, bufnr)
                 end
+                require("lsp-inlayhints").on_attach(client, bufnr)
 
 
 
@@ -129,6 +131,8 @@ return {
                 "tsserver",
                 "eslint",
                 "clangd",
+
+                "dockerls",
             }
 
 
@@ -156,6 +160,7 @@ return {
                         },
                         workspace = {
                             checkThirdParty = false,
+                            library = vim.api.nvim_get_runtime_file("", true),
                         },
                         telemetry = {
                             enable = false,
@@ -182,6 +187,7 @@ return {
                                 enabled = true,
                             },
                             flake8 = {
+                                ignore = { "E303", "D401", "D403" },
                                 enabled = true,
                             },
                             pylint = {
@@ -190,6 +196,10 @@ return {
                             mypy = {
                                 enabled = true,
                             },
+                            pycodestyle = {
+                                enabled = true,
+                                ignore = { "E303" }
+                            }
                         }
                     }
                 }

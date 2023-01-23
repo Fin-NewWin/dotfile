@@ -1,5 +1,4 @@
 for _, source in ipairs({
-
     -- CORE
     "core.disable_builtin",
     "core.setting",
