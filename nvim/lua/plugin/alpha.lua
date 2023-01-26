@@ -8,7 +8,7 @@ return {
             return
         end
 
-        local path_ok, path = pcall(require, "plenary.path")
+        local path_ok, plenary = pcall(require, "plenary.path")
         if not path_ok then
             vim.notify("plenary not in path", 4, { title = "Plugin Error" })
             return
@@ -203,9 +203,9 @@ return {
                 end
 
                 if #short_fn > target_width then
-                    short_fn = path.new(short_fn):shorten(1, { -2, -1 })
+                    short_fn = plenary.new({short_fn}):shorten(1, { -2, -1 })
                     if #short_fn > target_width then
-                        short_fn = path.new(short_fn):shorten(1, { -1 })
+                        short_fn = plenary.new(short_fn):shorten(1, { -1 })
                     end
                 end
 

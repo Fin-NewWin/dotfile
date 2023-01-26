@@ -2,12 +2,14 @@ for _, source in ipairs({
     -- CORE
     "core.disable_builtin",
     "core.setting",
-    "core.globals",
     "core.key",
     "core.autocmd",
 
     -- PLUGINS
     "core.lazy",
+
+    -- Util
+    -- "util.status"
 }) do
     local source_status, source_err_msg = pcall(require, source)
     if not source_status then

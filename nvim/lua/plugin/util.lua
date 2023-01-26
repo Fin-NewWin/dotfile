@@ -15,6 +15,7 @@ return {
             indent_blankline.setup {
                 use_treesitter = true,
                 show_current_context = true,
+                show_trailing_blankline_indent = false,
                 filetype_exclude = {
                     "help",
                     "startify",
@@ -100,11 +101,15 @@ return {
                 level = 0,
                 fps = 20,
                 max_height = function()
-                    return math.floor(vim.o.lines * 0.75)
+                    return math.floor(vim.o.lines * 0.50)
                 end,
                 max_width = function()
-                    return math.floor(vim.o.columns * 0.75)
+                    return math.floor(vim.o.columns * 0.45)
                 end,
+                on_open = function(win)
+                    vim.api.nvim_win_set_config(win, { focusable = false })
+                    -- vim.api.nvim_set_option_value('statuscolumn', '', { win = win })
+                end
             })
 
             vim.notify = notify
