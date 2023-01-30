@@ -21,7 +21,6 @@ return {
         "rafamadriz/friendly-snippets",
     },
     config = function()
-        require("lsp-inlayhints").setup()
         local cmp_status_ok, cmp = pcall(require, "cmp")
         if not cmp_status_ok then
             vim.notify("cmp not in path", 4, { title = "Plugin Error" })
@@ -96,10 +95,7 @@ return {
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ["<C-Space>"] = cmp.mapping.complete({}),
-                ['<CR>'] = cmp.mapping.confirm {
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true,
-                },
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()

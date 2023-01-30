@@ -1,190 +1,51 @@
 return {
     {
-        "neovim/nvim-lspconfig",
-        event = "BufReadPost",
+        "VonHeikemen/lsp-zero.nvim",
+        -- event = "VeryLazy",
+        lazy = false,
         dependencies = {
+            "neovim/nvim-lspconfig",
+
+            -- Additional plugins
             "folke/neodev.nvim",
             "ray-x/lsp_signature.nvim",
             "lvimuser/lsp-inlayhints.nvim",
         },
         config = function()
-            local status_ok, lspconfig = pcall(require, "lspconfig")
-            if not status_ok then
-                vim.notify("lspconfig not in path", 4, { title = "Plugin Error" })
-                return
-            end
+            local lsp = require("lsp-zero")
 
-            -- Border Hover
-            local _border = "rounded"
 
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover, {
-                border = _border
+            lsp.preset("recommended")
+
+            lsp.set_preferences({
+                suggest_lsp_servers = false,
+                setup_servers_on_start = false,
+                call_servers = 'global',
+                sign_icons = false,
             })
 
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-                vim.lsp.handlers.signature_help, {
-                border = _border
-            })
-
-
-            -- LSP diagnostics signs
-            local signs = {
-                Error = "",
-                Warn  = "",
-                Hint  = "",
-                Info  = "",
-            }
-
-            vim.diagnostic.config({
-                virtual_text = {
-                    source = "always", -- Or "if_many"
-                },
-                active = signs,
-                update_in_insert = false,
-                underline = true,
-                severity_sort = true,
-                float = {
-                    focusable = false,
-                    style = "minimal",
-                    border = "rounded",
-                    source = "always",
-                    header = "",
-                    prefix = "",
-                },
-            })
-
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-            end
-
-
-            -- Pipe commands into telescope
-            -- vim.lsp.handlers["textDocument/references"] = require("telescope.builtin").lsp_references
-
-
-            -- Use an on_attach function to only map the following keys
-            -- after the language server attaches to the current buffer
-            local key = vim.keymap.set
-            local opts = { noremap = true, silent = true }
-            key("n", "<space>e", vim.diagnostic.open_float, opts)
-            key("n", "[d", vim.diagnostic.goto_prev, opts)
-            key("n", "]d", vim.diagnostic.goto_next, opts)
-            key("n", "<space>q", vim.diagnostic.setloclist, opts)
-
-            local on_attach = function(client, bufnr)
-
-                client.server_capabilities.documentFormattingProvider = true
-
-                local navic_ok, navic = pcall(require, "nvim-navic")
-                if navic_ok then
-                    if client.server_capabilities.documentSymbolProvider then
-                        navic.attach(client, bufnr)
-                    end
-                end
-
-                local sig_ok, lsp_signature = pcall(require, "lsp_signature")
-                if sig_ok then
-                    lsp_signature.on_attach({
-                        bind = true,
-                        handler_opts = {
-                            border = "rounded"
-                        },
-                        fix_pos = true,
-                        hint_prefix = "",
-                    }, bufnr)
-                end
-
-                local inlay_ok, lspinlay = pcall(require, "lsp-inlayhints")
-                if inlay_ok then
-                    lspinlay.on_attach(client, bufnr, _)
-                end
-
-
-
-
-                local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-                vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-                key("n", "gd", vim.lsp.buf.definition, bufopts)
-
-                key("n", "gr", require('telescope.builtin').lsp_references, bufopts)
-                key("n", "gi", vim.lsp.buf.implementation, bufopts)
-                key("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-                key("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-                key("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-                vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-                    vim.lsp.buf.format()
-                end, { desc = 'Format current buffer with LSP' })
-                key("n", "<C-s>", "<cmd>Format<cr>", bufopts)
-            end
-
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-            local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-            if cmp_nvim_lsp_ok then
-                capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-            end
-
-
-
-            local lspflags = {
-                debounce_text_changes = 500,
-            }
-
-            local servers = {
+            lsp.setup_servers({
                 "tsserver",
                 "eslint",
+
                 "clangd",
 
-                "dockerls",
                 "bashls",
-            }
+                "dockerls",
 
+            })
 
-            for _, server in pairs(servers) do
-                lspconfig[server].setup {
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                    flags = lspflags,
-                }
-            end
-
-            local neodev_ok, neodev = pcall(require, "neodev")
-            if neodev_ok then
-                neodev.setup()
-            end
-
-            lspconfig["sumneko_lua"].setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-                flags = lspflags,
+            lsp.configure('sumneko_lua', {
                 settings = {
                     Lua = {
                         diagnostics = {
-                            globals = { "vim" },
-                        },
-                        workspace = {
-                            checkThirdParty = false,
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                        telemetry = {
-                            enable = false,
-                        },
-                        completion = {
-                            workspaceWord = true,
-                            callSnippet = "Both",
+                            globals = { "vim", "_" },
                         },
                     },
-                },
+                }
             })
 
-            lspconfig["pylsp"].setup {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                flags = lspflags,
+            lsp.configure("pylsp", {
                 settings = {
                     pylsp = {
                         plugins = {
@@ -195,8 +56,12 @@ return {
                                 enabled = true,
                             },
                             flake8 = {
-                                ignore = { "E303", "D401", "D403" },
                                 enabled = true,
+                                ignore = {
+                                    "E303",
+                                    "D401",
+                                    "D403"
+                                },
                             },
                             pylint = {
                                 enabled = true,
@@ -211,26 +76,79 @@ return {
                         }
                     }
                 }
-            }
+            })
 
-            lspconfig["efm"].setup({
+            lsp.configure("efm", {
                 filetypes = { 'sh' },
                 settings = {
                     rootMarkers = { ".git/" },
                 }
             })
 
-            -- Disable diagnostics in node_modules (0 is current buffer only)
-            vim.api.nvim_create_autocmd("BufRead",
-                { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
-            vim.api.nvim_create_autocmd("BufNewFile",
-                { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
-            -- Hover diagnostics float
-            -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            --     callback = function()
-            --         vim.diagnostic.open_float(nil, { focus = false })
-            --     end
-            -- })
+
+            lsp.on_attach(function(client, bufnr)
+                local opts = {buffer = bufnr, remap = false}
+
+                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                vim.keymap.set("n", "K", function() vim.lsp.buf.hover({focusable = false}) end, opts)
+                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+                vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+                vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+                vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+                if client.server_capabilities.documentSymbolProvider then
+                    require("nvim-navic").attach(client, bufnr)
+                end
+
+                require("lsp_signature").on_attach({
+                    bind = true,
+                    handler_opts = {
+                        border = "rounded"
+                    },
+                    fix_pos = true,
+                    hint_prefix = "",
+                }, bufnr)
+
+                require("lsp-inlayhints").on_attach(client, bufnr, _)
+
+            end)
+
+
+
+            lsp.nvim_workspace()
+
+            require("neodev").setup()
+            lsp.setup()
+
+            local _border = "rounded"
+
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { focusable = false, border = _border })
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = _border })
+            require('lspconfig.ui.windows').default_options.border = "rounded"
+
+            local signs = {
+                Error = "",
+                Warn  = "",
+                Hint  = "",
+                Info  = "",
+            }
+
+            vim.diagnostic.config({
+                virtual_text = true,
+                active = signs,
+                update_in_insert = false,
+                underline = true,
+                severity_sort = true,
+                float = {
+                    focusable = false,
+                    style = "minimal",
+                    border = "rounded",
+                    source = "always",
+                    header = "",
+                    prefix = "",
+                },
+            })
         end
     },
 }

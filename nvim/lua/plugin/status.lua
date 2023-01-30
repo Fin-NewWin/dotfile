@@ -6,19 +6,13 @@ return {
             "SmiteshP/nvim-navic",
         },
         config = function()
-            local status_ok, heirline = pcall(require, "heirline")
-            if not status_ok then
-                vim.notify("heirline not in path", 4, {title = "Plugin Error"})
-                return
-            end
+            local heirline = require("heirline")
 
             local theme
             local gruvbox_ok, gruvbox_groups = pcall(require, "gruvbox.groups")
-            if not gruvbox_ok then
-                vim.notify("gruvbox not in path", 4, {title = "Plugin Error"})
-                return
+            if gruvbox_ok then
+                theme = gruvbox_groups.setup()
             end
-            theme = gruvbox_groups.setup()
 
             local conditions = require("heirline.conditions")
             local utils = require("heirline.utils")
