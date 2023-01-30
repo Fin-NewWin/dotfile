@@ -15,14 +15,17 @@ return {
             end
 
             -- Border Hover
-            local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-            function orig_util_open_floating_preview(contents, syntax, opts, ...)
-                opts = opts or {}
-                opts.border = opts.border or "rounded"
-                return orig_util_open_floating_preview(contents, syntax, opts, ...)
-            end
+            local _border = "rounded"
 
-            require("lspconfig.ui.windows").default_options.border = "rounded"
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, {
+                border = _border
+            })
+
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help, {
+                border = _border
+            })
 
 
             -- LSP diagnostics signs
@@ -33,11 +36,11 @@ return {
                 Info  = "",
             }
 
-            vim.diagnostic.config = {
-                virtual_text = false,
-                signs = {
-                    active = signs,
+            vim.diagnostic.config({
+                virtual_text = {
+                    source = "always", -- Or "if_many"
                 },
+                active = signs,
                 update_in_insert = false,
                 underline = true,
                 severity_sort = true,
@@ -49,7 +52,7 @@ return {
                     header = "",
                     prefix = "",
                 },
-            }
+            })
 
             for type, icon in pairs(signs) do
                 local hl = "DiagnosticSign" .. type
@@ -92,7 +95,11 @@ return {
                         hint_prefix = "",
                     }, bufnr)
                 end
-                require("lsp-inlayhints").on_attach(client, bufnr)
+
+                local inlay_ok, lspinlay = pcall(require, "lsp-inlayhints")
+                if inlay_ok then
+                    lspinlay.on_attach(client, bufnr, _)
+                end
 
 
 
@@ -133,6 +140,7 @@ return {
                 "clangd",
 
                 "dockerls",
+                "bashls",
             }
 
 
@@ -206,7 +214,6 @@ return {
             }
 
             lspconfig["efm"].setup({
-                init_options = { documentFormatting = true },
                 filetypes = { 'sh' },
                 settings = {
                     rootMarkers = { ".git/" },
@@ -218,6 +225,12 @@ return {
                 { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
             vim.api.nvim_create_autocmd("BufNewFile",
                 { pattern = "*/node_modules/*", command = "lua vim.diagnostic.disable(0)" })
+            -- Hover diagnostics float
+            -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            --     callback = function()
+            --         vim.diagnostic.open_float(nil, { focus = false })
+            --     end
+            -- })
         end
     },
 }

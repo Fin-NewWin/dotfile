@@ -26,11 +26,11 @@ return {
                 GitSignsDelete = { fg = theme.bright_red, bg = "NONE" },
 
                 -- LSP
-                DiagnosticSignError = { fg = theme.bright_red },
-                DiagnosticSignWarn  = { fg = theme.bright_yellow },
-                DiagnosticSignHint  = { fg = theme.bright_aqua },
-                DiagnosticSignInfo  = { fg = theme.bright_blue, bg = "NONE" },
-                LspInfoBorder       = { link = "TelescopeBorder" },
+                -- DiagnosticSignError = { fg = theme.bright_red },
+                -- DiagnosticSignWarn  = { fg = theme.bright_yellow },
+                -- DiagnosticSignHint  = { fg = theme.bright_aqua },
+                -- DiagnosticSignInfo  = { fg = theme.bright_blue, bg = "NONE" },
+                -- LspInfoBorder       = { link = "TelescopeBorder" },
 
                 -- Navic
                 NavicText = { link = "Comment" },

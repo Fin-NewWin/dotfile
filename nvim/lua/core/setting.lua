@@ -12,7 +12,7 @@ local options = {
     mousemoveevent  = true,                                     -- mouse location matters
     number          = true,                                     -- number line
     pumheight       = 10,                                       -- pop menu height
-    -- relativenumber  = true,                                     -- number line with relative lines
+    relativenumber  = true,                                     -- number line with relative lines
     scrolloff       = 10,                                       -- number of lines before scrolling
     shiftwidth      = 4,                                        -- tab
     showmode        = false,                                    -- mode bottom left of cmd but I have statusline
@@ -32,7 +32,14 @@ local options = {
     writebackup     = false,                                    -- disable backup
 }
 
-vim.opt.shortmess:append "c"
+
+-- Disable nvim intro
+vim.opt.shortmess:append "csI"
+
+-- go to next/previous line using h/l
+vim.opt.whichwrap:append "<>[]hl"
+
+
 
 for k, v in pairs(options) do
     vim.opt[k] = v
