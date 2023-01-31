@@ -1,15 +1,10 @@
 return {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
-        local ok, gitsigns = pcall(require, "gitsigns")
-        if not ok then
-            vim.notify("gitsigns not in path", 4, { title = "Plugin Error" })
-            return
-        end
 
         local sign_text = "▎"
-        gitsigns.setup {
+        require("gitsigns").setup {
             signs = {
                 add          = { hl = "GitSignsAdd",    text = sign_text,   numhl = "GitSignsAddNr",    linehl = "GitSignsAddLn" },
                 change       = { hl = "GitSignsChange", text = sign_text,   numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
@@ -29,5 +24,6 @@ return {
             },
             sign_priority = 6,
         }
+
     end
 }

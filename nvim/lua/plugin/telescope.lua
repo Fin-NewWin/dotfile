@@ -8,12 +8,7 @@ return {
         "kyazdani42/nvim-web-devicons",
     },
     config = function()
-        local status_ok, telescope = pcall(require, "telescope")
-        if not status_ok then
-            vim.notify("telescope not in path", 4, { title = "Plugin Error" })
-            return
-        end
-
+        local telescope = require("telescope")
         local tele_actions = require("telescope.actions")
         local key = vim.api.nvim_set_keymap
         local actions = require("telescope.actions")

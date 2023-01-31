@@ -14,7 +14,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
-        import = "plugin"
+        {import = "plugin"},
     },
     defaults = {
         lazy = true

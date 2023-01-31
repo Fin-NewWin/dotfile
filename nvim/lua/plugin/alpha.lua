@@ -2,17 +2,9 @@ return {
     "goolord/alpha-nvim",
     event = "VimEnter",
     config = function()
-        local status_ok, alpha = pcall(require, "alpha")
-        if not status_ok then
-            vim.notify("alpha not in path", 4, { title = "Plugin Error" })
-            return
-        end
+        local alpha = require("alpha")
 
-        local path_ok, plenary = pcall(require, "plenary.path")
-        if not path_ok then
-            vim.notify("plenary not in path", 4, { title = "Plugin Error" })
-            return
-        end
+        local plenary = require("plenary.path")
 
 
         local dashboard = require("alpha.themes.dashboard")

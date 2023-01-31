@@ -1,7 +1,7 @@
 return {
     {
         "rebelot/heirline.nvim",
-        event = "BufEnter",
+        event = "VeryLazy",
         dependencies = {
             "SmiteshP/nvim-navic",
         },
@@ -18,60 +18,6 @@ return {
             local utils = require("heirline.utils")
 
             local fn = vim.fn
-
-
-            local ViMode = {
-                static = {
-                    map = {
-                        ["n"]     = { "N", theme.GruvboxGreen.fg },
-                        ["no"]    = { "O", theme.GruvboxGreen.fg },
-                        ["nov"]   = { "O", theme.GruvboxGreen.fg },
-                        ["noV"]   = { "O", theme.GruvboxGreen.fg },
-                        ["no\22"] = { "O", theme.GruvboxGreen.fg },
-                        ["niI"]   = { "N", theme.GruvboxGreen.fg },
-                        ["niR"]   = { "N", theme.GruvboxGreen.fg },
-                        ["niV"]   = { "N", theme.GruvboxGreen.fg },
-                        ["nt"]    = { "N", theme.GruvboxGreen.fg },
-                        ["ntT"]   = { "N", theme.GruvboxGreen.fg },
-                        ["v"]     = { "V", theme.GruvboxOrange.fg },
-                        ["vs"]    = { "V", theme.GruvboxOrange.fg },
-                        ["V"]     = { "V", theme.GruvboxOrange.fg },
-                        ["Vs"]    = { "V", theme.GruvboxOrange.fg },
-                        ["\22"]   = { "V", theme.GruvboxOrange.fg },
-                        ["\22s"]  = { "V", theme.GruvboxOrange.fg },
-                        ["s"]     = { "S", theme.GruvboxOrange.fg },
-                        ["S"]     = { "S", theme.GruvboxOrange.fg },
-                        ["\19"]   = { "S", theme.GruvboxOrange.fg },
-                        ["i"]     = { "I", theme.GruvboxBlue.fg },
-                        ["ic"]    = { "I", theme.GruvboxBlue.fg },
-                        ["ix"]    = { "I", theme.GruvboxBlue.fg },
-                        ["R"]     = { "R", theme.GruvboxRed.fg },
-                        ["Rc"]    = { "R", theme.GruvboxRed.fg },
-                        ["Rx"]    = { "R", theme.GruvboxRed.fg },
-                        ["Rv"]    = { "V", theme.GruvboxOrange.fg },
-                        ["Rvc"]   = { "V", theme.GruvboxOrange.fg },
-                        ["Rvx"]   = { "V", theme.GruvboxOrange.fg },
-                        ["c"]     = { "C", theme.GruvboxGreen.fg },
-                        ["cv"]    = { "E", theme.GruvboxGreen.fg },
-                        ["ce"]    = { "E", theme.GruvboxOrange.fg },
-                        ["r"]     = { "R", theme.GruvboxOrange.fg },
-                        ["rm"]    = { "M", theme.GruvboxOrange.fg },
-                        ["r?"]    = { "C", theme.GruvboxOrange.fg },
-                        ["!"]     = { "S", theme.GruvboxOrange.fg },
-                        ["t"]     = { "T", theme.GruvboxOrange.fg },
-                    }
-                },
-                init = function(self)
-                    self.mode = vim.api.nvim_get_mode().mode
-                end,
-                provider = function(self)
-                    return " " .. self.map[self.mode][1] .. " "
-                end,
-                hl = function(self)
-                    return { bg = self.map[self.mode][2], bold = true, fg = "#282828" }
-                end,
-            }
-
 
             local GitBranch = {
                 condition = conditions.is_git_repo,
@@ -203,11 +149,6 @@ return {
                     self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
                 end,
                 update = { "DiagnosticChanged", "BufEnter" },
-                -- {
-                --     provider = function(self)
-                --         return "  "
-                --     end,
-                -- },
                 {
                     provider = function(self)
                         return self.errors > 0 and (self.error_icon .. self.errors .. " ")
@@ -258,7 +199,8 @@ return {
 
 
             local Ruler = {
-                provider = " %l:%2c ",
+                -- provider = " %l:%2c ",
+                provider = " %3l/%L祈%3c "
                 -- hl = { fg = theme.GruvboxFg0.fg, bold = true }
             }
 
@@ -288,7 +230,7 @@ return {
                         local work_dir = self.work_dir
                         if self.current_file == "" or work_dir == "." then return end
 
-                        if work_dir:sub(1,1) == '/' then
+                        if work_dir:sub(1, 1) == '/' then
                             work_dir = work_dir:sub(2)
                         end
 
@@ -371,7 +313,7 @@ return {
                     update = "CursorMoved"
                 }
             else
-                vim.notify("Navic not in path", 4, {title = "Plugin Error"})
+                vim.notify("Navic not in path", 4, { title = "Plugin Error" })
             end
 
             local Align = {
@@ -385,7 +327,6 @@ return {
             }
 
             local DefaultStatusline = {
-                ViMode,
                 GitBranch,
                 Align,
                 LSPActive,
@@ -410,6 +351,23 @@ return {
 
             local WinBars = {
                 fallthrough = false,
+                { -- Hide the winbar for special buffers
+                    condition = function()
+                        return conditions.buffer_matches({
+                            buftype = { "nofile", "prompt", "help", "quickfix" },
+                            filetype = { "^git.*", "fugitive" },
+                        })
+                    end,
+                    init = function()
+                        vim.opt_local.winbar = nil
+                    end
+                },
+                { -- An inactive winbar for regular files
+                    condition = function()
+                        return not conditions.is_active()
+                    end,
+                    FileNameBlock
+                },
                 DefaultWinbar,
             }
 

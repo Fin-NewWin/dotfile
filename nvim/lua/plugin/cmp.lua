@@ -21,23 +21,9 @@ return {
         "rafamadriz/friendly-snippets",
     },
     config = function()
-        local cmp_status_ok, cmp = pcall(require, "cmp")
-        if not cmp_status_ok then
-            vim.notify("cmp not in path", 4, { title = "Plugin Error" })
-            return
-        end
-
-        local snip_status_ok, luasnip = pcall(require, "luasnip")
-        if not snip_status_ok then
-            vim.notify("luasnip not in path", 4, { title = "Plugin Error" })
-            return
-        end
-
-        local ok, lspkind = pcall(require, "lspkind")
-        if not ok then
-            vim.notify("lspkind not in path", 4, { title = "Plugin Error" })
-            return
-        end
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+        local lspkind = require("lspkind")
 
         luasnip.config.setup({
             history = true,
