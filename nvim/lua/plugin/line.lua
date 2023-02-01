@@ -8,11 +8,7 @@ return {
         config = function()
             local heirline = require("heirline")
 
-            local theme
-            local gruvbox_ok, gruvbox_groups = pcall(require, "gruvbox.groups")
-            if gruvbox_ok then
-                theme = gruvbox_groups.setup()
-            end
+            local theme = require("gruvbox.groups").setup()
 
             local conditions = require("heirline.conditions")
             local utils = require("heirline.utils")
