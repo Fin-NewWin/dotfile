@@ -37,4 +37,3 @@ sxhkd &
 # setxkbmap -layout us -option ctrl:nocaps
 xset r rate 280 55 s off -dpms
 # xinput set-button-map 11 1 1 1 4 5 6 7
-

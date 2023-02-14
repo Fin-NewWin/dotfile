@@ -116,22 +116,3 @@ local function toggle_hlsearch(char)
 end
 
 vim.on_key(toggle_hlsearch, ns)
-
-au("FileType", {
-    desc = "Close filetypes with q",
-    pattern = {
-        "qf",
-        "help",
-        "man",
-        "notify",
-        "lspinfo",
-        "spectre_panel",
-        "startuptime",
-        "tsplayground",
-        "PlenaryTestPopup",
-    },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-    end,
-})
