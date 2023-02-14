@@ -25,7 +25,7 @@ bspc config pointer_action3                 resize_corner
 
 # ----- Window rules ----- #
 #  remove all rules first  #
-bspc rule -r *:*
+bspc rule -r "*"
 
 bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled

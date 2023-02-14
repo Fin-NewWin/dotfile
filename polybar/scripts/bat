@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BATTERY=/sys/class/power_supply/BAT?
+BATTERY="/sys/class/power_supply/BAT?"
 BATTERY_PERCENT="$BATTERY/capacity"
 BATTERY_STATUS="$BATTERY/status"
 
