@@ -38,5 +38,10 @@ super + shift + {h,j,k,l}
 
 
 # hide all windows desktop
-super +d
-    bspc node @/ -g hidden
+super + d
+    if [ -n "$(bspc query -N -n .hidden)" ]; then flag=off else flag=on; fi && for i in $(bspc query -N); bspc node $i -g hidden=$flag; \
+    polybar-msg cmd toggle
+
+# toggle fullscreen
+super + f
+    bspc node -t \~fullscreen

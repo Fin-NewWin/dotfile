@@ -28,42 +28,34 @@ return {
                     end,
                     hl = { fg = theme.GruvboxPurple.fg },
                 },
-                {
-                    provider = function(self)
-                        if self.has_changes then
-                            return " ("
-                        end
-                    end,
-                    hl = { fg = theme.GruvboxPurple.fg },
-                },
+                -- {
+                --     condition = function(self)
+                --         return self.has_changes
+                --     end,
+                --     provider = function(self)
+                --         return " "
+                --     end
+                -- },
                 {
                     provider = function(self)
                         local count = self.status_dict.added or 0
-                        return count > 0 and ("+" .. count)
+                        return count > 0 and (" +" .. count)
                     end,
                     hl = { fg = theme.GruvboxGreen.fg },
                 },
                 {
                     provider = function(self)
                         local count = self.status_dict.removed or 0
-                        return count > 0 and ("-" .. count)
+                        return count > 0 and (" -" .. count)
                     end,
                     hl = { fg = theme.GruvboxRed.fg },
                 },
                 {
                     provider = function(self)
                         local count = self.status_dict.changed or 0
-                        return count > 0 and ("~" .. count)
+                        return count > 0 and (" ~" .. count)
                     end,
                     hl = { fg = theme.GruvboxOrange.fg },
-                },
-                {
-                    provider = function(self)
-                        if self.has_changes then
-                            return ")"
-                        end
-                    end,
-                    hl = { fg = theme.GruvboxPurple.fg },
                 },
                 {
                     provider = function(self)

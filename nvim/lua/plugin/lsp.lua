@@ -16,25 +16,35 @@ return {
 
             lsp.preset("recommended")
 
+            local signs = {
+                error = "",
+                warn  = "",
+                hint  = "",
+                info  = "",
+            }
+
             lsp.set_preferences({
                 suggest_lsp_servers = false,
                 setup_servers_on_start = false,
                 call_servers = 'global',
-                sign_icons = false,
+                sign_icons = signs,
             })
 
             lsp.setup_servers({
                 "tsserver",
                 "eslint",
+                "cssls",
+                "html",
 
                 "clangd",
 
                 "bashls",
                 "dockerls",
 
+
             })
 
-            lsp.configure('sumneko_lua', {
+            lsp.configure('lua_ls', {
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -143,16 +153,10 @@ return {
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = _border })
             require('lspconfig.ui.windows').default_options.border = "rounded"
 
-            local signs = {
-                Error = "",
-                Warn  = "",
-                Hint  = "",
-                Info  = "",
-            }
 
             vim.diagnostic.config({
                 virtual_text = true,
-                active = signs,
+                -- active = signs,
                 update_in_insert = false,
                 underline = true,
                 severity_sort = true,

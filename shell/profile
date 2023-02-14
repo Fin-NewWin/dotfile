@@ -57,7 +57,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 # Java
 export JAVA_HOME=/usr/lib/jvm/default
 export _JAVA_AWT_WM_NONREPARENTING=1
-export _JAVA_OPTIONS='-Djava.util.prefs.userRoot=/home/fin/.config/java'
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
 # npm
 export npm_config_cache="$HOME/.cache/npm"
@@ -71,3 +71,6 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 
 # GO
 export GOPATH="$XDG_DATA_HOME"/go
+
+# AndroiD
+export ANDROID_HOME="$XDG_DATA_HOME"/android

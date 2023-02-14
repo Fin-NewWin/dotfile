@@ -47,6 +47,9 @@ setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt INC_APPEND_HISTORY
+setopt HIST_SAVE_NO_DUPS
 
 
 # Enable searching through history
@@ -66,10 +69,29 @@ if [[ -z "$LS_COLORS" ]]; then
     (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
 
+unsetopt case_glob              # Use Case-Insensitve Globbing.
+setopt globdots                 # Glob Dotfiles As Well.
+setopt extendedglob             # Use Extended Globbing.
+setopt autocd
+
+
+# Smart URLs.
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+# Persistent cd
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+
+
 # ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
 set +o list_types
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
 zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}" # Enable dir colors
-zstyle ':completion:*' menu select
 zstyle ':completion:*' special-dirs false
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*' # case insensitive and partial completion
@@ -77,8 +99,8 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 
-autoload -Uz compinit
-compinit -u
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 zmodload zsh/complist
@@ -89,15 +111,44 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -v '^?' backward-delete-char
 
 
+
+
 #############################################
 #               PROMPT                      #
 #############################################
-
 eval "$(starship init zsh)"
 
+#############################################
+#               PLUGIN                      #
+#############################################
 
-zinit ice wait
-zinit light zsh-users/zsh-autosuggestions
+zinit wait lucid light-mode for \
+        OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
+    atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions \
+    as"completion" \
+        zsh-users/zsh-completions \
 
-zinit ice wait
+
+zinit light zdharma-continuum/history-search-multi-word
+
+zinit ice silent wait!1 atload"ZINIT[COMPINIT_OPTS]=-C; zpcompinit"
 zinit light zdharma-continuum/fast-syntax-highlighting
+
+#############################################
+#               PLUGIN CONFIG               #
+#############################################
+bindkey '^ ' autosuggest-accept
+
+
+#############################################
+#               PYTHON                      #
+#############################################
+function _pip_completion {
+    local words cword; read -Ac words; read -cn cword
+    reply=($(
+      COMP_WORDS="$words[*]"; COMP_CWORD=$(( cword-1 )) \
+      PIP_AUTO_COMPLETE=1 $words 2>/dev/null)
+    )
+};
+compctl -K _pip_completion pip3

@@ -37,3 +37,7 @@ alias \
 
 alias \
     pacman="pacman --color=auto"
+
+alias \
+    ll="ls -l"      \
+    lla="ls -la"    \
