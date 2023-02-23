@@ -27,8 +27,17 @@ bspc config pointer_action3                 resize_corner
 #  remove all rules first  #
 bspc rule -r "*"
 
+# default
 bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled
+
+# firefox rules
 bspc rule -a firefox follow=on
 bspc rule -a firefox:Toolkit sticky=on state=floating border=off
 bspc rule -a firefox:Firefox state=floating border=off
+bspc rule -a firefox:Devtools state=floating
+bspc rule -a firefox:Places state=floating
+bspc config -d firefoxdesktop window_gap 0
+
+# external
+bspc config external_rules_command "$HOME/.config/bspwm/script/external.sh"

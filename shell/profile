@@ -72,5 +72,15 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 # GO
 export GOPATH="$XDG_DATA_HOME"/go
 
-# AndroiD
+# Android
 export ANDROID_HOME="$XDG_DATA_HOME"/android
+
+# NVIDIA
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+
+
+# Readline
+export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
+
+export PYTHONPYCACHEPREFIX=XDG_CACHE_HOME/python
+export PYTHONUSERBASE=$XDG_DATA_HOME/python

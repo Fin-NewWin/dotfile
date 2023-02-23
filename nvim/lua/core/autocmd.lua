@@ -49,7 +49,7 @@ au("FocusGained", {
 })
 
 
--- au("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
+au("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
 
 au({ "BufRead", "BufNewFile" }, {
     desc = "Enable spell checking in filetypes",

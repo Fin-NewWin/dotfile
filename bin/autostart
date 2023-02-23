@@ -5,7 +5,7 @@ killall picom
 # killall dunst
 killall sxhkd
 # killall redshift
-# killall flameshot
+killall flameshot
 
 # Set default microphone volume
 # 30 sounds normal and not bad
@@ -15,7 +15,7 @@ pamixer --default-source --set-volume 30
 polybar 2>"$HOME"/.config/polybar/log &
 
 # Screenshot
-# flameshot &
+flameshot &
 
 # Notify daemon
 # dunst &
@@ -35,7 +35,7 @@ sxhkd &
 
 # Set keyboard options
 # setxkbmap -layout us -option ctrl:nocaps
-xset r rate 280 55 s off -dpms
+xset r rate 280 55
 xinput set-prop "Synaptics TM3149-002" "Device Accel Velocity Scaling" 1.1 2>/dev/null
 xinput set-prop "Synaptics TM3149-002" "Device Accel Constant Deceleration" 1 2>/dev/null
 # xinput set-button-map 11 1 1 1 4 5 6 7

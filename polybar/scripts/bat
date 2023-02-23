@@ -8,15 +8,16 @@ BATTERY_STATUS="$BATTERY/status"
 BATTERY_IF_CHARGING="discharging"
 
 BATTERY_SUM=0
+BATTERY_COUNT=0
 
 for i in $BATTERY_PERCENT
 do
-    BATTERY_SUM=$(( BATTERY_SUM + $(cat $i) ))
+    BATTERY_SUM=$(( BATTERY_SUM + $(cat "$i") ))
+    BATTERY_COUNT=$(( BATTERY_COUNT + 1 ))
 done
 
-BATTERY_SUM=$(( BATTERY_SUM / 2 ))
-
-if [ $BATTERY_SUM -gt 100 ]
+BATTERY_SUM=$(( BATTERY_SUM / BATTERY_COUNT ))
+if [ $BATTERY_SUM -ge 99 ]
 then
     BATTERY_SUM=100
 fi
@@ -24,7 +25,7 @@ fi
 bat_stat () {
     for i in $BATTERY_STATUS
     do
-        if [ "$(cat $i)" = "Charging" ]
+        if [ "$(cat "$i")" = "Charging" ]
         then
             BATTERY_COLOR="#b8cc26"
             BATTERY_IF_CHARGING="charging"

@@ -41,3 +41,5 @@ alias \
 alias \
     ll="ls -l"      \
     lla="ls -la"    \
+
+alias rr="reflector --protocol https --latest 50 --fastest 8 --age 24 --sort rate --country US"

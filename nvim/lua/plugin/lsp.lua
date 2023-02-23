@@ -14,20 +14,12 @@ return {
             local lsp = require("lsp-zero")
 
 
-            lsp.preset("recommended")
+            lsp.preset("minimal")
 
-            local signs = {
-                error = "",
-                warn  = "",
-                hint  = "",
-                info  = "",
-            }
 
             lsp.set_preferences({
                 suggest_lsp_servers = false,
-                setup_servers_on_start = false,
-                call_servers = 'global',
-                sign_icons = signs,
+                sign_icons = false,
             })
 
             lsp.setup_servers({
@@ -40,8 +32,6 @@ return {
 
                 "bashls",
                 "dockerls",
-
-
             })
 
             lsp.configure('lua_ls', {
@@ -89,9 +79,6 @@ return {
 
             lsp.configure("efm", {
                 filetypes = { 'sh' },
-                settings = {
-                    rootMarkers = { ".git/" },
-                }
             })
 
 
@@ -153,10 +140,20 @@ return {
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = _border })
             require('lspconfig.ui.windows').default_options.border = "rounded"
 
+            local signs = {
+                Error = "",
+                Warn  = "",
+                Hint  = "",
+                Info  = "",
+            }
+
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+            end
 
             vim.diagnostic.config({
                 virtual_text = true,
-                -- active = signs,
                 update_in_insert = false,
                 underline = true,
                 severity_sort = true,
