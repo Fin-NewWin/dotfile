@@ -9,7 +9,6 @@ for _, source in ipairs({
     "core.lazy",
 
     -- Util
-    -- "util.status"
 }) do
     local source_status, source_err_msg = pcall(require, source)
     if not source_status then
