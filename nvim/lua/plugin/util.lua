@@ -47,7 +47,7 @@ return {
                     "nofile",
                 },
             }
-        end
+        end,
     },
     {
         "NvChad/nvim-colorizer.lua",
@@ -75,16 +75,16 @@ return {
                     tailwind = true,
                 },
             }
-        end
+        end,
     },
     {
         "numToStr/Comment.nvim",
         event = "BufReadPost",
         config = function()
-            require('Comment').setup({
-                ignore = '^$'
-            })
-        end
+            require("Comment").setup {
+                ignore = "^$",
+            }
+        end,
     },
     {
         "rcarriga/nvim-notify",
@@ -95,7 +95,7 @@ return {
                 vim.notify("notify not in path", 4, { title = "Plugin Error" })
                 return
             end
-            notify.setup({
+            notify.setup {
                 background_colour = "#000000",
                 timeout = 3000,
                 level = 0,
@@ -109,11 +109,11 @@ return {
                 on_open = function(win)
                     vim.api.nvim_win_set_config(win, { focusable = false })
                     -- vim.api.nvim_set_option_value('statuscolumn', '', { win = win })
-                end
-            })
+                end,
+            }
 
             vim.notify = notify
-        end
+        end,
     },
     {
         "ggandor/leap.nvim",
@@ -132,14 +132,12 @@ return {
             end
             murmur.setup {
                 cursor_rgb = {
-                    guibg = '#565656',
+                    guibg = "#565656",
                 },
                 min_len = 3,
                 max_len = 80,
             }
-
-
-        end
+        end,
     },
     {
         "atusy/tsnode-marker.nvim",

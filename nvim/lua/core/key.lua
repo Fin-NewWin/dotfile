@@ -1,9 +1,9 @@
-local key       = vim.keymap.set
-local opts      = {noremap = true, silent = true}
-local term_opts = {silent = true}
+local key = vim.keymap.set
+local opts = { noremap = true, silent = true }
+local term_opts = { silent = true }
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Exit terminal and return to last
 key("t", "<Esc>", "<C-\\><C-n><C-o>", opts)
@@ -44,7 +44,6 @@ key("n", "J", "mzJ`z")
 key({ "n", "v", "o" }, "H", "^")
 key({ "n", "v", "o" }, "L", "$")
 
-
 -- Center when move
 key("n", "<C-d>", "<C-d>zz")
 key("n", "<C-u>", "<C-u>zz")
@@ -54,11 +53,10 @@ key("n", "n", "nzzzv")
 key("n", "N", "Nzzzv")
 
 -- system clipboard
-key("n", "<leader>p", "\"+p")
-key({"n", "v"}, "<leader>y", "\"+y")
-key("n", "<leader>Y", "\"+Y")
-key({"n", "v"}, "<leader>d", "\"_d")
-
+key("n", "<leader>p", '"+p')
+key({ "n", "v" }, "<leader>y", '"+y')
+key("n", "<leader>Y", '"+Y')
+key({ "n", "v" }, "<leader>d", '"_d')
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 key("n", "n", "'Nn'[v:searchforward]", { expr = true })

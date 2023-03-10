@@ -7,7 +7,7 @@ return {
         { "windwp/nvim-ts-autotag" },
     },
     config = function()
-        require('nvim-treesitter.configs').setup {
+        require("nvim-treesitter.configs").setup {
             ensure_installed = "all",
             sync_install = false,
             auto_install = false,
@@ -22,10 +22,10 @@ return {
                     end
                 end,
             },
-            autopairs = { enable = true, },
-            indent = { enable = false, },
+            autopairs = { enable = true },
+            indent = { enable = false },
 
-            autotag = { enable = true, },
+            autotag = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
             disable = function(_, buf)
                 local max_filesize = 100 * 1024 -- 100 KB
@@ -35,5 +35,5 @@ return {
                 end
             end,
         }
-    end
+    end,
 }

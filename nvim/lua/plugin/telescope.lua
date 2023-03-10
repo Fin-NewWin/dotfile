@@ -8,10 +8,10 @@ return {
         "kyazdani42/nvim-web-devicons",
     },
     config = function()
-        local telescope = require("telescope")
-        local tele_actions = require("telescope.actions")
+        local telescope = require "telescope"
+        local tele_actions = require "telescope.actions"
         local key = vim.api.nvim_set_keymap
-        local actions = require("telescope.actions")
+        local actions = require "telescope.actions"
 
         telescope.setup {
             defaults = {
@@ -39,9 +39,8 @@ return {
                         ["<C-c>"] = tele_actions.close,
                         ["<C-u>"] = false,
                         ["<C-d>"] = false,
-                        ["<C-h>"] = actions.select_horizontal
+                        ["<C-h>"] = actions.select_horizontal,
                     },
-
                 },
                 color_devicons = true,
                 set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
@@ -110,16 +109,15 @@ return {
                     "%.tar.gz",
                     "%.o",
                 },
-            }
+            },
         }
 
-        pcall(require('telescope').load_extension, 'fzf')
+        pcall(require("telescope").load_extension, "fzf")
 
         local opt = { noremap = true }
 
         key("n", "<Leader>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>", opt)
         key("n", "<Leader>pg", "<cmd>noh<cr><cmd>lua require('telescope.builtin').live_grep()<cr>", opt)
         key("n", "<Leader>pb", "<cmd>lua require('telescope.builtin').buffers()<cr>", opt)
-    end
+    end,
 }
-

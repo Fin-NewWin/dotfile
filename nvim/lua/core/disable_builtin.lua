@@ -32,7 +32,6 @@ for _, plugin in ipairs(builtin_plugin) do
     vim.g["loaded_" .. plugin] = 1
 end
 
-
 local default_providers = {
     "node",
     "perl",

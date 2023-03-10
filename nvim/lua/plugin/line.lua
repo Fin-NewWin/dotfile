@@ -6,12 +6,12 @@ return {
             "SmiteshP/nvim-navic",
         },
         config = function()
-            local heirline = require("heirline")
+            local heirline = require "heirline"
 
             local theme = require("gruvbox.groups").setup()
 
-            local conditions = require("heirline.conditions")
-            local utils = require("heirline.utils")
+            local conditions = require "heirline.conditions"
+            local utils = require "heirline.utils"
 
             local fn = vim.fn
 
@@ -19,8 +19,9 @@ return {
                 condition = conditions.is_git_repo,
                 init = function(self)
                     self.status_dict = vim.b.gitsigns_status_dict
-                    self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or
-                        self.status_dict.changed ~= 0
+                    self.has_changes = self.status_dict.added ~= 0
+                        or self.status_dict.removed ~= 0
+                        or self.status_dict.changed ~= 0
                 end,
                 { -- git branch name
                     provider = function(self)
@@ -68,7 +69,6 @@ return {
                 },
             }
 
-
             -- -- TODO: recording macro
             -- local ShowMacroRecording = function()
             --     local recording_register = vim.fn.reg_recording()
@@ -81,17 +81,23 @@ return {
 
             local SearchResults = {
                 condition = function(self)
-                    local query = fn.getreg("/")
-                    if query == "" then return end
+                    local query = fn.getreg "/"
+                    if query == "" then
+                        return
+                    end
 
-                    if query:find("@") then return end
+                    if query:find "@" then
+                        return
+                    end
 
-                    local search_count = fn.searchcount({ recompute = 1, maxcount = -1 })
+                    local search_count = fn.searchcount { recompute = 1, maxcount = -1 }
                     local active = false
                     if vim.v.hlsearch and vim.v.hlsearch == 1 and search_count.total > 0 then
                         active = true
                     end
-                    if not active then return end
+                    if not active then
+                        return
+                    end
 
                     query = query:gsub([[^\V]], "")
                     query = query:gsub([[\<]], ""):gsub([[\>]], "")
@@ -103,7 +109,11 @@ return {
                 {
                     provider = function(self)
                         return table.concat {
-                            " [", self.count.current, "/", self.count.total, "] "
+                            " [",
+                            self.count.current,
+                            "/",
+                            self.count.total,
+                            "] ",
                         }
                     end,
                     hl = { fg = theme.GruvboxFg0.fg },
@@ -112,11 +122,11 @@ return {
 
             local LSPActive = {
                 condition = conditions.lsp_attached,
-                update    = { "LspAttach", "LspDetach" },
-                provider  = function()
+                update = { "LspAttach", "LspDetach" },
+                provider = function()
                     return "   [LSP]  "
                 end,
-                hl        = {
+                hl = {
                     fg = theme.GruvboxYellow.fg,
                     bg = theme.GruvboxBg1.fg,
                     -- bold = true
@@ -126,9 +136,9 @@ return {
                 condition = conditions.has_diagnostics,
                 static = {
                     error_icon = " ",
-                    warn_icon  = " ",
-                    hint_icon  = " ",
-                    info_icon  = " ",
+                    warn_icon = " ",
+                    hint_icon = " ",
+                    info_icon = " ",
                 },
                 init = function(self)
                     self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
@@ -185,10 +195,9 @@ return {
                 },
             }
 
-
             local Ruler = {
                 -- provider = " %l:%2c ",
-                provider = " %3l/%L祈%3c "
+                provider = " %3l/%L祈%3c ",
                 -- hl = { fg = theme.GruvboxFg0.fg, bold = true }
             }
 
@@ -209,16 +218,17 @@ return {
 
                     self.current_file = vim.fn.fnamemodify(file, ":t")
 
-                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(file, extension,
-                        { default = true })
-
+                    self.icon, self.icon_color =
+                        require("nvim-web-devicons").get_icon_color(file, extension, { default = true })
                 end,
                 {
                     provider = function(self)
                         local work_dir = self.work_dir
-                        if self.current_file == "" or work_dir == "." then return end
+                        if self.current_file == "" or work_dir == "." then
+                            return
+                        end
 
-                        if work_dir:sub(1, 1) == '/' then
+                        if work_dir:sub(1, 1) == "/" then
                             work_dir = work_dir:sub(2)
                         end
 
@@ -233,7 +243,7 @@ return {
                     end,
                     hl = function(self)
                         return { fg = self.icon_color }
-                    end
+                    end,
                 },
                 {
                     provider = function(self)
@@ -242,15 +252,11 @@ return {
                             return "[No Name]"
                         end
                         return cf
-                    end
-                }
+                    end,
+                },
             }
 
-            FileNameBlock = utils.insert(
-                FileNameBlock,
-                FileName,
-                { provider = '%<' }
-            )
+            FileNameBlock = utils.insert(FileNameBlock, FileName, { provider = "%<" })
 
             local Navic = {}
             local navic_ok, navic = pcall(require, "nvim-navic")
@@ -259,34 +265,34 @@ return {
                     highlight = true,
                     navic.setup {
                         icons = {
-                            File = ' ',
-                            Module = ' ',
-                            Namespace = ' ',
-                            Package = ' ',
-                            Class = ' ',
-                            Method = ' ',
-                            Property = ' ',
-                            Field = ' ',
-                            Constructor = ' ',
-                            Enum = ' ',
-                            Interface = ' ',
-                            Function = ' ',
-                            Variable = ' ',
-                            Constant = ' ',
-                            String = ' ',
-                            Number = ' ',
-                            Boolean = ' ',
-                            Array = ' ',
-                            Object = ' ',
-                            Key = ' ',
-                            Null = ' ',
-                            EnumMember = ' ',
-                            Struct = ' ',
-                            Event = ' ',
-                            Operator = ' ',
-                            TypeParameter = ' '
-                        }
-                    }
+                            File = " ",
+                            Module = " ",
+                            Namespace = " ",
+                            Package = " ",
+                            Class = " ",
+                            Method = " ",
+                            Property = " ",
+                            Field = " ",
+                            Constructor = " ",
+                            Enum = " ",
+                            Interface = " ",
+                            Function = " ",
+                            Variable = " ",
+                            Constant = " ",
+                            String = " ",
+                            Number = " ",
+                            Boolean = " ",
+                            Array = " ",
+                            Object = " ",
+                            Key = " ",
+                            Null = " ",
+                            EnumMember = " ",
+                            Struct = " ",
+                            Event = " ",
+                            Operator = " ",
+                            TypeParameter = " ",
+                        },
+                    },
                 }
                 Navic = {
                     provider = function()
@@ -298,7 +304,7 @@ return {
                         end
                         return ""
                     end,
-                    update = "CursorMoved"
+                    update = "CursorMoved",
                 }
             else
                 vim.notify("Navic not in path", 4, { title = "Plugin Error" })
@@ -306,12 +312,12 @@ return {
 
             local Align = {
                 provider = "%=",
-                hl = { bg = "NONE" }
+                hl = { bg = "NONE" },
             }
 
             local Space = {
-                provider = ' ',
-                hl = { bg = "NONE" }
+                provider = " ",
+                hl = { bg = "NONE" },
             }
 
             local DefaultStatusline = {
@@ -334,52 +340,49 @@ return {
 
             local StatusLines = {
                 fallthrough = false,
-                DefaultStatusline
+                DefaultStatusline,
             }
 
             local WinBars = {
                 fallthrough = false,
                 { -- Hide the winbar for special buffers
                     condition = function()
-                        return conditions.buffer_matches({
+                        return conditions.buffer_matches {
                             buftype = { "nofile", "prompt", "help", "quickfix" },
                             filetype = { "^git.*", "fugitive" },
-                        })
+                        }
                     end,
                     init = function()
                         vim.opt_local.winbar = nil
-                    end
+                    end,
                 },
                 { -- An inactive winbar for regular files
                     condition = function()
                         return not conditions.is_active()
                     end,
-                    FileNameBlock
+                    FileNameBlock,
                 },
                 DefaultWinbar,
             }
 
-            heirline.setup({
+            heirline.setup {
                 statusline = StatusLines,
                 winbar = WinBars,
-            })
+            }
 
             -- Yep, with heirline we're driving manual!
-            vim.cmd([[au FileType * if index(["wipe", "delete"], &bufhidden) >= 0 | set nobuflisted | endif]])
+            vim.cmd [[au FileType * if index(["wipe", "delete"], &bufhidden) >= 0 | set nobuflisted | endif]]
             vim.api.nvim_create_autocmd("User", {
-                pattern = 'HeirlineInitWinbar',
+                pattern = "HeirlineInitWinbar",
                 callback = function(args)
                     local buf = args.buf
-                    local buftype = vim.tbl_contains(
-                        { "prompt", "nofile", "help", "quickfix" },
-                        vim.bo[buf].buftype
-                    )
+                    local buftype = vim.tbl_contains({ "prompt", "nofile", "help", "quickfix" }, vim.bo[buf].buftype)
                     local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
                     if buftype or filetype then
                         vim.opt_local.winbar = nil
                     end
                 end,
             })
-        end
+        end,
     },
 }

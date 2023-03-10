@@ -2,12 +2,11 @@ return {
     "goolord/alpha-nvim",
     event = "VimEnter",
     config = function()
-        local alpha = require("alpha")
+        local alpha = require "alpha"
 
-        local plenary = require("plenary.path")
+        local plenary = require "plenary.path"
 
-
-        local dashboard = require("alpha.themes.dashboard")
+        local dashboard = require "alpha.themes.dashboard"
         -- local nvim_web_devicons = require("nvim-web-devicons")
         local nvim_web_devicons = {
             enabled = true,
@@ -23,7 +22,7 @@ return {
         local if_nil = vim.F.if_nil
 
         local function getGreeting(name)
-            local tableTime = os.date("*t")
+            local tableTime = os.date "*t"
             local hour = tableTime.hour
             local greetingsTable = {
                 [1] = "  Sleep well",
@@ -51,7 +50,7 @@ return {
         local greeting = getGreeting(name)
 
         -- Foot must be a table so that its height is correctly measured
-        local plugins = #vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", 0, 1)
+        local plugins = #vim.fn.globpath(vim.fn.stdpath "data" .. "/lazy", "*", 0, 1)
         local header = {
             type = "group",
             val = {
@@ -78,7 +77,6 @@ return {
                         position = "center",
                         hl = pick_color(),
                     },
-
                 },
                 { type = "padding", val = 1 },
                 {
@@ -91,12 +89,12 @@ return {
                 },
                 {
                     type = "text",
-                    val = (plugins) .. " plugins ﮣ loaded",
+                    val = plugins .. " plugins ﮣ loaded",
                     opts = {
                         position = "center",
                         hl = "Comment",
                     },
-                }
+                },
             },
             opts = {
                 position = "center",
@@ -104,10 +102,8 @@ return {
             },
         }
 
-
-
         local function get_extension(fn)
-            local match = fn:match("^.+(%..+)$")
+            local match = fn:match "^.+(%..+)$"
             local ext = ""
             if match ~= nil then
                 ext = match:sub(2)
@@ -116,7 +112,7 @@ return {
         end
 
         local function icon(fn)
-            local nwd = require("nvim-web-devicons")
+            local nwd = require "nvim-web-devicons"
             local ext = get_extension(fn)
             return nwd.get_icon(fn, ext, { default = true })
         end
@@ -142,7 +138,7 @@ return {
                 ico_txt = ""
             end
             local file_button_el = dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. fn .. " <CR>")
-            local fn_start = short_fn:match(".*[/\\]")
+            local fn_start = short_fn:match ".*[/\\]"
             if fn_start ~= nil then
                 table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt })
             end
@@ -151,7 +147,6 @@ return {
         end
 
         local default_mru_ignore = { "gitcommit" }
-
 
         local mru_opts = {
             ignore = function(path, ext)
@@ -195,7 +190,7 @@ return {
                 end
 
                 if #short_fn > target_width then
-                    short_fn = plenary.new({short_fn}):shorten(1, { -2, -1 })
+                    short_fn = plenary.new({ short_fn }):shorten(1, { -2, -1 })
                     if #short_fn > target_width then
                         short_fn = plenary.new(short_fn):shorten(1, { -1 })
                     end
@@ -220,15 +215,13 @@ return {
 
         local cwd = vim.fn.getcwd()
 
-
-
         local section_mru = {
 
             type = "group",
             val = function()
                 local mru_files = function()
                     return {
-                        mru(1, cwd, 6)
+                        mru(1, cwd, 6),
                     }
                 end
                 local num_files = #mru_files()[1].val
@@ -255,7 +248,7 @@ return {
                 else
                     return {}
                 end
-            end
+            end,
         }
 
         local quick_links = {
@@ -279,9 +272,7 @@ return {
             position = "center",
         }
 
-
-
-        local fort = require("alpha.fortune")
+        local fort = require "alpha.fortune"
         local fortune = {
             type = "text",
             val = fort(),
@@ -317,5 +308,5 @@ return {
                 vim.opt.laststatus = 0
             end,
         })
-    end
+    end,
 }

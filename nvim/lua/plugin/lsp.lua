@@ -11,18 +11,16 @@ return {
             "lvimuser/lsp-inlayhints.nvim",
         },
         config = function()
-            local lsp = require("lsp-zero")
+            local lsp = require "lsp-zero"
 
+            lsp.preset "minimal"
 
-            lsp.preset("minimal")
-
-
-            lsp.set_preferences({
+            lsp.set_preferences {
                 suggest_lsp_servers = false,
                 sign_icons = false,
-            })
+            }
 
-            lsp.setup_servers({
+            lsp.setup_servers {
                 "tsserver",
                 "eslint",
                 "cssls",
@@ -32,16 +30,18 @@ return {
 
                 "bashls",
                 "dockerls",
-            })
 
-            lsp.configure('lua_ls', {
+                "texlab",
+            }
+
+            lsp.configure("lua_ls", {
                 settings = {
                     Lua = {
                         diagnostics = {
                             globals = { "vim", "_" },
                         },
                     },
-                }
+                },
             })
 
             lsp.configure("pylsp", {
@@ -59,7 +59,7 @@ return {
                                 ignore = {
                                     "E303",
                                     "D401",
-                                    "D403"
+                                    "D403",
                                 },
                             },
                             pylint = {
@@ -70,29 +70,44 @@ return {
                             },
                             pycodestyle = {
                                 enabled = true,
-                                ignore = { "E303" }
-                            }
-                        }
-                    }
-                }
+                                ignore = { "E303" },
+                            },
+                        },
+                    },
+                },
             })
 
             lsp.configure("efm", {
-                filetypes = { 'sh' },
+                filetypes = { "sh" },
             })
 
-
             lsp.on_attach(function(client, bufnr)
-                local opts = {buffer = bufnr, remap = false}
+                local opts = { buffer = bufnr, remap = false }
 
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-                vim.keymap.set("n", "K", function() vim.lsp.buf.hover({focusable = false}) end, opts)
-                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-                vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+                vim.keymap.set("n", "gd", function()
+                    vim.lsp.buf.definition()
+                end, opts)
+                vim.keymap.set("n", "K", function()
+                    vim.lsp.buf.hover { focusable = false }
+                end, opts)
+                vim.keymap.set("n", "[d", function()
+                    vim.diagnostic.goto_next()
+                end, opts)
+                vim.keymap.set("n", "]d", function()
+                    vim.diagnostic.goto_prev()
+                end, opts)
+                vim.keymap.set("n", "<leader>vca", function()
+                    vim.lsp.buf.code_action()
+                end, opts)
+                vim.keymap.set("n", "<leader>vrr", function()
+                    vim.lsp.buf.references()
+                end, opts)
+                vim.keymap.set("n", "<leader>vrn", function()
+                    vim.lsp.buf.rename()
+                end, opts)
+                vim.keymap.set("i", "<C-h>", function()
+                    vim.lsp.buf.signature_help()
+                end, opts)
                 if client.server_capabilities.documentSymbolProvider then
                     require("nvim-navic").attach(client, bufnr)
                 end
@@ -100,7 +115,7 @@ return {
                 require("lsp_signature").on_attach({
                     bind = true,
                     handler_opts = {
-                        border = "rounded"
+                        border = "rounded",
                     },
                     fix_pos = true,
                     hint_prefix = "",
@@ -124,10 +139,7 @@ return {
                 }, bufnr)
 
                 require("lsp-inlayhints").on_attach(client, bufnr, _)
-
             end)
-
-
 
             lsp.nvim_workspace()
 
@@ -136,15 +148,17 @@ return {
 
             local _border = "rounded"
 
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, { focusable = false, border = _border })
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, { border = _border })
-            require('lspconfig.ui.windows').default_options.border = "rounded"
+            vim.lsp.handlers["textDocument/hover"] =
+                vim.lsp.with(vim.lsp.handlers.hover, { focusable = false, border = _border })
+            vim.lsp.handlers["textDocument/signatureHelp"] =
+                vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border })
+            require("lspconfig.ui.windows").default_options.border = "rounded"
 
             local signs = {
                 Error = "",
-                Warn  = "",
-                Hint  = "",
-                Info  = "",
+                Warn = "",
+                Hint = "",
+                Info = "",
             }
 
             for type, icon in pairs(signs) do
@@ -152,7 +166,7 @@ return {
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
 
-            vim.diagnostic.config({
+            vim.diagnostic.config {
                 virtual_text = true,
                 update_in_insert = false,
                 underline = true,
@@ -165,7 +179,7 @@ return {
                     header = "",
                     prefix = "",
                 },
-            })
-        end
+            }
+        end,
     },
 }

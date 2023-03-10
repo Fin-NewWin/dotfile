@@ -5,7 +5,7 @@ au("BufEnter", {
     pattern = "*",
     callback = function()
         vim.opt.formatoptions:remove { "c", "r", "o" }
-    end
+    end,
 })
 
 au("TermOpen", {
@@ -20,25 +20,25 @@ au("TermOpen", {
 au({ "BufLeave", "FocusLost" }, {
     desc = "Autosave when neovim not focused or when leaving buffer",
     callback = function()
-        if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-            vim.api.nvim_command('silent update')
+        if vim.bo.modified and not vim.bo.readonly and vim.fn.expand "%" ~= "" and vim.bo.buftype == "" then
+            vim.api.nvim_command "silent update"
         end
     end,
 })
 
 au("BufWritePre", {
     desc = "Remove trailing white spaces",
-    command = [[%s/\s\+$//e]]
+    command = [[%s/\s\+$//e]],
 })
 
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-au('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+au("TextYankPost", {
     desc = "Highlight yank",
     callback = function()
         vim.highlight.on_yank()
     end,
     group = highlight_group,
-    pattern = '*',
+    pattern = "*",
 })
 
 au("FocusGained", {
@@ -48,13 +48,12 @@ au("FocusGained", {
     end,
 })
 
-
 au("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
 
 au({ "BufRead", "BufNewFile" }, {
     desc = "Enable spell checking in filetypes",
     pattern = { "*.txt", "*.md", "*.tex" },
-    command = "setlocal spell"
+    command = "setlocal spell",
 })
 
 au({ "InsertLeave", "WinEnter" }, {
@@ -88,8 +87,7 @@ au({ "FileType" }, {
     end,
 })
 
-
-au('BufReadPost', {
+au("BufReadPost", {
     desc = "Return to last edit location",
     callback = function()
         local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -102,11 +100,11 @@ au('BufReadPost', {
 
 -- not really an autocmd
 -- Remove hlsearch when not searching
-local ns = vim.api.nvim_create_namespace('toggle_hlsearch')
+local ns = vim.api.nvim_create_namespace "toggle_hlsearch"
 
 local function toggle_hlsearch(char)
-    if vim.fn.mode() == 'n' then
-        local keys = { '<CR>', 'n', 'N', '*', '#', '?', '/' }
+    if vim.fn.mode() == "n" then
+        local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
         local new_hlsearch = vim.tbl_contains(keys, vim.fn.keytrans(char))
 
         if vim.opt.hlsearch:get() ~= new_hlsearch then
