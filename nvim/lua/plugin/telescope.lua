@@ -8,12 +8,12 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
-        local telescope = require "telescope"
-        local tele_actions = require "telescope.actions"
+        local telescope = require("telescope")
+        local tele_actions = require("telescope.actions")
         local key = vim.api.nvim_set_keymap
-        local actions = require "telescope.actions"
+        local actions = require("telescope.actions")
 
-        telescope.setup {
+        telescope.setup({
             defaults = {
                 prompt_prefix = " ",
                 selection_caret = "ﰲ ",
@@ -110,7 +110,7 @@ return {
                     "%.o",
                 },
             },
-        }
+        })
 
         pcall(require("telescope").load_extension, "fzf")
 

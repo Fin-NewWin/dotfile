@@ -3,7 +3,7 @@ return {
     event = "VeryLazy",
     config = function()
         local sign_text = "▎"
-        require("gitsigns").setup {
+        require("gitsigns").setup({
             signs = {
                 add = {
                     hl = "GitSignsAdd",
@@ -52,6 +52,6 @@ return {
                 indent_heuristic = true,
             },
             sign_priority = 6,
-        }
+        })
     end,
 }

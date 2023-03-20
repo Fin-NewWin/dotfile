@@ -2,25 +2,24 @@ return {
     {
         "VonHeikemen/lsp-zero.nvim",
         event = "VeryLazy",
+
         dependencies = {
             "neovim/nvim-lspconfig",
-
-            -- Additional plugins
             "folke/neodev.nvim",
             "ray-x/lsp_signature.nvim",
             "lvimuser/lsp-inlayhints.nvim",
         },
         config = function()
-            local lsp = require "lsp-zero"
+            local lsp = require("lsp-zero")
 
-            lsp.preset "minimal"
+            lsp.preset("minimal")
 
-            lsp.set_preferences {
+            lsp.set_preferences({
                 suggest_lsp_servers = false,
                 sign_icons = false,
-            }
+            })
 
-            lsp.setup_servers {
+            lsp.setup_servers({
                 "tsserver",
                 "eslint",
                 "cssls",
@@ -32,7 +31,7 @@ return {
                 "dockerls",
 
                 "texlab",
-            }
+            })
 
             lsp.configure("lua_ls", {
                 settings = {
@@ -64,6 +63,9 @@ return {
                             },
                             pylint = {
                                 enabled = true,
+                                args = {
+                                    "--generate-members"
+                                }
                             },
                             mypy = {
                                 enabled = true,
@@ -88,23 +90,17 @@ return {
                     vim.lsp.buf.definition()
                 end, opts)
                 vim.keymap.set("n", "K", function()
-                    vim.lsp.buf.hover { focusable = false }
-                end, opts)
-                vim.keymap.set("n", "[d", function()
-                    vim.diagnostic.goto_next()
+                    vim.lsp.buf.hover({ focusable = false })
                 end, opts)
                 vim.keymap.set("n", "]d", function()
+                    vim.diagnostic.goto_next()
+                end, opts)
+                vim.keymap.set("n", "[d", function()
                     vim.diagnostic.goto_prev()
                 end, opts)
-                vim.keymap.set("n", "<leader>vca", function()
-                    vim.lsp.buf.code_action()
-                end, opts)
-                vim.keymap.set("n", "<leader>vrr", function()
-                    vim.lsp.buf.references()
-                end, opts)
-                vim.keymap.set("n", "<leader>vrn", function()
-                    vim.lsp.buf.rename()
-                end, opts)
+                -- vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+                -- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+                vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
                 vim.keymap.set("i", "<C-h>", function()
                     vim.lsp.buf.signature_help()
                 end, opts)
@@ -138,7 +134,7 @@ return {
                     end,
                 }, bufnr)
 
-                require("lsp-inlayhints").on_attach(client, bufnr, _)
+                require("lsp-inlayhints").on_attach(client, bufnr)
             end)
 
             lsp.nvim_workspace()
@@ -166,7 +162,7 @@ return {
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
 
-            vim.diagnostic.config {
+            vim.diagnostic.config({
                 virtual_text = true,
                 update_in_insert = false,
                 underline = true,
@@ -179,7 +175,13 @@ return {
                     header = "",
                     prefix = "",
                 },
-            }
+            })
         end,
+    },
+    {
+        "VidocqH/lsp-lens.nvim",
+        event = "VeryLazy",
+        config = true,
+        enabled = false,
     },
 }

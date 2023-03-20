@@ -2,11 +2,11 @@ return {
     "goolord/alpha-nvim",
     event = "VimEnter",
     config = function()
-        local alpha = require "alpha"
+        local alpha = require("alpha")
 
-        local plenary = require "plenary.path"
+        local plenary = require("plenary.path")
 
-        local dashboard = require "alpha.themes.dashboard"
+        local dashboard = require("alpha.themes.dashboard")
         -- local nvim_web_devicons = require("nvim-web-devicons")
         local nvim_web_devicons = {
             enabled = true,
@@ -22,7 +22,7 @@ return {
         local if_nil = vim.F.if_nil
 
         local function getGreeting(name)
-            local tableTime = os.date "*t"
+            local tableTime = os.date("*t")
             local hour = tableTime.hour
             local greetingsTable = {
                 [1] = "  Sleep well",
@@ -50,7 +50,7 @@ return {
         local greeting = getGreeting(name)
 
         -- Foot must be a table so that its height is correctly measured
-        local plugins = #vim.fn.globpath(vim.fn.stdpath "data" .. "/lazy", "*", 0, 1)
+        local plugins = #vim.fn.globpath(vim.fn.stdpath("data") .. "/lazy", "*", 0, 1)
         local header = {
             type = "group",
             val = {
@@ -103,7 +103,7 @@ return {
         }
 
         local function get_extension(fn)
-            local match = fn:match "^.+(%..+)$"
+            local match = fn:match("^.+(%..+)$")
             local ext = ""
             if match ~= nil then
                 ext = match:sub(2)
@@ -112,7 +112,7 @@ return {
         end
 
         local function icon(fn)
-            local nwd = require "nvim-web-devicons"
+            local nwd = require("nvim-web-devicons")
             local ext = get_extension(fn)
             return nwd.get_icon(fn, ext, { default = true })
         end
@@ -138,7 +138,7 @@ return {
                 ico_txt = ""
             end
             local file_button_el = dashboard.button(sc, ico_txt .. short_fn, "<cmd>e " .. fn .. " <CR>")
-            local fn_start = short_fn:match ".*[/\\]"
+            local fn_start = short_fn:match(".*[/\\]")
             if fn_start ~= nil then
                 table.insert(fb_hl, { "Comment", #ico_txt - 2, #fn_start + #ico_txt })
             end
@@ -272,7 +272,7 @@ return {
             position = "center",
         }
 
-        local fort = require "alpha.fortune"
+        local fort = require("alpha.fortune")
         local fortune = {
             type = "text",
             val = fort(),

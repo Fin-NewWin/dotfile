@@ -29,4 +29,8 @@ case $1 in
             dunstify -i volume-mic -a "changevolume" -t 2000 -r 9993 -u low "Activated" &
         fi
         ;;
+    # status)
+    #     if "$(pamixer -t --get-mute)"; then
+
+    *) ;;
 esac

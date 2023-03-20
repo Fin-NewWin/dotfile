@@ -11,8 +11,8 @@ return {
             end
 
             vim.opt.list = true
-            vim.opt.listchars:append "eol:↴"
-            indent_blankline.setup {
+            vim.opt.listchars:append("eol:↴")
+            indent_blankline.setup({
                 use_treesitter = true,
                 show_current_context = true,
                 show_trailing_blankline_indent = false,
@@ -46,7 +46,7 @@ return {
                     "terminal",
                     "nofile",
                 },
-            }
+            })
         end,
     },
     {
@@ -59,13 +59,13 @@ return {
                 return
             end
 
-            colorizer.setup {
+            colorizer.setup({
                 filetypes = { "*", "!lazy" },
                 buftype = { "*", "!prompt", "!nofile" },
                 user_default_options = {
                     RGB = true, -- #RGB hex codes
                     RRGGBB = true, -- #RRGGBB hex codes
-                    names = true, -- "Name" codes like Blue
+                    names = false, -- "Name" codes like Blue
                     RRGGBBAA = true, -- #RRGGBBAA hex codes
                     rgb_fn = true, -- CSS rgb() and rgba() functions
                     hsl_fn = true, -- CSS hsl() and hsla() functions
@@ -74,16 +74,16 @@ return {
                     mode = "background", -- Set the display mode
                     tailwind = true,
                 },
-            }
+            })
         end,
     },
     {
         "numToStr/Comment.nvim",
         event = "BufReadPost",
         config = function()
-            require("Comment").setup {
+            require("Comment").setup({
                 ignore = "^$",
-            }
+            })
         end,
     },
     {
@@ -95,7 +95,7 @@ return {
                 vim.notify("notify not in path", 4, { title = "Plugin Error" })
                 return
             end
-            notify.setup {
+            notify.setup({
                 background_colour = "#000000",
                 timeout = 3000,
                 level = 0,
@@ -110,7 +110,7 @@ return {
                     vim.api.nvim_win_set_config(win, { focusable = false })
                     -- vim.api.nvim_set_option_value('statuscolumn', '', { win = win })
                 end,
-            }
+            })
 
             vim.notify = notify
         end,
@@ -130,13 +130,13 @@ return {
                 vim.notify("murmur not in path", 4, { title = "Plugin Error" })
                 return
             end
-            murmur.setup {
+            murmur.setup({
                 cursor_rgb = {
                     guibg = "#565656",
                 },
                 min_len = 3,
                 max_len = 80,
-            }
+            })
         end,
     },
     {
@@ -160,7 +160,7 @@ return {
         keys = { "<space>m" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = function()
-            require("treesj").setup { use_default_keymaps = false }
+            require("treesj").setup({ use_default_keymaps = false })
             vim.keymap.set("n", "<leader>m", require("treesj").toggle)
         end,
     },

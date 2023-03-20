@@ -14,13 +14,14 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            -- triggers CursorHold event faster
-            vim.opt.updatetime = 200
-
-            require("barbecue").setup {
+            require("barbecue").setup({
                 create_autocmd = false,
                 attach_navic = false,
-            }
+                opts = {
+                    exclude_filetypes = { "gitcommit", "Trouble", "toggleterm" },
+                    show_modified = false,
+                },
+            })
 
             vim.api.nvim_create_autocmd({
                 "WinResized",

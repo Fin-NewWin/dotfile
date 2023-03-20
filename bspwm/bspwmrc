@@ -30,6 +30,7 @@ bspc rule -r "*"
 # default
 bspc rule -a Screenkey manage=off
 bspc rule -a Zathura state=tiled
+bspc rule -a dunst border=off
 
 # firefox rules
 bspc rule -a firefox follow=on

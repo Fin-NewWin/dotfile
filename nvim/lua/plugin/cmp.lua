@@ -21,23 +21,23 @@ return {
         "rafamadriz/friendly-snippets",
     },
     config = function()
-        local cmp = require "cmp"
-        local luasnip = require "luasnip"
-        local lspkind = require "lspkind"
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+        local lspkind = require("lspkind")
 
-        luasnip.config.setup {
+        luasnip.config.setup({
             history = true,
             enable_autosnippets = true,
-        }
+        })
 
         require("luasnip.loaders.from_vscode").lazy_load()
 
         local function has_words_before()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
         end
 
-        cmp.setup {
+        cmp.setup({
             window = {
                 completion = {
                     border = "rounded",
@@ -80,9 +80,9 @@ return {
                 { name = "luasnip", keyword_length = 2 },
                 { name = "nvim_lua" },
             },
-            mapping = cmp.mapping.preset.insert {
+            mapping = cmp.mapping.preset.insert({
                 ["<C-Space>"] = cmp.mapping.complete(),
-                ["<CR>"] = cmp.mapping.confirm { select = false },
+                ["<CR>"] = cmp.mapping.confirm({ select = false }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
@@ -94,8 +94,8 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-            },
-        }
+            }),
+        })
 
         cmp.setup.cmdline({ "/", "?" }, {
             mapping = cmp.mapping.preset.cmdline(),

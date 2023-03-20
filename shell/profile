@@ -82,5 +82,6 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 # Readline
 export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
-export PYTHONPYCACHEPREFIX=XDG_CACHE_HOME/python
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/.pythonrc
+export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/python
 export PYTHONUSERBASE=$XDG_DATA_HOME/python

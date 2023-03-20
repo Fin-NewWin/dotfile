@@ -15,7 +15,7 @@ setWall(){
         ln -sf "$WALLPAPER" "$BG_LOCATION"
     fi
     xwallpaper --zoom "$BG_LOCATION" && \
-    notify-send -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
+    notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
     # if fail somehow
     return
 

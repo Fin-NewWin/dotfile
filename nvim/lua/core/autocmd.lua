@@ -4,7 +4,7 @@ au("BufEnter", {
     desc = "Remove auto comments",
     pattern = "*",
     callback = function()
-        vim.opt.formatoptions:remove { "c", "r", "o" }
+        vim.opt.formatoptions:remove({ "c", "r", "o" })
     end,
 })
 
@@ -13,15 +13,15 @@ au("TermOpen", {
     callback = function()
         vim.opt_local.relativenumber = false
         vim.opt_local.number = false
-        vim.cmd "startinsert!"
+        vim.cmd("startinsert!")
     end,
 })
 
 au({ "BufLeave", "FocusLost" }, {
     desc = "Autosave when neovim not focused or when leaving buffer",
     callback = function()
-        if vim.bo.modified and not vim.bo.readonly and vim.fn.expand "%" ~= "" and vim.bo.buftype == "" then
-            vim.api.nvim_command "silent update"
+        if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+            vim.api.nvim_command("silent update")
         end
     end,
 })
@@ -44,7 +44,7 @@ au("TextYankPost", {
 au("FocusGained", {
     desc = "Update file when there are changes",
     callback = function()
-        vim.cmd "checktime"
+        vim.cmd("checktime")
     end,
 })
 
@@ -100,7 +100,7 @@ au("BufReadPost", {
 
 -- not really an autocmd
 -- Remove hlsearch when not searching
-local ns = vim.api.nvim_create_namespace "toggle_hlsearch"
+local ns = vim.api.nvim_create_namespace("toggle_hlsearch")
 
 local function toggle_hlsearch(char)
     if vim.fn.mode() == "n" then

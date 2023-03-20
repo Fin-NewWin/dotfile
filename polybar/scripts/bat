@@ -6,6 +6,7 @@ BATTERY_STATUS="$BATTERY/status"
 
 
 BATTERY_IF_CHARGING="discharging"
+BATTERY_PREFIX=""
 
 BATTERY_SUM=0
 BATTERY_COUNT=0
@@ -29,6 +30,7 @@ bat_stat () {
         then
             BATTERY_COLOR="#b8cc26"
             BATTERY_IF_CHARGING="charging"
+            BATTERY_PREFIX="+"
             break
         fi
     done
@@ -85,5 +87,4 @@ fi
 
 bat_stat
 
-
-echo "%{T2}%{F$BATTERY_COLOR}$BATTERY_ICON%{F-}%{T-}$BATTERY_SUM%"
+echo "%{T2}%{F$BATTERY_COLOR}$BATTERY_ICON%{F-}%{T-}$BATTERY_PREFIX$BATTERY_SUM%"

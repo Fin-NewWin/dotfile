@@ -4,8 +4,8 @@ super + Return
 XF86Audio{RaiseVolume,LowerVolume,Mute,MicMute}
     changevol {up,down,mute,mic}
 
-XF86MonBrightness{Down,Up}
-    xbacklight -{dec,inc} 5
+XF86MonBrightness{Up,Down}
+    changebright {up, down}
 
 super + space
     dmenu_run

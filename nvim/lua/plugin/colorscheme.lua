@@ -8,8 +8,8 @@ return {
             vim.notify("Gruvbox not installed", "ERROR", { title = "Plugin config error" })
             return
         end
-        local theme = require "gruvbox.palette"
-        gruvbox.setup {
+        local theme = require("gruvbox.palette")
+        gruvbox.setup({
             overrides = {
 
                 NormalFloat = { bg = "NONE" },
@@ -37,10 +37,9 @@ return {
                 NavicSeparator = { link = "Comment" },
             },
             transparent_mode = true,
-            italic = false,
             contrast = "hard",
             -- inverse = false,
-        }
-        vim.cmd.colorscheme "gruvbox"
+        })
+        vim.cmd.colorscheme("gruvbox")
     end,
 }

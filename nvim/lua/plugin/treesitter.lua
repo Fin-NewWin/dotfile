@@ -3,11 +3,12 @@ return {
     event = "BufReadPost",
     build = ":TSUpdate",
     dependencies = {
-        { "JoosepAlviste/nvim-ts-context-commentstring" },
-        { "windwp/nvim-ts-autotag" },
+         "JoosepAlviste/nvim-ts-context-commentstring" ,
+         "windwp/nvim-ts-autotag" ,
+        "HiPhish/nvim-ts-rainbow2"
     },
     config = function()
-        require("nvim-treesitter.configs").setup {
+        require("nvim-treesitter.configs").setup({
             ensure_installed = "all",
             sync_install = false,
             auto_install = false,
@@ -22,8 +23,14 @@ return {
                     end
                 end,
             },
+
             autopairs = { enable = true },
             indent = { enable = false },
+            rainbow = {
+                enable = true,
+                query = 'rainbow-parens',
+                strategy = require 'ts-rainbow'.strategy.global,
+            },
 
             autotag = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
@@ -34,6 +41,6 @@ return {
                     return true
                 end
             end,
-        }
+        })
     end,
 }
