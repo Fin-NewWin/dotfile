@@ -3,9 +3,9 @@ return {
     event = "BufReadPost",
     build = ":TSUpdate",
     dependencies = {
-         "JoosepAlviste/nvim-ts-context-commentstring" ,
-         "windwp/nvim-ts-autotag" ,
-        "HiPhish/nvim-ts-rainbow2"
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        "windwp/nvim-ts-autotag",
+        "HiPhish/nvim-ts-rainbow2",
     },
     config = function()
         require("nvim-treesitter.configs").setup({
@@ -28,8 +28,8 @@ return {
             indent = { enable = false },
             rainbow = {
                 enable = true,
-                query = 'rainbow-parens',
-                strategy = require 'ts-rainbow'.strategy.global,
+                query = "rainbow-parens",
+                strategy = require("ts-rainbow").strategy.global,
             },
 
             autotag = { enable = true },

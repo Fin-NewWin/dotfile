@@ -29,7 +29,7 @@ return {
                 [2] = "  Good morning",
                 [3] = "  Good afternoon",
                 [4] = "  Good evening",
-                [5] = "望 Good night",
+                [5] = "󰖔 Good night",
             }
             local greetingIndex = 0
             if hour == 23 or hour < 7 then
@@ -89,7 +89,7 @@ return {
                 },
                 {
                     type = "text",
-                    val = plugins .. " plugins ﮣ loaded",
+                    val = plugins .. " plugins 󰚥 loaded",
                     opts = {
                         position = "center",
                         hl = "Comment",
@@ -261,12 +261,10 @@ return {
                     " " .. " Find project",
                     ":lua require('telescope').extensions.projects.projects()<CR>"
                 ),
-                -- dashboard.button("f", "  Find file", ":FzfLua files <CR>"),
-                -- dashboard.button("F", "  Find text", ":FzfLua live_grep <CR>"),
                 dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
                 -- dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
                 dashboard.button("u", "  Update plugins", ":Lazy update<CR>"),
-                dashboard.button("q", "  Quit", ":qa<CR>"),
+                dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
                 { type = "padding", val = 1 },
             },
             position = "center",

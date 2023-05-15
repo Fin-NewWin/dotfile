@@ -119,24 +119,8 @@ return {
         "ggandor/leap.nvim",
         event = "VeryLazy",
         dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
-        config = true,
-    },
-    {
-        "nyngwang/murmur.lua",
-        event = "BufReadPre",
         config = function()
-            local status_ok, murmur = pcall(require, "murmur")
-            if not status_ok then
-                vim.notify("murmur not in path", 4, { title = "Plugin Error" })
-                return
-            end
-            murmur.setup({
-                cursor_rgb = {
-                    guibg = "#565656",
-                },
-                min_len = 3,
-                max_len = 80,
-            })
+            require("leap").add_default_mappings()
         end,
     },
     {
