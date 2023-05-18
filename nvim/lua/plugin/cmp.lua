@@ -88,14 +88,6 @@ return {
                 },
             },
             mapping = {
-                ["<C-p>"] = cmp.mapping(
-                    cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    { "i" }
-                ),
-                ["<C-n>"] = cmp.mapping(
-                    cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    { "i" }
-                ),
                 ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
