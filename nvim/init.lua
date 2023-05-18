@@ -14,3 +14,4 @@ for _, source in ipairs({
         vim.notify(err_msg, 4, { title = "Config Error" })
     end
 end
+

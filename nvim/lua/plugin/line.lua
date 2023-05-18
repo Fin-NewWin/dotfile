@@ -6,7 +6,8 @@ return {
     },
     {
         "utilyre/barbecue.nvim",
-        event = "LspAttach",
+        -- event = "BufEnter",
+        lazy = false,
         name = "barbecue",
         version = "*",
         dependencies = {
@@ -15,28 +16,11 @@ return {
         },
         config = function()
             require("barbecue").setup({
-                create_autocmd = false,
                 attach_navic = false,
                 opts = {
                     exclude_filetypes = { "gitcommit", "Trouble", "toggleterm" },
                     show_modified = false,
                 },
-            })
-
-            vim.api.nvim_create_autocmd({
-                "WinResized",
-                "BufWinEnter",
-                "CursorHold",
-                "InsertLeave",
-
-                "BufWritePost",
-                "TextChanged",
-                "TextChangedI",
-            }, {
-                group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-                callback = function()
-                    require("barbecue.ui").update()
-                end,
             })
         end,
     },

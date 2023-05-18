@@ -6,10 +6,8 @@ return {
     },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-calc",
         "hrsh7th/cmp-cmdline",
 
         "onsails/lspkind.nvim",
@@ -72,16 +70,33 @@ return {
                 },
             },
             sources = {
-                { name = "path" },
-                { name = "nvim_lsp", keyword_length = 3 },
-                { name = "nvim_lsp_signature_help", keyword_length = 3 },
-                { name = "calc" },
-                { name = "buffer", keyword_length = 3 },
-                { name = "luasnip", keyword_length = 2 },
-                { name = "nvim_lua" },
+                {
+                    name = "nvim_lsp",
+                    priority = 1000,
+                },
+                {
+                    name = "luasnip",
+                    priority = 750,
+                },
+                {
+                    name = "buffer",
+                    priority = 500,
+                },
+                {
+                    name = "path",
+                    priority = 250,
+                },
             },
-            mapping = cmp.mapping.preset.insert({
-                ["<C-Space>"] = cmp.mapping.complete(),
+            mapping = {
+                ["<C-p>"] = cmp.mapping(
+                    cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    { "i" }
+                ),
+                ["<C-n>"] = cmp.mapping(
+                    cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    { "i" }
+                ),
+                ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
@@ -94,26 +109,46 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-            }),
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+            },
         })
 
         cmp.setup.cmdline({ "/", "?" }, {
-            mapping = cmp.mapping.preset.cmdline(),
+            mapping = cmp.mapping.preset.cmdline({
+                ["<C-p>"] = function()
+                    return nil
+                end,
+                ["<C-n>"] = function()
+                    return nil
+                end,
+            }),
             sources = {
                 { name = "buffer" },
             },
         })
 
         cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(),
+            mapping = cmp.mapping.preset.cmdline({
+                ["<C-p>"] = function()
+                    return nil
+                end,
+                ["<C-n>"] = function()
+                    return nil
+                end,
+            }),
             sources = cmp.config.sources({
                 { name = "path" },
             }, {
                 {
                     name = "cmdline",
-                    option = {
-                        ignore_cmds = { "Man", "!" },
-                    },
                 },
             }),
         })
