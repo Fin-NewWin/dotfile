@@ -5,7 +5,6 @@ return {
     config = function()
         local ok, gruvbox = pcall(require, "gruvbox")
         if not ok then
-            vim.notify("Gruvbox not installed", "ERROR", { title = "Plugin config error" })
             return
         end
         local theme = require("gruvbox.palette")
@@ -15,22 +14,19 @@ return {
                 NormalFloat = { bg = "NONE" },
                 TabLineFill = { bg = "NONE" },
                 SignColumn = { bg = "NONE" },
+
                 FloatBorder = { link = "TelescopeBorder" },
+                LspInfoBorder = { link = "FloatBorder" },
+
                 WinBar = { bg = "NONE" },
                 WinBarNC = { bg = "NONE" },
                 IncSearch = { fg = "#fe8019", bg = "#ffffff" },
+                CursorLineNr = { bg = "NONE" },
 
                 -- Git Colors
                 GitSignsAdd = { fg = theme.bright_green, bg = "NONE" },
                 GitSignsChange = { fg = theme.bright_orange, bg = "NONE" },
                 GitSignsDelete = { fg = theme.bright_red, bg = "NONE" },
-
-                -- LSP
-                -- DiagnosticSignError = { fg = theme.bright_red },
-                -- DiagnosticSignWarn  = { fg = theme.bright_yellow },
-                -- DiagnosticSignHint  = { fg = theme.bright_aqua },
-                -- DiagnosticSignInfo  = { fg = theme.bright_blue, bg = "NONE" },
-                -- LspInfoBorder       = { link = "TelescopeBorder" },
 
                 -- Navic
                 NavicText = { link = "Comment" },

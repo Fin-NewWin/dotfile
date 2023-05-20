@@ -27,7 +27,6 @@ return {
                 "clangd",
 
                 "bashls",
-                "dockerls",
 
                 "texlab",
             })
@@ -82,9 +81,7 @@ return {
                 },
             })
 
-            lsp.configure("efm", {
-                filetypes = { "sh" },
-            })
+            lsp.configure("efm", {})
 
             lsp.on_attach(function(client, bufnr)
                 local opts = { buffer = bufnr, remap = false }
@@ -109,9 +106,6 @@ return {
                 vim.keymap.set("i", "<C-h>", function()
                     vim.lsp.buf.signature_help()
                 end, opts)
-                if client.server_capabilities.documentSymbolProvider then
-                    require("nvim-navic").attach(client, bufnr)
-                end
 
                 require("lsp_signature").on_attach({
                     bind = true,
@@ -153,7 +147,9 @@ return {
                 vim.lsp.with(vim.lsp.handlers.hover, { focusable = false, border = _border })
             vim.lsp.handlers["textDocument/signatureHelp"] =
                 vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border })
-            require("lspconfig.ui.windows").default_options.border = "rounded"
+
+            require('lspconfig.ui.windows').default_options.border = 'rounded'
+
 
             local signs = {
                 Error = "󰅚",
@@ -179,6 +175,21 @@ return {
                     source = "always",
                     header = "",
                     prefix = "",
+                },
+            })
+        end,
+    },
+    {
+        "glepnir/lspsaga.nvim",
+        event = "LspAttach",
+        dependencies = {
+            { "nvim-tree/nvim-web-devicons" },
+            { "nvim-treesitter/nvim-treesitter" },
+        },
+        config = function()
+            require("lspsaga").setup({
+                lightbulb = {
+                    enable = false,
                 },
             })
         end,
