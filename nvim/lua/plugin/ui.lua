@@ -3,16 +3,20 @@ return {
         "anuvyklack/windows.nvim",
         config = true,
         event = "WinNew",
-        dependencies = "anuvyklack/middleclass",
+        dependencies = {
+            "anuvyklack/middleclass",
+        },
     },
     {
         "luukvbaal/statuscol.nvim",
-        event = "VeryLazy",
+        lazy = false,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup({
-                -- configuration goes here, for example:
-                relculright = false,
+                -- relculright = false,
+
+                ft_ignore = { "alpha", "neo-tree", "Trouble", "help" },
+                bt_ignore = { "nofile" },
                 -- setopt = true,
                 segments = {
                     {

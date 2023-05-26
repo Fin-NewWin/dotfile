@@ -1,7 +1,7 @@
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "*",
+        branch = "v2.x",
         lazy = false,
 
         dependencies = {
@@ -134,6 +134,11 @@ return {
                 }, bufnr)
 
                 require("lsp-inlayhints").on_attach(client, bufnr, false)
+                vim.api.nvim_create_autocmd({"LspAttach"}, {
+                    callback = function()
+                        return true
+                    end
+                })
             end)
 
             lsp.nvim_workspace()
@@ -148,8 +153,7 @@ return {
             vim.lsp.handlers["textDocument/signatureHelp"] =
                 vim.lsp.with(vim.lsp.handlers.signature_help, { border = _border })
 
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
-
+            require("lspconfig.ui.windows").default_options.border = "rounded"
 
             local signs = {
                 Error = "󰅚",
