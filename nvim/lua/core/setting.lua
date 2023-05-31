@@ -6,6 +6,9 @@ local options = {
     cursorline = true, -- cursorline that's it
     errorbells = false, -- no beep
     expandtab = true, -- tabs to spaces
+    fillchars = {
+        eob = " ", -- end of buffer char = space
+    },
     ignorecase = true, -- ignore case when searching
     laststatus = 3, -- global staths
     mouse = "", -- enables mouse
@@ -41,3 +44,4 @@ vim.opt.whichwrap:append("<>[]hl")
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
+vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp

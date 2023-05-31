@@ -1,3 +1,5 @@
+---@diagnostic disable: unused-local
+
 return {
     {
         {
@@ -25,6 +27,7 @@ return {
                         -- or (https://github.com/rebelot/heirline.nvim/issues/139)
                         require("gitsigns").setup()
 
+                        ---@diagnostic disable-next-line: undefined-field
                         self.status_dict = vim.b.gitsigns_status_dict
                         self.has_changes = self.status_dict.added ~= 0
                             or self.status_dict.removed ~= 0
@@ -32,9 +35,14 @@ return {
                     end,
                     { -- git branch name
                         provider = function(self)
-                            return "   " .. self.status_dict.head
+                            return "  "
                         end,
                         hl = { fg = theme.GruvboxPurple.fg },
+                    },
+                    {
+                        provider = function(self)
+                            return self.status_dict.head
+                        end
                     },
                     {
                         provider = function(self)
@@ -63,7 +71,8 @@ return {
                         end,
                     },
                     hl = {
-                        bg = theme.GruvboxBg1.fg,
+                        -- bg = theme.GruvboxBg1.fg,
+                        bold = true,
                     },
                 }
 
@@ -121,14 +130,16 @@ return {
                 local LSPActive = {
                     condition = conditions.lsp_attached,
                     provider = function()
-                        return "   [LSP]  "
+                        local num_lsp = #vim.lsp.get_active_clients({ bufnr = 0 })
+                        return "   [" .. num_lsp .. "] "
                     end,
                     hl = {
                         fg = theme.GruvboxYellow.fg,
-                        bg = theme.GruvboxBg1.fg,
-                        -- bold = true
+                        -- bg = theme.GruvboxBg1.fg,
+                        bold = true
                     },
                 }
+
                 local Diagnostics = {
                     condition = conditions.has_diagnostics,
                     static = {
@@ -149,7 +160,6 @@ return {
                         end,
                         hl = {
                             fg = "#fb4934",
-                            -- bold = true,
                         },
                         update = {
                             "DiagnosticChanged",
@@ -163,7 +173,6 @@ return {
                         end,
                         hl = {
                             fg = "#fabd2f",
-                            -- bold = true,
                         },
                         update = {
                             "DiagnosticChanged",
@@ -177,7 +186,6 @@ return {
                         end,
                         hl = {
                             fg = "#83a598",
-                            -- bold = true,
                         },
                         update = {
                             "DiagnosticChanged",
@@ -191,7 +199,6 @@ return {
                         end,
                         hl = {
                             fg = "#8ec07c",
-                            -- bold = true,
                         },
                         update = {
                             "DiagnosticChanged",
@@ -206,8 +213,8 @@ return {
                     },
                     hl = {
                         -- fg = theme.GruvboxYellow.fg,
-                        bg = theme.GruvboxBg1.fg,
-                        -- bold = true
+                        -- bg = theme.GruvboxBg1.fg,
+                        bold = true
                     },
                 }
 
@@ -274,6 +281,16 @@ return {
 
                 FileNameBlock = utils.insert(FileNameBlock, FileName, { provider = "%<" })
 
+                local FileType = {
+                    provider = function()
+                        return string.upper(vim.bo.filetype)
+                    end,
+                    hl = {
+                        fg = utils.get_highlight("GruvboxBlue").fg,
+                        bold = true,
+                    },
+                }
+
                 local Align = {
                     provider = "%=",
                     hl = { bg = "NONE" },
@@ -291,6 +308,8 @@ return {
                     Diagnostics,
                     Align,
                     SearchResults,
+                    FileType,
+                    Space,
                     Ruler,
                 }
 
