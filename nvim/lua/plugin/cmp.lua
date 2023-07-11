@@ -27,7 +27,13 @@ return {
             enable_autosnippets = true,
         })
 
-        require("luasnip.loaders.from_vscode").lazy_load()
+        vim.tbl_map(function(type)
+            require("luasnip.loaders.from_" .. type).lazy_load()
+        end, {
+            "vscode",
+            "snipmate",
+            "lua",
+        })
 
         local function has_words_before()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))

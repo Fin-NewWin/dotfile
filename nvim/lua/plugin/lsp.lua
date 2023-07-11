@@ -7,8 +7,6 @@ return {
         dependencies = {
             "neovim/nvim-lspconfig",
             "folke/neodev.nvim",
-            "ray-x/lsp_signature.nvim",
-            "lvimuser/lsp-inlayhints.nvim",
         },
         config = function()
             local lsp = require("lsp-zero").preset({})
@@ -98,8 +96,6 @@ return {
                 vim.keymap.set("n", "[d", function()
                     vim.diagnostic.goto_prev()
                 end, opts)
-                -- vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-                -- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                 vim.keymap.set("n", "<leader>rn", function()
                     vim.lsp.buf.rename()
                 end, opts)
@@ -107,37 +103,11 @@ return {
                     vim.lsp.buf.signature_help()
                 end, opts)
 
-                require("lsp_signature").on_attach({
-                    bind = true,
-                    handler_opts = {
-                        border = "rounded",
-                    },
-                    fix_pos = true,
-                    hint_prefix = "",
-                    floating_window_off_x = 5, -- adjust float windows x position.
-                    floating_window_off_y = function() -- adjust float windows y position. e.g. set to -2 can make floating window move up 2 lines
-                        local pumheight = vim.o.pumheight
-                        local winline = vim.fn.winline() -- line number in the window
-                        local winheight = vim.fn.winheight(0)
-
-                        -- window top
-                        if winline - 1 < pumheight then
-                            return pumheight
-                        end
-
-                        -- window bottom
-                        if winheight - winline < pumheight then
-                            return -pumheight
-                        end
-                        return 0
-                    end,
-                }, bufnr)
-
-                require("lsp-inlayhints").on_attach(client, bufnr, false)
-                vim.api.nvim_create_autocmd({"LspAttach"}, {
+                -- Tell that the buffer is loaded
+                vim.api.nvim_create_autocmd({ "LspAttach" }, {
                     callback = function()
                         return true
-                    end
+                    end,
                 })
             end)
 

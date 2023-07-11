@@ -1,6 +1,7 @@
-local au = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-au("BufEnter", {
+autocmd("BufEnter", {
     desc = "Remove auto comments",
     pattern = "*",
     callback = function()
@@ -8,7 +9,7 @@ au("BufEnter", {
     end,
 })
 
-au("TermOpen", {
+autocmd("TermOpen", {
     desc = "Terminal settings",
     callback = function()
         vim.opt_local.relativenumber = false
@@ -17,7 +18,7 @@ au("TermOpen", {
     end,
 })
 
-au({ "BufLeave", "FocusLost" }, {
+autocmd({ "BufLeave", "FocusLost" }, {
     desc = "Autosave when neovim not focused or when leaving buffer",
     callback = function()
         if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
@@ -26,13 +27,8 @@ au({ "BufLeave", "FocusLost" }, {
     end,
 })
 
-au("BufWritePre", {
-    desc = "Remove trailing white spaces",
-    command = [[%s/\s\+$//e]],
-})
-
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-au("TextYankPost", {
+local highlight_group = augroup("YankHighlight", { clear = true })
+autocmd("TextYankPost", {
     desc = "Highlight yank",
     callback = function()
         vim.highlight.on_yank()
@@ -41,22 +37,22 @@ au("TextYankPost", {
     pattern = "*",
 })
 
-au("FocusGained", {
+autocmd("FocusGained", {
     desc = "Update file when there are changes",
     callback = function()
         vim.cmd("checktime")
     end,
 })
 
-au("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
+autocmd("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
 
-au({ "BufRead", "BufNewFile" }, {
+autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Enable spell checking in filetypes",
     pattern = { "*.txt", "*.md", "*.tex" },
     command = "setlocal spell",
 })
 
-au({ "InsertLeave", "WinEnter" }, {
+autocmd({ "InsertLeave", "WinEnter" }, {
     desc = "Show cursor line only in active window",
     callback = function()
         local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
@@ -67,7 +63,7 @@ au({ "InsertLeave", "WinEnter" }, {
     end,
 })
 
-au({ "InsertEnter", "WinLeave" }, {
+autocmd({ "InsertEnter", "WinLeave" }, {
     desc = "Disable cursorline when buffer not focused",
     callback = function()
         local cl = vim.wo.cursorline
@@ -78,7 +74,7 @@ au({ "InsertEnter", "WinLeave" }, {
     end,
 })
 
-au({ "FileType" }, {
+autocmd({ "FileType" }, {
     desc = "Fix conceallevel for json and help files",
     pattern = { "json", "jsonc" },
     callback = function()
@@ -87,7 +83,7 @@ au({ "FileType" }, {
     end,
 })
 
-au("BufReadPost", {
+autocmd("BufReadPost", {
     desc = "Return to last edit location",
     callback = function()
         local mark = vim.api.nvim_buf_get_mark(0, '"')

@@ -3,6 +3,7 @@ local options = {
     breakindent = true, -- Wrap lines have same indent
     colorcolumn = "120", -- vertical column that suggests column limit
     cmdheight = 0, -- Height when using cmd
+    clipboard = "unnamedplus", -- use system clipboard
     cursorline = true, -- cursorline that's it
     errorbells = false, -- no beep
     expandtab = true, -- tabs to spaces

@@ -32,11 +32,6 @@ key("v", "<", "<gv", opts)
 -- Select All
 key("n", "<C-a>", "gg<S-v>G", opts)
 
--- Remove Keybindings
-key("n", "<S-k>", "<Nop>", opts)
-key("n", "<C-[", "<Nop>", opts)
-key("n", "Q", "<Nop>", opts)
-
 -- move bottom line to this line
 key("n", "J", "mzJ`z")
 
@@ -52,12 +47,6 @@ key("n", "}", "}zz")
 key("n", "n", "nzzzv")
 key("n", "N", "Nzzzv")
 
--- system clipboard
-key("n", "<leader>p", '"+p')
-key({ "n", "v" }, "<leader>y", '"+y')
-key("n", "<leader>Y", '"+Y')
-key({ "n", "v" }, "<leader>d", '"_d')
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 key("n", "n", "'Nn'[v:searchforward]", { expr = true })
 key("x", "n", "'Nn'[v:searchforward]", { expr = true })
@@ -65,3 +54,12 @@ key("o", "n", "'Nn'[v:searchforward]", { expr = true })
 key("n", "N", "'nN'[v:searchforward]", { expr = true })
 key("x", "N", "'nN'[v:searchforward]", { expr = true })
 key("o", "N", "'nN'[v:searchforward]", { expr = true })
+
+-- Re-do on the same key
+key("n", "U", "<C-r>", opts)
+
+-- Remove Keybindings
+key("n", "<S-k>", "<Nop>", opts)
+key("n", "<C-[", "<Nop>", opts)
+key("n", "Q", "<Nop>", opts)
+key("n", "<C-r>", "<Nop>", opts)
