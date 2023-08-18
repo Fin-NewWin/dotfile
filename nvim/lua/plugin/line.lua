@@ -129,7 +129,7 @@ return {
                     condition = conditions.lsp_attached,
                     provider = function()
                         local num_lsp = #vim.lsp.get_active_clients({ bufnr = 0 })
-                        return "   [" .. num_lsp .. "] "
+                        return " [" .. num_lsp .. "] "
                     end,
                     hl = {
                         fg = theme.GruvboxYellow.fg,
@@ -244,9 +244,9 @@ return {
 
                 local DefaultStatusline = {
                     GitBranch,
-                    Align,
                     LSPActive,
-                    Diagnostics,
+                    Align,
+                    -- Diagnostics,
                     Align,
                     SearchResults,
                     FileType,

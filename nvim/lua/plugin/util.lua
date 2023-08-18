@@ -51,40 +51,10 @@ return {
     {
         "numToStr/Comment.nvim",
         event = "BufReadPost",
-        config = function()
-            require("Comment").setup({
-                ignore = "^$",
-            })
-        end,
-    },
-    {
-        "rcarriga/nvim-notify",
-        lazy = false,
-        config = function()
-            local status_ok, notify = pcall(require, "notify")
-            if not status_ok then
-                vim.notify("notify not in path", 4, { title = "Plugin Error" })
-                return
-            end
-            notify.setup({
-                background_colour = "#000000",
-                timeout = 3000,
-                level = 0,
-                fps = 20,
-                max_height = function()
-                    return math.floor(vim.o.lines * 0.50)
-                end,
-                max_width = function()
-                    return math.floor(vim.o.columns * 0.45)
-                end,
-                on_open = function(win)
-                    vim.api.nvim_win_set_config(win, { focusable = false })
-                    -- vim.api.nvim_set_option_value('statuscolumn', '', { win = win })
-                end,
-            })
-
-            vim.notify = notify
-        end,
+        opts = {
+            ignore = "^$",
+        },
+        config = true,
     },
     {
         "ggandor/leap.nvim",

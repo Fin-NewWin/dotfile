@@ -6,17 +6,38 @@ return {
 
         dependencies = {
             "neovim/nvim-lspconfig",
-            "folke/neodev.nvim",
+            {
+                "folke/neodev.nvim",
+                opts = {
+                    debug = true,
+                    experimental = {
+                        pathStrict = true,
+                    },
+
+                },
+                config = true,
+            },
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-cmdline",
+
+            "onsails/lspkind.nvim",
+
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+
+            "rafamadriz/friendly-snippets",
         },
         config = function()
             local lsp = require("lsp-zero").preset({})
 
-            lsp.set_preferences({
-                suggest_lsp_servers = false,
-                sign_icons = false,
-            })
+            lsp.preset("recommended")
 
-            lsp.setup_servers({
+            lsp.nvim_workspace()
+
+            lsp.ensure_installed({
                 "tsserver",
                 "eslint",
                 "cssls",
@@ -27,17 +48,39 @@ return {
                 "bashls",
 
                 "texlab",
+
+                "lua_ls",
+
+                "efm"
             })
 
-            lsp.configure("lua_ls", {
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { "vim", "_" },
-                        },
-                    },
-                },
+            local cmp = require('cmp')
+            cmp.setup({
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                }
             })
+
+            local cmp_select = {behavior = cmp.SelectBehavior.Select}
+            local cmp_mappings = lsp.defaults.cmp_mappings({
+                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ["<C-Space>"] = cmp.mapping.complete(),
+            })
+
+            cmp_mappings['<Tab>'] = nil
+            cmp_mappings['<S-Tab>'] = nil
+
+            lsp.setup_nvim_cmp({
+                mapping = cmp_mappings,
+                documentation = true,
+                use_luasnip = true,
+            })
+
+            lsp.float_border = "rounded"
+
 
             lsp.configure("pylsp", {
                 settings = {
@@ -79,8 +122,6 @@ return {
                 },
             })
 
-            lsp.configure("efm", {})
-
             lsp.on_attach(function(client, bufnr)
                 local opts = { buffer = bufnr, remap = false }
 
@@ -111,7 +152,6 @@ return {
                 })
             end)
 
-            lsp.nvim_workspace()
 
             require("neodev").setup()
             lsp.setup()
@@ -168,4 +208,21 @@ return {
             })
         end,
     },
+    {
+        "ivanjermakov/troublesum.nvim",
+        event = "LspAttach",
+        opts = {
+            severity_format = {
+                "󰅚",
+                "󰀪",
+                "󰌶",
+                "",
+
+            },
+        },
+        config = true,
+    },
+    {
+        "mfussenegger/nvim-jdtls",
+    }
 }

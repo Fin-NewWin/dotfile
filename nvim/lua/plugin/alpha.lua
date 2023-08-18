@@ -264,7 +264,7 @@ return {
                 ),
                 dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
                 -- dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-                dashboard.button("u", "  Update plugins", ":Lazy update<CR>"),
+                dashboard.button("u", "  Update/Sync plugins", ":Lazy sync<CR>"),
                 dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
                 { type = "padding", val = 1 },
             },
