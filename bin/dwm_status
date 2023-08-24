@@ -1,0 +1,8 @@
+#!/bin/sh
+
+while true; do
+    xsetroot -name \
+        "$(echo "BAT: ")$(cat /sys/class/power_supply/BAT0/capacity)$(echo "% | ")$(date "+%H:%M")"
+    sleep 5
+done
+

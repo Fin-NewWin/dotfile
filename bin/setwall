@@ -34,12 +34,12 @@ then
     # if file
     elif [ -f "$FULL_PATH" ]
     then
-        case $(file -b "$FULL_PATH" | awk '{print $1}') in
-            'JPEG'|'PNG'|'JPG')
+        case $(file --mime-type -b "$FULL_PATH") in
+            image/*)
                 WALLPAPER="$FULL_PATH"
                 ;;
             *)
-                echo "Incorrect filetype , get an actual file with an image :)"
+                notify-send "🖼️ Error" "Not a valid image or directory."
                 ;;
         esac
     # If doesn't exist

@@ -11,7 +11,7 @@ RESET="\[$(tput sgr0)\\]"
 
 
 
-PS1="${GRAY}\t"
+PS1="${GRAY}\t "
 PS1+="${GREEN}\u@"
 PS1+="${RESET}\h "
 PS1+="${BLUE}\w"

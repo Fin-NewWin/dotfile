@@ -38,7 +38,8 @@ bspc rule -a firefox:Toolkit sticky=on state=floating border=off
 bspc rule -a firefox:Firefox state=floating border=off
 bspc rule -a firefox:Devtools state=floating
 bspc rule -a firefox:Places state=floating
+bspc rule -a Android* state=floating
 bspc config -d firefoxdesktop window_gap 0
 
 # external
-bspc config external_rules_command "$HOME/.config/bspwm/script/external.sh"
+bspc config external_rules_command ~/.config/bspwm/external.sh

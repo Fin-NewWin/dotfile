@@ -2053,8 +2053,10 @@ strhandle(void)
 			if (p && !strcmp(p, "?")) {
 				osc_color_response(j, 0, 1);
 			} else if (xsetcolorname(j, p)) {
-				if (par == 104 && narg <= 1)
+                if (par == 104 && narg <= 1) {
+					xloadcols();
 					return; /* color reset without parameter */
+                }
 				fprintf(stderr, "erresc: invalid color j=%d, p=%s\n",
 				        j, p ? p : "(null)");
 			} else {
@@ -2583,8 +2585,10 @@ check_control_code:
 		gp = &term.line[term.c.y][term.c.x];
 	}
 
-	if (IS_SET(MODE_INSERT) && term.c.x+width < term.col)
+	if (IS_SET(MODE_INSERT) && term.c.x+width < term.col) {
 		memmove(gp+width, gp, (term.col - term.c.x - width) * sizeof(Glyph));
+        gp->mode &= ~ATTR_WIDE;
+	}
 
 	if (term.c.x+width > term.col) {
 		tnewline(1);

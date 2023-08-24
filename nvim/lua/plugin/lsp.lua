@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-fields
+
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
@@ -13,7 +15,6 @@ return {
                     experimental = {
                         pathStrict = true,
                     },
-
                 },
                 config = true,
             },
@@ -22,8 +23,6 @@ return {
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-cmdline",
-
-            "onsails/lspkind.nvim",
 
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
@@ -51,27 +50,32 @@ return {
 
                 "lua_ls",
 
-                "efm"
+                "efm",
             })
 
-            local cmp = require('cmp')
+            local cmp = require("cmp")
+
+            require('luasnip.loaders.from_vscode').lazy_load()
+
             cmp.setup({
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
-                }
+                },
+                sources = {
+                    { name = "nvim_lsp", },
+                    { name = "luasnip", },
+                    { name = "path", },
+                    { name = "buffer", },
+                },
             })
 
-            local cmp_select = {behavior = cmp.SelectBehavior.Select}
+            local cmp_select = { behavior = cmp.SelectBehavior.Select }
             local cmp_mappings = lsp.defaults.cmp_mappings({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
+                ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+                ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-y>'] = cmp.mapping.confirm({select = true}),
             })
-
-            cmp_mappings['<Tab>'] = nil
-            cmp_mappings['<S-Tab>'] = nil
 
             lsp.setup_nvim_cmp({
                 mapping = cmp_mappings,
@@ -80,7 +84,6 @@ return {
             })
 
             lsp.float_border = "rounded"
-
 
             lsp.configure("pylsp", {
                 settings = {
@@ -152,7 +155,6 @@ return {
                 })
             end)
 
-
             require("neodev").setup()
             lsp.setup()
 
@@ -217,12 +219,11 @@ return {
                 "󰀪",
                 "󰌶",
                 "",
-
             },
         },
         config = true,
     },
     {
         "mfussenegger/nvim-jdtls",
-    }
+    },
 }

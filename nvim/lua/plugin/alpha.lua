@@ -214,7 +214,7 @@ return {
             }
         end
 
-        local cwd = vim.fn.getcwd()
+        local cwd = vim.fn.getcwd() or ""
 
         local section_mru = {
 

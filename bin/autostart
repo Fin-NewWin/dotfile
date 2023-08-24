@@ -1,6 +1,7 @@
 #!/bin/sh
 
-killall polybar
+# killall polybar
+killall dwm_status 
 killall picom
 killall dunst
 killall sxhkd
@@ -12,7 +13,8 @@ killall flameshot
 pamixer --default-source --set-volume 30
 
 # Status bar
-polybar 2>"$HOME"/.config/polybar/log &
+# polybar 2>"$HOME"/.config/polybar/log &
+dwm_status &
 
 # Screenshot
 flameshot &
@@ -31,10 +33,9 @@ setwall &
 # redshift &
 
 # Keybindings Daemon
-sxhkd &
+# sxhkd &
 
 # Set keyboard options
-# setxkbmap -layout us -option ctrl:nocaps
 xinput set-prop "Synaptics TM3149-002" "Device Accel Velocity Scaling" 1.1 2>/dev/null
 xinput set-prop "Synaptics TM3149-002" "Device Accel Constant Deceleration" 1 2>/dev/null
-# xinput set-button-map 11 1 1 1 4 5 6 7
+xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config &

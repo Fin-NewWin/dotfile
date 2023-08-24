@@ -23,7 +23,7 @@ return {
                     init = function(self)
                         -- FIXME: require gitsigns or doesnt immediately load
                         -- or (https://github.com/rebelot/heirline.nvim/issues/139)
-                        require("gitsigns").setup()
+                        require("gitsigns").setup({})
 
                         ---@diagnostic disable-next-line: undefined-field
                         self.status_dict = vim.b.gitsigns_status_dict

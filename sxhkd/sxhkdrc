@@ -43,5 +43,5 @@ super + d
     polybar-msg cmd toggle
 
 # toggle fullscreen
-super + f
-    bspc node -t \~fullscreen
+super + {_,shift +} f
+    bspc node -t {\~floating,\~fullscreen}

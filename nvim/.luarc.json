@@ -44,5 +44,8 @@
         "/home/fin/.config/nvim/lua",
         "/home/fin/doc/dotfile/nvim/lua",
         "/tmp/lua-language-server.pUfg/meta/0b549130"
+    ],
+    "diagnostics.disable": [
+        "need-check-nil"
     ]
 }
