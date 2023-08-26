@@ -22,9 +22,6 @@ require("lazy").setup({
     checker = {
         enabled = false,
     },
-    ui = {
-        border = "rounded",
-    },
     debug = false,
     change_detection = {
         notify = false,
