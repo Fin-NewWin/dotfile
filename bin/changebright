@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 send_notification() {
-    brightness=$(printf '%.0f' $(xbacklight))
+    brightness=$(printf '%.0f\n' $(xbacklight))
     dunstify -a "changebrightness" -u low -r "9993" -h int:value:"$brightness" -i "brightness-$1" "Brightness: ${brightness}%" -t 2000 &
 }
 
 case $1 in
     up)
-        xbacklight +5
-        send_notification "$1"
+        xbacklight -inc 5
+        send_notification "$1" &
         ;;
     down)
-        xbacklight -5
-        send_notification "$1"
+        xbacklight -dec 5
+        send_notification "$1" &
         ;;
 esac
