@@ -49,11 +49,10 @@ return {
 
         local key = vim.keymap.set
         local opt = { noremap = true }
-        local builtin = require('telescope.builtin')
+        local builtin = require("telescope.builtin")
 
         key("n", "<Leader>pf", builtin.find_files, opt)
         key("n", "<Leader>pd", builtin.diagnostics, opt)
         key("n", "<Leader>pg", builtin.grep_string, opt)
-
     end,
 }
