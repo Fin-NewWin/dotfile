@@ -1,6 +1,5 @@
 return {
     {
-
         "nvim-telescope/telescope.nvim",
         event = "BufEnter",
         cmd = { "Telescope" },

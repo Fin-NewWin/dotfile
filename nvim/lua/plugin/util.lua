@@ -40,6 +40,7 @@ return {
         keys = "<space>u",
         config = function()
             vim.keymap.set("n", "<space>u", vim.cmd.UndotreeToggle)
+            vim.g.undotree_SplitWidth = 55
         end,
     },
 }
