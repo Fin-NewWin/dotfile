@@ -10,7 +10,6 @@ return {
     config = function()
         local telescope = require("telescope")
         local tele_actions = require("telescope.actions")
-        local key = vim.api.nvim_set_keymap
         local actions = require("telescope.actions")
 
         telescope.setup({
@@ -40,6 +39,7 @@ return {
                         ["<C-u>"] = false,
                         ["<C-d>"] = false,
                         ["<C-h>"] = actions.select_horizontal,
+                        ["<C-v>"] = actions.select_vertical,
                     },
                 },
             },
@@ -47,10 +47,13 @@ return {
 
         pcall(require("telescope").load_extension, "fzf")
 
+        local key = vim.keymap.set
         local opt = { noremap = true }
+        local builtin = require('telescope.builtin')
 
-        key("n", "<Leader>pf", "<cmd>lua require('telescope.builtin').find_files()<cr>", opt)
-        key("n", "<Leader>pg", "<cmd>noh<cr><cmd>lua require('telescope.builtin').live_grep()<cr>", opt)
-        key("n", "<Leader>pb", "<cmd>lua require('telescope.builtin').buffers()<cr>", opt)
+        key("n", "<Leader>pf", builtin.find_files, opt)
+        key("n", "<Leader>pd", builtin.diagnostics, opt)
+        key("n", "<Leader>pg", builtin.grep_string, opt)
+
     end,
 }
