@@ -39,7 +39,7 @@ return {
         "mbbill/undotree",
         keys = "<space>u",
         config = function()
-            vim.keymap.set('n', '<space>u', vim.cmd.UndotreeToggle)
-        end
-    }
+            vim.keymap.set("n", "<space>u", vim.cmd.UndotreeToggle)
+        end,
+    },
 }
