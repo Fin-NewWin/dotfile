@@ -1,4 +1,6 @@
 return {
+    {
+
     "nvim-telescope/telescope.nvim",
     event = "BufEnter",
     cmd = { "Telescope" },
@@ -53,6 +55,7 @@ return {
 
         key("n", "<Leader>pf", builtin.find_files, opt)
         key("n", "<Leader>pd", builtin.diagnostics, opt)
-        key("n", "<Leader>pg", builtin.grep_string, opt)
+        key("n", "<Leader>pg", builtin.live_grep, opt)
     end,
+},
 }
