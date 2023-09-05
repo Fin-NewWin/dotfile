@@ -18,13 +18,15 @@ return {
             "saadparwaiz1/cmp_luasnip",
 
             "rafamadriz/friendly-snippets",
+
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+
         },
         config = function()
             local lsp = require("lsp-zero").preset({})
 
             lsp.preset("recommended")
-
-            lsp.nvim_workspace()
 
             lsp.ensure_installed({
                 "tsserver",
@@ -40,48 +42,10 @@ return {
 
                 "lua_ls",
 
-                "efm",
+                "pylsp"
             })
 
-            lsp.configure("pylsp", {
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            rope_completion = {
-                                enabled = true,
-                            },
-                            pyflakes = {
-                                enabled = true,
-                            },
-                            flake8 = {
-                                enabled = true,
-                                ignore = {
-                                    "E303",
-                                    "D401",
-                                    "D403",
-                                    "E501",
-                                },
-                            },
-                            pylint = {
-                                enabled = true,
-                                args = {
-                                    "--generate-members",
-                                },
-                            },
-                            mypy = {
-                                enabled = true,
-                            },
-                            pycodestyle = {
-                                enabled = true,
-                                ignore = {
-                                    "E303",
-                                    "E501",
-                                },
-                            },
-                        },
-                    },
-                },
-            })
+            lsp.nvim_workspace()
 
             local cmp = require("cmp")
 
@@ -138,6 +102,7 @@ return {
 
             lsp.setup()
 
+
             vim.diagnostic.config({
                 virtual_text = true,
                 update_in_insert = false,
@@ -151,6 +116,7 @@ return {
                     prefix = "",
                 },
             })
+
         end,
     },
     {

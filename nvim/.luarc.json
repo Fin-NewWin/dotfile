@@ -47,5 +47,6 @@
     ],
     "diagnostics.disable": [
         "need-check-nil"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }
