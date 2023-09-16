@@ -101,12 +101,21 @@ local ns = vim.api.nvim_create_namespace("toggle_hlsearch")
 local function toggle_hlsearch(char)
     if vim.fn.mode() == "n" then
         local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
-        local new_hlsearch = vim.tbl_contains(keys, vim.fn.keytrans(char))
+        local if_search = vim.tbl_contains(keys, vim.fn.keytrans(char))
 
-        if vim.opt.hlsearch:get() ~= new_hlsearch then
-            vim.opt.hlsearch = new_hlsearch
-        end
+        vim.opt.hlsearch = if_search
     end
 end
 
 vim.on_key(toggle_hlsearch, ns)
+
+-- Filetype
+-- nesC not supported, temp make it into filetype "c"
+autocmd({ "BufEnter" }, {
+    pattern = {
+        "*.nc",
+    },
+    callback = function()
+        vim.bo.filetype = "c"
+    end,
+})

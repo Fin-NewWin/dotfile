@@ -26,6 +26,14 @@ return {
         end,
     },
     {
+        "echasnovski/mini.cursorword",
+        version = false,
+        event = "VeryLazy",
+        config = function()
+            require("mini.cursorword").setup()
+        end,
+    },
+    {
         "cappyzawa/trim.nvim",
         event = "BufWrite",
         opts = {

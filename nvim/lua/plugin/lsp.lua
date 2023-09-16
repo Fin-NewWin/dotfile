@@ -3,7 +3,7 @@
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
+        version = false,
         lazy = false,
 
         dependencies = {
@@ -19,9 +19,8 @@ return {
 
             "rafamadriz/friendly-snippets",
 
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
-
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" },
         },
         config = function()
             local lsp = require("lsp-zero").preset({})
@@ -42,7 +41,7 @@ return {
 
                 "lua_ls",
 
-                "pylsp"
+                "pylsp",
             })
 
             lsp.nvim_workspace()
@@ -102,7 +101,6 @@ return {
 
             lsp.setup()
 
-
             vim.diagnostic.config({
                 virtual_text = true,
                 update_in_insert = false,
@@ -116,7 +114,6 @@ return {
                     prefix = "",
                 },
             })
-
         end,
     },
     {
