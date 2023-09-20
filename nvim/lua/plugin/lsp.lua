@@ -14,16 +14,13 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-cmdline",
 
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-
             "rafamadriz/friendly-snippets",
 
             { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
         },
         config = function()
-            local lsp = require("lsp-zero").preset({})
+            local lsp = require("lsp-zero")
 
             lsp.preset("recommended")
 
@@ -42,22 +39,13 @@ return {
                 "lua_ls",
 
                 "pylsp",
+
+                "jdtls",
             })
 
             lsp.nvim_workspace()
 
             local cmp = require("cmp")
-
-            require("luasnip.loaders.from_vscode").lazy_load()
-
-            cmp.setup({
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "path" },
-                    { name = "buffer" },
-                },
-            })
 
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
             local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -71,35 +59,36 @@ return {
 
             lsp.setup_nvim_cmp({
                 mapping = cmp_mappings,
-                documentation = false,
-                use_luasnip = true,
+                completion = {
+                    completeopt = 'menu,menuone,noinsert,noselect'
+                },
+            })
+
+            lsp.set_preferences({
+                suggest_lsp_servers = false,
+                sign_icons = {
+                    error = 'E',
+                    warn = 'W',
+                    hint = 'H',
+                    info = 'I'
+                }
             })
 
             lsp.on_attach(function(client, bufnr)
                 local opts = { buffer = bufnr, remap = false }
+                local key = vim.keymap.set
 
-                vim.keymap.set("n", "gd", function()
-                    vim.lsp.buf.definition()
-                end, opts)
-                vim.keymap.set("n", "]d", function()
-                    vim.diagnostic.goto_next()
-                end, opts)
-                vim.keymap.set("n", "[d", function()
-                    vim.diagnostic.goto_prev()
-                end, opts)
-                vim.keymap.set("n", "<leader>rn", function()
-                    vim.lsp.buf.rename()
-                end, opts)
-
-                -- Tell that the buffer is loaded
-                vim.api.nvim_create_autocmd({ "LspAttach" }, {
-                    callback = function()
-                        return true
-                    end,
-                })
+                key("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                key("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+                key("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
+                key("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+                key("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
             end)
 
             lsp.setup()
+
+            require("mason").setup()
+            require("mason-lspconfig").setup()
 
             vim.diagnostic.config({
                 virtual_text = true,

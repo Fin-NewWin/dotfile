@@ -61,7 +61,10 @@ return {
                     css = true, -- Enable all css features: rgb_fn, hsl_fn, names, RGB, RRGGBB
                     css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
                     mode = "background", -- Set the display mode
+
+                    -- CSS shit
                     tailwind = true,
+                    sass = { enable = true, parsers = { "css" }, },
                 },
             })
         end,
