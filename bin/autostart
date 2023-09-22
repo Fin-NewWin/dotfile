@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # killall polybar
-killall dwm_status 
-killall picom
-killall dunst
-killall sxhkd
-# killall redshift
-killall flameshot
+# killall dwm_status
+# killall picom
+killall swww-daemon
+
+swww init &
+
 
 # Set default microphone volume
 # 30 sounds normal and not bad
@@ -14,28 +14,17 @@ pamixer --default-source --set-volume 30
 
 # Status bar
 # polybar 2>"$HOME"/.config/polybar/log &
-dwm_status &
+# dwm_status &
 
-# Screenshot
-flameshot &
 
-# Notify daemon
-dunst &
 
 # Picom for all display
-picom -b
+# picom -b
+
 
 # Set wallpaper
-setwall &
 
 # Nightmode
 # /usr/lib/geoclue-2.0/demos/agent &
-# redshift &
 
-# Keybindings Daemon
-# sxhkd &
-
-# Set keyboard options
-xinput set-prop "Synaptics TM3149-002" "Device Accel Velocity Scaling" 1.1 2>/dev/null
-xinput set-prop "Synaptics TM3149-002" "Device Accel Constant Deceleration" 1 2>/dev/null
-xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config &
+setwall

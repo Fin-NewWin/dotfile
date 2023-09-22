@@ -102,3 +102,8 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 # Lein
 export LEIN_HOME="$XDG_DATA_HOME"/lein
+
+
+# sqlite
+export SQLITE_HISTORY="$XDG_CACHE_HOME"/sqlite_history
+
