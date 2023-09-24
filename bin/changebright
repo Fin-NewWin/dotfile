@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 
-send_notification() {
-    brightness=$(printf '%.0f\n' $(xbacklight))
-    dunstify -a "changebrightness" -u low -r "9993" -h int:value:"$brightness" -i "brightness-$1" "Brightness: ${brightness}%" -t 2000 &
-}
+BRIGHT=/sys/class/backlight/intel_backlight/brightness
+MAX_BRIGHT=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+CURR=$(cat $BRIGHT)
+STEP=10
 
 case $1 in
     up)
-        xbacklight -inc 5
-        send_notification "$1" &
+        CURR=$(($CURR + $STEP))
+        if [ $CURR  -gt $MAX_BRIGHT ]; then
+            CURR=100
+        fi
+        echo $CURR > $BRIGHT
         ;;
     down)
-        xbacklight -dec 5
-        send_notification "$1" &
+        CURR=$(($CURR - $STEP))
+        if [ $CURR -lt 0 ]; then
+            CURR=0
+        fi
+        echo "$CURR" > $BRIGHT
         ;;
 esac

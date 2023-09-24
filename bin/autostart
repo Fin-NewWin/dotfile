@@ -1,30 +1,17 @@
 #!/bin/sh
 
-# killall polybar
-# killall dwm_status
-# killall picom
 killall swww-daemon
+killall waybar
+killall gammastep
 
 swww init &
 
+waybar &
+gammastep &
 
-# Set default microphone volume
-# 30 sounds normal and not bad
 pamixer --default-source --set-volume 30
 
-# Status bar
-# polybar 2>"$HOME"/.config/polybar/log &
-# dwm_status &
-
-
-
-# Picom for all display
-# picom -b
-
-
-# Set wallpaper
-
-# Nightmode
-# /usr/lib/geoclue-2.0/demos/agent &
 
 setwall
+
+xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
