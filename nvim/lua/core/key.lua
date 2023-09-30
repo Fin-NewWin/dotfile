@@ -5,21 +5,23 @@ local term_opts = { silent = true }
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Exit terminal and return to last
-key("t", "<Esc>", "<C-\\><C-n><C-o>", opts)
-key("t", "<C-[>", "<C-\\><C-n><C-o>", opts)
+-- Exit terminal
+key("t", "<Esc>", "<CMD>ToggleTerm<CR>", term_opts)
+key("t", "<C-[>", "<CMD>ToggleTerm<CR>", term_opts)
+key("t", "<C-o>", "")
+key("t", "<C-i>", "")
 
 -- Navigate between splits on term
-key("t", "<Leader>h", "<C-\\><C-n><C-w>h", opts)
-key("t", "<Leader>j", "<C-\\><C-n><C-w>j", opts)
-key("t", "<Leader>k", "<C-\\><C-n><C-w>k", opts)
-key("t", "<Leader>l", "<C-\\><C-n><C-w>l", opts)
+key("t", "<C-h>", "<C-\\><C-n><C-w>h", opts)
+key("t", "<C-j>", "<C-\\><C-n><C-w>j", opts)
+key("t", "<C-k>", "<C-\\><C-n><C-w>k", opts)
+key("t", "<C-l>", "<C-\\><C-n><C-w>l", opts)
 
 -- Navigate between splits
-key("n", "<Leader>h", "<C-w>h", opts)
-key("n", "<Leader>j", "<C-w>j", opts)
-key("n", "<Leader>k", "<C-w>k", opts)
-key("n", "<Leader>l", "<C-w>l", opts)
+key("n", "<C-h>", "<C-w>h", opts)
+key("n", "<C-j>", "<C-w>j", opts)
+key("n", "<C-k>", "<C-w>k", opts)
+key("n", "<C-l>", "<C-w>l", opts)
 
 -- esc to hide matches
 key("n", "<Esc>", ":noh<CR>", term_opts)

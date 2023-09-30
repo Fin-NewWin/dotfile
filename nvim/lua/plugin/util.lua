@@ -34,21 +34,30 @@ return {
         end,
     },
     {
-        "cappyzawa/trim.nvim",
-        event = "BufWrite",
-        opts = {
-            trim_on_write = true,
-            trim_trailing = true,
-            trim_last_line = false,
-            trim_first_line = false,
-        },
-    },
-    {
         "mbbill/undotree",
         keys = "<space>u",
         config = function()
             vim.keymap.set("n", "<space>u", vim.cmd.UndotreeToggle)
             vim.g.undotree_SplitWidth = 55
         end,
+    },
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        opts = {
+            check_ts = true,
+            ts_config = { java = false },
+            fast_wrap = {
+                map = "<M-e>",
+                chars = { "{", "[", "(", '"', "'" },
+                pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+                offset = 0,
+                end_key = "$",
+                keys = "qwertyuiopzxcvbnmasdfghjkl",
+                check_comma = true,
+                highlight = "PmenuSel",
+                highlight_grey = "LineNr",
+            },
+        },
     },
 }
