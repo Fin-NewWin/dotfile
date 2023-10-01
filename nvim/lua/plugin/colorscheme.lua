@@ -7,7 +7,6 @@ return {
         if not ok then
             return
         end
-        local theme = require("gruvbox.palette")
         gruvbox.setup({
             overrides = {
 
@@ -22,11 +21,6 @@ return {
                 WinBarNC = { bg = "NONE" },
                 IncSearch = { fg = "#fe8019", bg = "#ffffff" },
                 CursorLineNr = { bg = "NONE" },
-
-                -- Git Colors
-                GitSignsAdd = { fg = theme.bright_green, bg = "NONE" },
-                GitSignsChange = { fg = theme.bright_orange, bg = "NONE" },
-                GitSignsDelete = { fg = theme.bright_red, bg = "NONE" },
 
                 -- Navic
                 NavicText = { link = "Comment" },
