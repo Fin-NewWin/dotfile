@@ -3,6 +3,7 @@
 killall swww-daemon
 killall waybar
 killall gammastep
+killall xbindkeys
 
 swww init &
 

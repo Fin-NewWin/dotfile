@@ -9,7 +9,7 @@ case $1 in
     up)
         CURR=$(($CURR + $STEP))
         if [ $CURR  -gt $MAX_BRIGHT ]; then
-            CURR=100
+            CURR=$MAX_BRIGHT
         fi
         echo $CURR > $BRIGHT
         ;;
