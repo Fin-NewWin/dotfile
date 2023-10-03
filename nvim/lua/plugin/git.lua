@@ -42,15 +42,6 @@ return {
                     linehl = "GitSignsDeleteLn",
                 },
             },
-            watch_gitdir = {
-                interval = 1000,
-                follow_files = true,
-            },
-            diff_opts = {
-                algorithm = "histogram",
-                internal = true,
-                indent_heuristic = true,
-            },
             sign_priority = 6,
         })
     end,

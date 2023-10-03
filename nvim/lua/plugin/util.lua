@@ -2,7 +2,7 @@ return {
     { "nvim-lua/plenary.nvim" },
     {
         "numToStr/Comment.nvim",
-        event = "BufReadPost",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             ignore = "^$",
         },

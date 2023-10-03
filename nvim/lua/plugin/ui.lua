@@ -64,33 +64,7 @@ return {
     },
     {
         "NvChad/nvim-colorizer.lua",
-        event = "BufReadPre",
-        config = function()
-            local status_ok, colorizer = pcall(require, "colorizer")
-            if not status_ok then
-                vim.notify("colorizer not in path", 4, { title = "Plugin Error" })
-                return
-            end
-
-            colorizer.setup({
-                filetypes = { "*", "!lazy" },
-                buftype = { "*", "!prompt", "!nofile" },
-                user_default_options = {
-                    RGB = true, -- #RGB hex codes
-                    RRGGBB = true, -- #RRGGBB hex codes
-                    names = false, -- "Name" codes like Blue
-                    RRGGBBAA = true, -- #RRGGBBAA hex codes
-                    rgb_fn = true, -- CSS rgb() and rgba() functions
-                    hsl_fn = true, -- CSS hsl() and hsla() functions
-                    css = true, -- Enable all css features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-                    css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-                    mode = "background", -- Set the display mode
-
-                    -- CSS shit
-                    tailwind = true,
-                    sass = { enable = true, parsers = { "css" } },
-                },
-            })
-        end,
+        event = { "BufReadPre", "BufNewFile" },
+        config = true,
     },
 }

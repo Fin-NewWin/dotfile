@@ -26,8 +26,10 @@ return {
 
             lsp.ensure_installed({
                 "tsserver",
+                "emmet_ls",
                 "eslint",
                 "cssls",
+                "tailwindcss",
                 "html",
 
                 "clangd",
@@ -38,7 +40,7 @@ return {
 
                 "lua_ls",
 
-                "pylsp",
+                "pyright",
 
                 "jdtls",
             })
