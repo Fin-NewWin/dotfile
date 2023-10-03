@@ -25,9 +25,10 @@ return {
             lsp.preset("recommended")
 
             lsp.ensure_installed({
+                "eslint",
+
                 "tsserver",
                 "emmet_ls",
-                "eslint",
                 "cssls",
                 "tailwindcss",
                 "html",
