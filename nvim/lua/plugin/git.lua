@@ -43,6 +43,10 @@ return {
                 },
             },
             sign_priority = 6,
+            current_line_blame = true,
+            current_line_blame_opts = {
+                delay = 200,
+            },
         })
     end,
 }

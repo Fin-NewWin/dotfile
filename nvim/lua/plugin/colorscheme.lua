@@ -8,7 +8,9 @@ return {
             return
         end
         gruvbox.setup({
-            overrides = {},
+            overrides = {
+                GitSignsCurrentLineBlame = { link = "Comment" },
+            },
             transparent_mode = true,
             contrast = "hard",
             -- inverse = false,
