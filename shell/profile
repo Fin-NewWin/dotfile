@@ -9,6 +9,7 @@ export BROWSER=firefox
 # MOZILLA
 export LIBVA_DRIVER_NAME="nvidia"
 export MOZ_DISABLE_RDD_SANDBOX=1
+export MOZ_ENABLE_WAYLAND=1
 
 if hash nvim 2>/dev/null; then
     export EDITOR=nvim
@@ -108,4 +109,3 @@ export LEIN_HOME="$XDG_DATA_HOME"/lein
 export SQLITE_HISTORY="$XDG_CACHE_HOME"/sqlite_history
 
 # FIREFOX
-export MOZ_ENABLE_WAYLAND=1
