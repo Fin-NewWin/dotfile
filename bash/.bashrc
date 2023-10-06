@@ -43,24 +43,21 @@ function git_changes {
     local removed
     local status=""
     # Check if we're in a Git repository
-    if branch=$(git symbolic-ref --short HEAD 2>/dev/null); then
-        # Get the added and removed lines using git diff --shortstat
-        local git_diff="$(git diff --shortstat 2>/dev/null)"
-        
-        if [[ -n "$git_diff" ]]; then
-            added=$(echo "$git_diff" | grep -o ' [0-9]\+ insertions' | awk '{s+=$1} END {print s}')
-            removed=$(echo "$git_diff" | grep -o ' [0-9]\+ deletions' | awk '{s+=$1} END {print s}')
-            changed=$(echo "$git_diff" | grep -o ' [0-9]\+ files' | awk '{s+=$1} END {print s}')
-            status=""
-            if [[ $added -gt 0 ]]; then
-                status="\033[1;32m+$added\033[0m/"
-            fi
-            if [[ $removed -gt 0 ]]; then
-                status="$status\033[1;31m-$removed\033[0m/"
-            fi
-            if [[ $removed -gt 0 ]]; then
-                status="$status\033[1;33m?$changed\033[0m"
-            fi
+    local git_diff="$(git diff --shortstat 2>/dev/null)"
+
+    if [ -n "$git_diff" ]; then
+        added=$(echo "$git_diff" | grep -o ' [0-9]\+ insertion' | awk '{print $1}')
+        removed=$(echo "$git_diff" | grep -o ' [0-9]\+ deletion' | awk '{print $1}')
+        changed=$(echo "$git_diff" | grep -o ' [0-9]\+ file' | awk '{print $1}')
+        status=""
+        if [[ $added -gt 0 ]]; then
+            status="\033[1;32m+$added\033[0m "
+        fi
+        if [[ $removed -gt 0 ]]; then
+            status="$status\033[1;31m-$removed\033[0m "
+        fi
+        if [[ $removed -gt 0 ]]; then
+            status="$status\033[1;33m?$changed\033[0m"
         fi
     fi
     echo -e "$status"
@@ -74,5 +71,5 @@ PS1="${GRAY}\t "
 # PS1+="${GREEN}\u@"
 # PS1+="${RESET}\h "
 PS1+="${BOLD}${BLUE}\w"
-PS1+="${PURPLE}\$(__git_ps1) \$(git_changes)\n "
+PS1+="${PURPLE}\$(__git_ps1) \$(git_changes)\n"
 PS1+="${RESET}\$ "
