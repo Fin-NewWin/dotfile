@@ -14,9 +14,18 @@ return {
                 javascriptreact = { "eslint_d" },
                 typescriptreact = { "eslint_d" },
                 python = { "pylint" },
+                sh = { "shellcheck" },
             }
 
             local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+            local lint_opt = require('lint').linters
+
+            lint_opt.shellcheck.args = {
+                args = {
+                    "-x"
+                }
+            }
 
             vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
                 group = lint_augroup,
