@@ -13,37 +13,28 @@ shopt -s histappend
 
 stty -ixon
 
-source $HOME/.config/shell/alias
-source $HOME/.config/shell/profile
+[ -r "/home/fin/.config/shell/alias" ] && . "/home/fin/.config/shell/alias"
+[ -r "/home/fin/.config/shell/profile" ] && . "/home/fin/.config/shell/profile"
 
-source /usr/share/fzf/completion.bash
-source /usr/share/fzf/key-bindings.bash
+[ -r "/usr/share/fzf/completion.bash" ] && . /usr/share/fzf/completion.bash
+[ -r "/usr/share/fzf/key-bindings.bash" ] && . /usr/share/fzf/key-bindings.bash
 
-source /usr/share/bash-completion/completions/git
-
-_PS1 ()
-{
-    local PRE= NAME="$1" LENGTH="$2";
-    [[ "$NAME" != "${NAME#$HOME/}" || -z "${NAME#$HOME}" ]] &&
-        PRE+='~' NAME="${NAME#$HOME}" LENGTH=$[LENGTH-1];
-    ((${#NAME}>$LENGTH)) && NAME="/...${NAME:$[${#NAME}-LENGTH+4]}";
-    echo "$PRE$NAME"
-}
+[ -r "/usr/share/bash-completion/completions/git" ] && . /usr/share/bash-completion/completions/git
 
 GRAY="\[$(tput setaf 8)\\]"
-GREEN="\[$(tput setaf 10)\\]"
+# GREEN="\[$(tput setaf 10)\\]"
 BLUE="\[$(tput setaf 12)\\]"
 PURPLE="\[$(tput setaf 13)\\]"
 RESET="\[$(tput sgr0)\\]"
 BOLD="\[$(tput bold)\\]"
 
 function git_changes {
-    local branch
     local added
     local removed
     local status=""
+    local git_diff
     # Check if we're in a Git repository
-    local git_diff="$(git diff --shortstat 2>/dev/null)"
+    git_diff="$(git diff --shortstat 2>/dev/null)"
 
     if [ -n "$git_diff" ]; then
         added=$(echo "$git_diff" | grep -o ' [0-9]\+ insertion' | awk '{print $1}')
@@ -65,7 +56,7 @@ function git_changes {
 
 export PROMPT_DIRTRIM=2
 export PROMPT_COMMAND="export PROMPT_COMMAND=echo"
-source /usr/share/git/completion/git-prompt.sh
+[ -r "/usr/share/git/completion/git-prompt.sh" ] && . /usr/share/git/completion/git-prompt.sh
 
 PS1="${GRAY}\t "
 # PS1+="${GREEN}\u@"
