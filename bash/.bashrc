@@ -23,6 +23,20 @@ stty -ixon
 
 eval "$(starship init bash)"
 
+# Get the status code from the last command executed
+STATUS=$?
+
+# Get the number of jobs running.
+NUM_JOBS=$(jobs -p | wc -l)
+
+# Set the prompt to the output of `starship prompt`
+PS1="$(starship prompt --status=$STATUS --jobs=$NUM_JOBS)"
+
+
+set -o vi
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-forward'
+bind '"\C-l": clear-screen'
 
 # GRAY="\[$(tput setaf 8)\\]"
 # # GREEN="\[$(tput setaf 10)\\]"
