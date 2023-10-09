@@ -32,7 +32,7 @@ return {
             util.add_formatter_args(require("conform.formatters.prettier"), { "--tab-width=4" })
             require("conform").setup(opts)
 
-            -- TODO: wait for mason plugin for conform, for not workaround
+            -- TODO: wait for mason plugin for conform, for now workaround
             mason_tool_installer.setup({
                 ensure_installed = vim.tbl_values(formatters_by_ft),
             })

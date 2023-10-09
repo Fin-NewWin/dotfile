@@ -5,7 +5,6 @@ return {
         opts = {
             ignore = "^$",
         },
-        config = true,
     },
     {
         "ggandor/leap.nvim",
@@ -43,17 +42,8 @@ return {
         event = "InsertEnter",
         opts = {
             check_ts = true,
-            ts_config = { java = false },
-            fast_wrap = {
-                map = "<M-e>",
-                chars = { "{", "[", "(", '"', "'" },
-                pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-                offset = 0,
-                end_key = "$",
-                keys = "qwertyuiopzxcvbnmasdfghjkl",
-                check_comma = true,
-                highlight = "PmenuSel",
-                highlight_grey = "LineNr",
+            ts_config = {
+                lua = { "string" },
             },
         },
     },
