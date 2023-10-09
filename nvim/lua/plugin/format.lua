@@ -12,7 +12,6 @@ local formatters_by_ft = {
 return {
     {
         "stevearc/conform.nvim",
-        lazy = false,
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
