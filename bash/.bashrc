@@ -40,15 +40,16 @@ function git_changes {
         added=$(echo "$git_diff" | grep -o ' [0-9]\+ insertion' | awk '{print $1}')
         removed=$(echo "$git_diff" | grep -o ' [0-9]\+ deletion' | awk '{print $1}')
         changed=$(echo "$git_diff" | grep -o ' [0-9]\+ file' | awk '{print $1}')
+        untracked=$(git ls-files -o --exclude-standard | sed q | wc -l)
         status=""
-        if [[ $added -gt 0 ]]; then
-            status="\033[1;32m+$added\033[0m "
+        if [[ $added -gt 0 || $removed -gt 0 ]]; then
+            status="\033[1;32m+\033[0m"
         fi
-        if [[ $removed -gt 0 ]]; then
-            status="$status\033[1;31m-$removed\033[0m "
+        if [[ $changed -gt 0 ]]; then
+            status="$status\033[1;31m!\033[0m"
         fi
-        if [[ $removed -gt 0 ]]; then
-            status="$status\033[1;33m?$changed\033[0m"
+        if [[ $untracked -gt 0 ]]; then
+            status="$status\033[1;33m?\033[0m"
         fi
     fi
     echo -e "$status"
