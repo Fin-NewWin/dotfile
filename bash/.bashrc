@@ -21,47 +21,46 @@ stty -ixon
 
 [ -r "/usr/share/bash-completion/completions/git" ] && . /usr/share/bash-completion/completions/git
 
-GRAY="\[$(tput setaf 8)\\]"
-# GREEN="\[$(tput setaf 10)\\]"
-BLUE="\[$(tput setaf 12)\\]"
-PURPLE="\[$(tput setaf 13)\\]"
-RESET="\[$(tput sgr0)\\]"
-BOLD="\[$(tput bold)\\]"
+eval "$(starship init bash)"
 
-function git_changes {
-    local added
-    local removed
-    local status=""
-    local git_diff
-    # Check if we're in a Git repository
-    git_diff="$(git diff --shortstat 2>/dev/null)"
 
-    if [ -n "$git_diff" ]; then
-        added=$(echo "$git_diff" | grep -o ' [0-9]\+ insertion' | awk '{print $1}')
-        removed=$(echo "$git_diff" | grep -o ' [0-9]\+ deletion' | awk '{print $1}')
-        changed=$(echo "$git_diff" | grep -o ' [0-9]\+ file' | awk '{print $1}')
-        untracked=$(git ls-files -o --exclude-standard | sed q | wc -l)
-        status=""
-        if [[ $added -gt 0 || $removed -gt 0 ]]; then
-            status="\033[1;32m+\033[0m"
-        fi
-        if [[ $changed -gt 0 ]]; then
-            status="$status\033[1;31m!\033[0m"
-        fi
-        if [[ $untracked -gt 0 ]]; then
-            status="$status\033[1;33m?\033[0m"
-        fi
-    fi
-    echo -e "$status"
-}
+# GRAY="\[$(tput setaf 8)\\]"
+# # GREEN="\[$(tput setaf 10)\\]"
+# BLUE="\[$(tput setaf 12)\\]"
+# PURPLE="\[$(tput setaf 13)\\]"
+# RESET="\[$(tput sgr0)\\]"
+# BOLD="\[$(tput bold)\\]"
 
-export PROMPT_DIRTRIM=2
-export PROMPT_COMMAND="export PROMPT_COMMAND=echo"
-[ -r "/usr/share/git/completion/git-prompt.sh" ] && . /usr/share/git/completion/git-prompt.sh
+# function git_changes {
+#     local status=""
+#     # Check if we're in a Git repository
+#     INDEX=$(git status --porcelain -b 2> /dev/null)
 
-PS1="${GRAY}\t "
-# PS1+="${GREEN}\u@"
-# PS1+="${RESET}\h "
-PS1+="${BOLD}${BLUE}\w"
-PS1+="${PURPLE}\$(__git_ps1) \$(git_changes)\n"
-PS1+="${RESET}\$ "
+#     if $(echo "$INDEX" | command grep '^A[ MDAU] ' &> /dev/null); then
+#         status="\033[1;32m+\033[0m"
+#     elif $(echo "$INDEX" | command grep '^M[ MD] ' &> /dev/null); then
+#         status="\033[1;32m+\033[0m"
+#     elif $(echo "$INDEX" | command grep '^UA' &> /dev/null); then
+#         status="\033[1;32m+\033[0m"
+#     fi
+
+#     if $(echo "$INDEX" | command grep '^[ MARC]M ' &> /dev/null); then
+#         status="\033[1;31m!\033[0m"
+#     fi
+
+#     if $(echo "$INDEX" | command grep -E '^\?\? ' &> /dev/null); then
+#         status="$status\033[1;33m?\033[0m"
+#     fi
+#     echo -e "$status"
+# }
+
+# export PROMPT_DIRTRIM=2
+# export PROMPT_COMMAND="export PROMPT_COMMAND=echo"
+# [ -r "/usr/share/git/completion/git-prompt.sh" ] && . /usr/share/git/completion/git-prompt.sh
+
+# PS1="${GRAY}\t "
+# # PS1+="${GREEN}\u@"
+# # PS1+="${RESET}\h "
+# PS1+="${BOLD}${BLUE}\w"
+# PS1+="${PURPLE}\$(__git_ps1) \$(git_changes)\n"
+# PS1+="${RESET}\$ "
