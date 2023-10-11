@@ -12,7 +12,7 @@ local formatters_by_ft = {
 return {
     {
         "stevearc/conform.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        event = "VeryLazy",
         dependencies = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
@@ -33,7 +33,7 @@ return {
 
             -- TODO: wait for mason plugin for conform, for now workaround
             mason_tool_installer.setup({
-                ensure_installed = vim.tbl_values(formatters_by_ft),
+                ensure_installed = vim.fn.uniq(vim.tbl_values(formatters_by_ft)),
             })
         end,
     },

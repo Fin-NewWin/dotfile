@@ -1,7 +1,7 @@
 return {
     {
         "mfussenegger/nvim-lint",
-        event = { "BufReadPost", "BufNewFile" },
+        event = "VeryLazy",
         dependencies = {
             "rshkarin/mason-nvim-lint",
         },
@@ -19,12 +19,12 @@ return {
 
             local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-            local lint_opt = require('lint').linters
+            local lint_opt = require("lint").linters
 
             lint_opt.shellcheck.args = {
                 args = {
-                    "-x"
-                }
+                    "-x",
+                },
             }
 
             vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
