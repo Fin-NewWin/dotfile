@@ -1,7 +1,7 @@
 return {
     {
         "mfussenegger/nvim-lint",
-        event = "VeryLazy",
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "rshkarin/mason-nvim-lint",
         },
@@ -13,7 +13,7 @@ return {
                 typescript = { "eslint_d" },
                 javascriptreact = { "eslint_d" },
                 typescriptreact = { "eslint_d" },
-                python = { "pylint" },
+                python = { "flake8" },
                 sh = { "shellcheck" },
             }
 
@@ -27,7 +27,7 @@ return {
                 },
             }
 
-            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+            vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter" }, {
                 group = lint_augroup,
                 callback = function()
                     lint.try_lint()

@@ -9,6 +9,7 @@ local formatters_by_ft = {
     lua = { "stylua" },
     python = { "black" },
 }
+
 return {
     {
         "stevearc/conform.nvim",
@@ -25,13 +26,11 @@ return {
             },
         },
         config = function(_, opts)
-            local mason_tool_installer = require("mason-tool-installer")
-
             local util = require("conform.util")
             util.add_formatter_args(require("conform.formatters.prettier"), { "--tab-width=4" })
             require("conform").setup(opts)
 
-            -- TODO: wait for mason plugin for conform, for now workaround
+            local mason_tool_installer = require("mason-tool-installer")
             mason_tool_installer.setup({
                 ensure_installed = vim.fn.uniq(vim.tbl_values(formatters_by_ft)),
             })
