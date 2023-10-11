@@ -46,7 +46,8 @@
         "/tmp/lua-language-server.pUfg/meta/0b549130"
     ],
     "diagnostics.disable": [
-        "need-check-nil"
+        "need-check-nil",
+        "missing-fields"
     ],
     "workspace.checkThirdParty": false
 }
