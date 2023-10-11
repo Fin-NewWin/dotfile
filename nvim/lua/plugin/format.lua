@@ -10,10 +10,11 @@ local formatters_by_ft = {
     python = { "black" },
 }
 
+
 return {
     {
         "stevearc/conform.nvim",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
         },
