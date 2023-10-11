@@ -1,23 +1,15 @@
 #!/usr/bin/env bash
 
-BRIGHT=/sys/class/backlight/intel_backlight/brightness
-MAX_BRIGHT=$(cat /sys/class/backlight/intel_backlight/max_brightness)
-CURR=$(cat $BRIGHT)
-STEP=10
+BRIGHT=$(brightnessctl | grep -o ".[0-9]*%" | grep -o "[0-9]*")
 
 case $1 in
-    up)
-        CURR=$(($CURR + $STEP))
-        if [ $CURR  -gt $MAX_BRIGHT ]; then
-            CURR=$MAX_BRIGHT
+    ''|*[0-9]*)
+        BRIGHT=$((BRIGHT + $1))
+        if [ $BRIGHT -lt 0 ]; then
+            BRIGHT=0
+        elif [ $BRIGHT -gt 100 ]; then
+            BRIGHT=100
         fi
-        echo $CURR > $BRIGHT
-        ;;
-    down)
-        CURR=$(($CURR - $STEP))
-        if [ $CURR -lt 0 ]; then
-            CURR=0
-        fi
-        echo "$CURR" > $BRIGHT
+        brightnessctl s $BRIGHT% &
         ;;
 esac
