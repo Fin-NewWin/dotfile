@@ -7,8 +7,6 @@ case $1 in
         BRIGHT=$((BRIGHT + $1))
         if [ $BRIGHT -lt 0 ]; then
             BRIGHT=0
-        elif [ $BRIGHT -gt 100 ]; then
-            BRIGHT=100
         fi
         brightnessctl s $BRIGHT% &
         ;;
