@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 BRIGHT=$(brightnessctl | grep -o ".[0-9]*%" | grep -o "[0-9]*")
 
 case $1 in
-    ''|*[0-9]*)
+    *[0-9]*)
         BRIGHT=$((BRIGHT + $1))
         if [ $BRIGHT -lt 0 ]; then
             BRIGHT=0

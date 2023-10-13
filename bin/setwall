@@ -23,9 +23,7 @@ setWall(){
             --transition-pos top-right
 
     notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
-    # if fail somehow
     return
-
 }
 
 if [ $# -eq 1 ]
