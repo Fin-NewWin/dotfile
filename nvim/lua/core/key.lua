@@ -65,3 +65,6 @@ key("n", "<S-k>", "<Nop>", opts)
 key("n", "<C-[", "<Nop>", opts)
 key("n", "Q", "<Nop>", opts)
 key("n", "<C-r>", "<Nop>", opts)
+
+-- Save
+key("n", "<C-s>", ":w<CR>", opts)
