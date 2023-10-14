@@ -63,6 +63,7 @@ key("n", "U", "<C-r>", opts)
 -- Remove Keybindings
 key("n", "<S-k>", "<Nop>", opts)
 key("n", "<C-[", "<Nop>", opts)
+key("n", "<C-]", "<Nop>", opts)
 key("n", "Q", "<Nop>", opts)
 key("n", "<C-r>", "<Nop>", opts)
 
