@@ -10,6 +10,7 @@ local options = {
     fillchars = {
         eob = " ", -- end of buffer char = space
     },
+    foldenable = false, -- fold
     ignorecase = true, -- ignore case when searching
     laststatus = 3, -- global staths
     mouse = "", -- enables mouse

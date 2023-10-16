@@ -1,13 +1,15 @@
 return {
     {
-        "numToStr/Comment.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        dependencies = {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-        },
+        "echasnovski/mini.comment",
+        event = "VeryLazy",
         opts = {
-            ignore = "^$",
-            pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+            options = {
+                custom_commentstring = function()
+                    return require("ts_context_commentstring.internal").calculate_commentstring()
+                        or vim.bo.commentstring
+                end,
+                ignore_blank_line = true,
+            },
         },
     },
     {
@@ -25,20 +27,6 @@ return {
         config = function()
             require("treesj").setup({ use_default_keymaps = false })
             vim.keymap.set("n", "<leader>m", require("treesj").toggle)
-        end,
-    },
-    {
-        "echasnovski/mini.cursorword",
-        version = false,
-        event = "VeryLazy",
-        config = true,
-    },
-    {
-        "mbbill/undotree",
-        keys = "<space>u",
-        config = function()
-            vim.keymap.set("n", "<space>u", vim.cmd.UndotreeToggle)
-            vim.g.undotree_SplitWidth = 55
         end,
     },
     {
