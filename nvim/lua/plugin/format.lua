@@ -27,7 +27,7 @@ return {
         },
         config = function(_, opts)
             local util = require("conform.util")
-            util.add_formatter_args(require("conform.formatters.prettier"), { "--tab-width=4" })
+            util.add_formatter_args(require("conform.formatters.prettierd"), { "--tab-width=4" })
             require("conform").setup(opts)
 
             local mason_tool_installer = require("mason-tool-installer")
