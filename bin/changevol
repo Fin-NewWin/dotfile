@@ -6,11 +6,11 @@ send_notification() {
 
 case $1 in
     up)
-        pamixer -u -i 5
+        pamixer -u -i 4
         send_notification "$1"
         ;;
     down)
-        pamixer -u -d 5
+        pamixer -u -d 4
         send_notification "$1"
         ;;
     mute)
