@@ -46,3 +46,4 @@ vim.opt.whichwrap:append("<>[]hl")
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
+

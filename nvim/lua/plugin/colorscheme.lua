@@ -1,20 +1,18 @@
 return {
-    "ellisonleao/gruvbox.nvim",
-    lazy = false,
-    priority = 100,
-    config = function()
-        local ok, gruvbox = pcall(require, "gruvbox")
-        if not ok then
-            return
-        end
-        gruvbox.setup({
+    {
+        "ellisonleao/gruvbox.nvim",
+        lazy = false,
+        priority = 100,
+        opts = {
             overrides = {
                 GitSignsCurrentLineBlame = { link = "Comment" },
             },
             transparent_mode = true,
             contrast = "hard",
-            -- inverse = false,
-        })
-        vim.cmd.colorscheme("gruvbox")
-    end,
+        },
+        config = function(_, opts)
+            require("gruvbox").setup(opts)
+            vim.cmd.colorscheme("gruvbox")
+        end,
+    },
 }
