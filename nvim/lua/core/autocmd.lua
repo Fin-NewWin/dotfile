@@ -18,15 +18,6 @@ autocmd("TermOpen", {
     end,
 })
 
-autocmd({ "BufLeave", "FocusLost" }, {
-    desc = "Autosave when neovim not focused or when leaving buffer",
-    callback = function()
-        if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-            vim.api.nvim_command("silent update")
-        end
-    end,
-})
-
 local highlight_group = augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
     desc = "Highlight yank",
@@ -44,12 +35,23 @@ autocmd("FocusGained", {
     end,
 })
 
-autocmd("FileType", { pattern = "yaml", command = "setlocal ts=4 sts=4 sw=4 expandtab" })
+-- TODO: Fix later if doesn't work for yaml
+autocmd("FileType", {
+    pattern = "yaml",
+    callback = function()
+        vim.opt_local.expandtab = true
+        vim.opt_local.shiftwidth = 4
+        vim.opt_local.tabstop = 4
+        vim.opt_local.softtabstop = 4
+    end,
+})
 
 autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Enable spell checking in filetypes",
     pattern = { "*.txt", "*.md", "*.tex" },
-    command = "setlocal spell",
+    callback = function()
+        vim.opt_local.spell = true
+    end,
 })
 
 autocmd({ "InsertLeave", "WinEnter" }, {
