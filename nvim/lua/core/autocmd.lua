@@ -1,9 +1,19 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+-- Filetype
+-- nesC not supported, temp make it into filetype "c"
+autocmd({ "BufEnter" }, {
+    pattern = {
+        "*.nc",
+    },
+    callback = function()
+        vim.bo.filetype = "c"
+    end,
+})
+
 autocmd("BufEnter", {
     desc = "Remove auto comments",
-    pattern = "*",
     callback = function()
         vim.opt.formatoptions:remove({ "c", "r", "o" })
     end,
@@ -110,14 +120,3 @@ local function toggle_hlsearch(char)
 end
 
 vim.on_key(toggle_hlsearch, ns)
-
--- Filetype
--- nesC not supported, temp make it into filetype "c"
-autocmd({ "BufEnter" }, {
-    pattern = {
-        "*.nc",
-    },
-    callback = function()
-        vim.bo.filetype = "c"
-    end,
-})
