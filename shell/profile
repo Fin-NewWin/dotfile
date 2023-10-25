@@ -114,3 +114,5 @@ export RENPY_PATH_TO_SAVES="$XDG_DATA_HOME"/renpy
 export ADB_VENDOR_KEYS="$XDG_DATA_HOME"/android/adb_keys
 
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
+
+export QT_QPA_PLATFORM=wayland
