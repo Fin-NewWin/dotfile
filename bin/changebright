@@ -12,6 +12,8 @@ case $1 in
             BRIGHT=1
         elif [ "$FIRST" -eq 1 ] && [ $BRIGHT -gt 1 ]; then
             BRIGHT=$(($1 + 0))
+        elif [ "$FIRST" -eq 0 ] && [ $BRIGHT -gt 0 ]; then
+            BRIGHT=1
         fi
         brightnessctl s $BRIGHT% &
         ;;

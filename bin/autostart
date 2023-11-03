@@ -10,7 +10,8 @@ swww init &
 waybar &
 gammastep &
 
-pamixer --default-source --set-volume 30
+
+pamixer --default-source --set-volume 20
 
 
 setwall
