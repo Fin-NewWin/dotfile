@@ -6,6 +6,7 @@ return {
         opts = {
             overrides = {
                 GitSignsCurrentLineBlame = { link = "Comment" },
+                ["@lsp.type.function.lua"] = { link = "GruvboxOrange" },
             },
             transparent_mode = true,
             contrast = "hard",
