@@ -8,7 +8,6 @@ local formatters_by_ft = {
     json = { "prettierd" },
     lua = { "stylua" },
     python = { "black" },
-    cpp = { "clang-format" },
 }
 
 return {
