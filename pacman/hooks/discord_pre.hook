@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Upgrade
+Operation = Install
+Target = discord_arch_electron
+
+[Action]
+Description = Deleting old Discord dir
+When = PreTransaction
+Exec = /usr/bin/rm -rf /usr/share/discord/resources/app.asar

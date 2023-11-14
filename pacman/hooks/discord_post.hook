@@ -1,0 +1,11 @@
+[Trigger]
+Type = Package
+Operation = Upgrade
+Operation = Install
+Target = discord_arch_electron
+
+[Action]
+Description = Installing Vencord
+Depends = curl
+When = PostTransaction
+Exec =  /usr/bin/bash -c /usr/local/sbin/vencordinstall
