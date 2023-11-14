@@ -12,6 +12,12 @@ autocmd({ "BufEnter" }, {
     end,
 })
 
+autocmd("BufWritePre", {
+    desc = "Remove trailing spaces",
+    -- pattern = "*",
+    command = "%s/\\s\\+$//e",
+})
+
 autocmd("BufEnter", {
     desc = "Remove auto comments",
     callback = function()
