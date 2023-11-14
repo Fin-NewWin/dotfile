@@ -64,8 +64,6 @@
 	"clock": {
 		"interval": 30,
 		"format": "⏰ {:%H:%M}",
-		"tooltip-format": "{:%Y-%m-%d | %H:%M}"
-		// "format-alt": "{:%Y-%m-%d}"
 	},
 	"battery": {
 		"states": {
