@@ -1,8 +1,8 @@
 #!/bin/sh
 
-send_notification() {
-    volume=$(pamixer --get-volume)
-}
+# send_notification() {
+#     volume=$(pamixer --get-volume)
+# }
 
 case $1 in
     up)
