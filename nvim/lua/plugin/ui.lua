@@ -43,4 +43,14 @@ return {
         event = "VeryLazy",
         config = true,
     },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "BufReadPost",
+        main = "ibl",
+        opts = {
+            scope = {
+                enabled = false,
+            },
+        },
+    },
 }
