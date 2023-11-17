@@ -1,118 +1,118 @@
 return {
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        version = false,
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-cmdline",
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		version = false,
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-cmdline",
 
-            "L3MON4D3/LuaSnip",
+			"L3MON4D3/LuaSnip",
 
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-        },
-        config = function()
-            local lsp = require("lsp-zero")
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
+		config = function()
+			local lsp = require("lsp-zero")
 
-            lsp.preset("recommended")
+			lsp.preset("recommended")
 
-            lsp.ensure_installed({
-                "tsserver",
-                "emmet_ls",
-                "cssls",
-                "tailwindcss",
-                "html",
+			lsp.ensure_installed({
+				"tsserver",
+				"emmet_ls",
+				"cssls",
+				"tailwindcss",
+				"html",
 
-                "clangd",
+				"clangd",
 
-                "bashls",
+				"bashls",
 
-                "texlab",
+				"texlab",
 
-                "lua_ls",
+				"lua_ls",
 
-                "pyright",
+				"pyright",
 
-                "jdtls",
-            })
+				"jdtls",
+			})
 
-            lsp.nvim_workspace()
+			lsp.nvim_workspace()
 
-            local cmp = require("cmp")
+			local cmp = require("cmp")
 
-            local cmp_select = { behavior = cmp.SelectBehavior.Select }
-            local cmp_mappings = lsp.defaults.cmp_mappings({
-                ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-                ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-            })
+			local cmp_select = { behavior = cmp.SelectBehavior.Select }
+			local cmp_mappings = lsp.defaults.cmp_mappings({
+				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+			})
 
-            cmp_mappings["<Tab>"] = nil
-            cmp_mappings["<S-Tab>"] = nil
-            cmp_mappings["<CR>"] = nil
+			cmp_mappings["<Tab>"] = nil
+			cmp_mappings["<S-Tab>"] = nil
+			cmp_mappings["<CR>"] = nil
 
-            lsp.setup_nvim_cmp({
-                mapping = cmp_mappings,
-                completion = {
-                    completeopt = "menu,menuone,noinsert,noselect",
-                },
-            })
+			lsp.setup_nvim_cmp({
+				mapping = cmp_mappings,
+				completion = {
+					completeopt = "menu,menuone,noinsert,noselect",
+				},
+			})
 
-            lsp.set_preferences({
-                suggest_lsp_servers = false,
-                sign_icons = {
-                    error = "E",
-                    warn = "W",
-                    hint = "H",
-                    info = "I",
-                },
-            })
+			lsp.set_preferences({
+				suggest_lsp_servers = false,
+				sign_icons = {
+					error = "E",
+					warn = "W",
+					hint = "H",
+					info = "I",
+				},
+			})
 
-            -- lsp.on_attach(function(client, bufnr)
-            lsp.on_attach(function(_, bufnr)
-                local opts = { buffer = bufnr, remap = false }
-                local key = vim.keymap.set
+			-- lsp.on_attach(function(client, bufnr)
+			lsp.on_attach(function(_, bufnr)
+				local opts = { buffer = bufnr, remap = false }
+				local key = vim.keymap.set
 
-                key("n", "gd", function()
-                    vim.lsp.buf.definition()
-                end, opts)
-                key("n", "gD", function()
-                    vim.lsp.buf.declaration()
-                end, opts)
-                key("n", "]d", function()
-                    vim.diagnostic.goto_next()
-                end, opts)
-                key("n", "[d", function()
-                    vim.diagnostic.goto_prev()
-                end, opts)
-                key("n", "<leader>rn", function()
-                    vim.lsp.buf.rename()
-                end, opts)
-                key("n", "<leader>ca", function()
-                    vim.lsp.buf.code_action()
-                end, opts)
-            end)
+				key("n", "gd", function()
+					vim.lsp.buf.definition()
+				end, opts)
+				key("n", "gD", function()
+					vim.lsp.buf.declaration()
+				end, opts)
+				key("n", "]d", function()
+					vim.diagnostic.goto_next()
+				end, opts)
+				key("n", "[d", function()
+					vim.diagnostic.goto_prev()
+				end, opts)
+				key("n", "<leader>rn", function()
+					vim.lsp.buf.rename()
+				end, opts)
+				key("n", "<leader>ca", function()
+					vim.lsp.buf.code_action()
+				end, opts)
+			end)
 
-            lsp.setup()
+			lsp.setup()
 
-            require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup()
 
-            vim.diagnostic.config({
-                virtual_text = true,
-                update_in_insert = false,
-                underline = true,
-                severity_sort = true,
-                float = {
-                    focusable = false,
-                    style = "minimal",
-                    source = "always",
-                    header = "",
-                    prefix = "",
-                },
-            })
-        end,
-    },
+			vim.diagnostic.config({
+				virtual_text = true,
+				update_in_insert = false,
+				underline = true,
+				severity_sort = true,
+				float = {
+					focusable = false,
+					style = "minimal",
+					source = "always",
+					header = "",
+					prefix = "",
+				},
+			})
+		end,
+	},
 }
