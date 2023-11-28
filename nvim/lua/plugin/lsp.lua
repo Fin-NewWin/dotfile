@@ -1,23 +1,3 @@
-local servers = {
-	"tsserver",
-	"emmet_ls",
-	"cssls",
-	"tailwindcss",
-	"html",
-
-	"clangd",
-
-	"bashls",
-
-	"texlab",
-
-	"lua_ls",
-
-	"pyright",
-
-	"jdtls",
-}
-
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -26,6 +6,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
 			require("mason").setup()
@@ -55,6 +36,26 @@ return {
 				key("n", "gr", vim.lsp.buf.references, opts)
 			end
 
+			local servers = {
+				"tsserver",
+				"emmet_ls",
+				"cssls",
+				"tailwindcss",
+				"html",
+
+				"clangd",
+
+				"bashls",
+
+				"texlab",
+
+				"lua_ls",
+
+				"pyright",
+
+				"jdtls",
+			}
+
 			for _, lsp in ipairs(servers) do
 				require("lspconfig")[lsp].setup({
 					on_attach = on_attach,
@@ -64,6 +65,7 @@ return {
 
 			local lsp = require("lspconfig")
 
+			require("neodev").setup()
 			lsp["lua_ls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,

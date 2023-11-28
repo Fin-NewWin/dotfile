@@ -1,6 +1,3 @@
-local ELLIPSIS_CHAR = "..."
-local MAX_LABEL_WIDTH = 25
-
 return {
 	{
 		"hrsh7th/nvim-cmp",
@@ -42,6 +39,7 @@ return {
 				window = {
 					completion = {
 						col_offset = -2,
+						scrollbar = false,
 					},
 					documentation = {
 						winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",

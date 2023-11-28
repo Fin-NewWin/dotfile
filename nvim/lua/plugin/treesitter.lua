@@ -18,6 +18,9 @@ return {
 				},
 				indent = {
 					enable = true,
+					-- FIX: not working with filetype nc which I translate to c in autocmd.lua
+					-- remove when I need this to work on a c project
+					disable = { "c" },
 				},
 				autopairs = { enable = true },
 				autotag = { enable = true },
