@@ -18,6 +18,9 @@ return {
 				lineFoldingOnly = true,
 			}
 
+			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+
 			local on_attach = function(_, bufnr)
 				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
@@ -32,27 +35,25 @@ return {
 
 				key("n", "gt", vim.lsp.buf.type_definition, opts)
 				key("n", "<leader>rn", vim.lsp.buf.rename, opts)
-				key("n", "<leader>l", vim.lsp.buf.code_action, opts)
-				key("n", "gr", vim.lsp.buf.references, opts)
+				key("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+				key("n", "<leader>gr", vim.lsp.buf.references, opts)
 			end
 
 			local servers = {
+				"bashls",
+
 				"tsserver",
 				"emmet_ls",
 				"cssls",
 				"tailwindcss",
 				"html",
 
-				"clangd",
-
-				"bashls",
-
 				"texlab",
 
 				"lua_ls",
 
+				"clangd",
 				"pyright",
-
 				"jdtls",
 			}
 
@@ -72,7 +73,7 @@ return {
 				settings = {
 					Lua = {
 						diagnostics = {
-							globals = { "vim", "require", "P", "R" },
+							globals = { "vim" },
 						},
 						workspace = {
 							checkThirdParty = false,
