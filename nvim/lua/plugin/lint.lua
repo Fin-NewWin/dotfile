@@ -27,6 +27,12 @@ return {
 				},
 			}
 
+			-- lint_opt.flake8.args = {
+			-- 	args = {
+			-- 		"--ignore=E203",
+			-- 	},
+			-- }
+
 			vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter" }, {
 				group = lint_augroup,
 				callback = function()
