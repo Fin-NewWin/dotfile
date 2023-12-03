@@ -1,7 +1,11 @@
 return {
 	{
 		"echasnovski/mini.statusline",
-		event = "BufReadPost",
+		event = "BufRead",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"lewis6991/gitsigns.nvim",
+		},
 		config = true,
 	},
 	{
@@ -19,7 +23,7 @@ return {
 				right_mouse_command = function(n)
 					require("mini.bufremove").delete(n, false)
 				end,
-				-- diagnostics = "nvim_lsp",
+				diagnostics = "nvim_lsp",
 				offsets = {
 					{
 						filetype = "neo-tree",

@@ -7,6 +7,8 @@ return {
 			overrides = {
 				GitSignsCurrentLineBlame = { link = "Comment" },
 				["@lsp.type.function.lua"] = { link = "GruvboxOrange" },
+				NormalFloat = { link = "Pmenu" },
+				Pmenu = { bg = "#3c3836" },
 			},
 			transparent_mode = true,
 			contrast = "hard",

@@ -8,7 +8,17 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = {
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
+				},
+			},
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -24,7 +34,7 @@ return {
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-c>"] = cmp.mapping.close(),
-				["<CR>"] = cmp.mapping.confirm({
+				["<C-y>"] = cmp.mapping.confirm({
 					behavior = cmp.ConfirmBehavior.Insert,
 					select = false,
 				}),
