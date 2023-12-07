@@ -96,7 +96,8 @@ return {
 					enabled = false,
 				},
 				signature = {
-					view = "hover",
+					enabled = false,
+					-- view = "hover",
 				},
 			},
 			views = {
@@ -115,5 +116,10 @@ return {
 				},
 			},
 		},
+	},
+	{
+		"stevearc/dressing.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 }
