@@ -85,39 +85,6 @@ return {
 		end,
 	},
 	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		opts = {
-			lsp = {
-				progress = {
-					enabled = false,
-				},
-				signature = {
-					enabled = false,
-					-- view = "hover",
-				},
-			},
-			views = {
-				mini = {
-					win_options = {
-						winblend = 0,
-					},
-				},
-				popup = {
-					win_options = {
-						winhighlight = {
-							Normal = "NormalFloat",
-							NormalFloat = "NormalFloat",
-						},
-					},
-				},
-			},
-		},
-	},
-	{
 		"stevearc/dressing.nvim",
 		event = "VeryLazy",
 		opts = {},
