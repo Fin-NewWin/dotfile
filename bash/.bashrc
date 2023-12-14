@@ -23,6 +23,10 @@ stty -ixon
 
 eval "$(starship init bash)"
 
+
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
 # Get the status code from the last command executed
 STATUS=$?
 
