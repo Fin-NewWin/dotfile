@@ -1,6 +1,6 @@
 #!/bin/sh
 
-alias startx="startx $XINITRC"
+# alias startx=startx "$XINITRC"
 
 alias ls="ls -h --color=auto"
 
@@ -12,7 +12,7 @@ alias rm="rm -vI"
 
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
-alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
+alias wget='wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts'
 
 alias \
     gl="git log --pretty=format:\"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]\"" \
@@ -32,7 +32,7 @@ alias \
     gp="git push" \
 
 alias \
-    e=$EDITOR               \
+    e='$EDITOR'               \
     se="sudoedit"           \
 
 alias \
