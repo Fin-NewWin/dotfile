@@ -2,7 +2,7 @@
 	"layer": "top",
 
 	"modules-left": ["hyprland/workspaces" ],
-	"modules-right": ["custom/disk_root","temperature", "cpu", "memory", "network", "backlight", "pulseaudio", "clock", "battery", "idle_inhibitor", "tray"],
+	"modules-right": ["custom/disk_root", "cpu", "memory", "network", "backlight", "pulseaudio", "clock", "battery", "idle_inhibitor", "tray"],
 
 	"custom/disk_root": {
 		"format": "💽 {} ",
