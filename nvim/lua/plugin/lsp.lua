@@ -64,22 +64,6 @@ return {
 
 			local lsp = require("lspconfig")
 
-			require("neodev").setup()
-			lsp["lua_ls"].setup({
-				on_attach = on_attach,
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-						workspace = {
-							checkThirdParty = false,
-						},
-					},
-				},
-			})
-
 			lsp["tsserver"].setup({
 				on_attach = function(client, bufnr)
 					client.server_capabilities.semanticTokensProvider = function()
@@ -117,6 +101,8 @@ return {
 					},
 				},
 			})
+
+			require("neodev").setup()
 
 			vim.diagnostic.config({
 				virtual_text = true,
