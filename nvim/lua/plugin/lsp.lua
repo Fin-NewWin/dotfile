@@ -1,7 +1,6 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		version = false,
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
@@ -10,7 +9,9 @@ return {
 		},
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup()
+			require("mason-lspconfig").setup({
+				automatic_installation = true,
+			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities.textDocument.foldingRange = {
@@ -51,7 +52,6 @@ return {
 				"lua_ls",
 
 				"clangd",
-				"pyright",
 				"jdtls",
 			}
 

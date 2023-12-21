@@ -29,7 +29,10 @@ return {
 			local util = require("conform.util")
 			-- util.add_formatter_args(require("conform.formatters.prettierd"), { "--tab-width=2" })
 
-			util.add_formatter_args(require("conform.formatters.prettier"), { "--single-quote", "--trailing-comma=none" })
+			util.add_formatter_args(require("conform.formatters.prettier"), {
+				"--single-quote",
+				"--trailing-comma=none",
+			})
 			require("conform").setup(opts)
 
 			local mason_tool_installer = require("mason-tool-installer")
