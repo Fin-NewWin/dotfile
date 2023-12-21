@@ -105,6 +105,19 @@ return {
 				},
 			})
 
+			lsp["bashls"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					bashIde = {
+						shellcheckArguments = {
+							"-e",
+							"SC1090,SC2148,SC2016",
+						},
+					},
+				},
+			})
+
 			vim.diagnostic.config({
 				virtual_text = true,
 				update_in_insert = false,
