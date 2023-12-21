@@ -40,8 +40,6 @@ return {
 			end
 
 			local servers = {
-				"bashls",
-
 				"tsserver",
 				"emmet_ls",
 				"cssls",
