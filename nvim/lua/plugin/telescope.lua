@@ -31,7 +31,8 @@ return {
 				},
 			})
 
-			pcall(require("telescope").load_extension, "fzf")
+			-- Fuzzy finder
+			require("telescope").load_extension("fzf")
 
 			local key = vim.keymap.set
 			local opt = { noremap = true }
