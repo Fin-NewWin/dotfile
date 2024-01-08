@@ -38,8 +38,8 @@ local options = {
 -- Disable nvim intro
 vim.opt.shortmess:append("csI")
 
-for k, v in pairs(options) do
-	vim.opt[k] = v
+for key, value in pairs(options) do
+	vim.opt[key] = value
 end
 
 vim.loader.enable()
