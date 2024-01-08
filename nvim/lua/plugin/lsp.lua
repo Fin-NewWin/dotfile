@@ -5,8 +5,8 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"lvimuser/lsp-inlayhints.nvim",
 			{ "folke/neodev.nvim", opts = {} },
+			"ray-x/lsp_signature.nvim",
 		},
 		config = function()
 			require("mason").setup()
@@ -23,9 +23,11 @@ return {
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
-			local on_attach = function(client, bufnr)
+			local on_attach = function(_, bufnr)
 				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
+				-- Mappings.
+				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { noremap = true, silent = true, buffer = bufnr }
 				local key = vim.keymap.set
 
@@ -38,7 +40,12 @@ return {
 				key("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 				key("n", "<leader>gr", vim.lsp.buf.references, opts)
 
-				require("lsp-inlayhints").on_attach(client, bufnr)
+				require("lsp_signature").on_attach({
+					bind = true,
+					handler_opts = {
+						border = "none",
+					},
+				}, bufnr)
 			end
 
 			local servers = {
@@ -73,36 +80,6 @@ return {
 					on_attach(client, bufnr)
 				end,
 				capabilities = capabilities,
-				settings = {
-					typescript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = false,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = false,
-							includeInlayEnumMemberValueHints = true,
-						},
-						suggest = {
-							includeCompletionsForModuleExports = true,
-						},
-					},
-					javascript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = false,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = false,
-							includeInlayEnumMemberValueHints = true,
-						},
-						suggest = {
-							includeCompletionsForModuleExports = true,
-						},
-					},
-				},
 			})
 
 			lsp["pyright"].setup({
