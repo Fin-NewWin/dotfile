@@ -1,20 +1,20 @@
 return {
 	{
 		"luukvbaal/statuscol.nvim",
-		event = "VeryLazy",
+		lazy = false,
 		config = function()
 			local builtin = require("statuscol.builtin")
 			require("statuscol").setup({
 				ft_ignore = { "alpha", "neo-tree", "Trouble", "help" },
 				bt_ignore = { "nofile" },
+				relculright = true,
 				segments = {
 					{
 						sign = {
-							name = { "Diagnostic" },
-							maxwidth = 1,
-							colwidth = 2,
-							auto = false,
+							namespace = { "diagnostic*" },
 							fillchar = " ",
+							fillcharhl = "StatusColumnSeparator",
+							colwidth = 2,
 						},
 					},
 					{
