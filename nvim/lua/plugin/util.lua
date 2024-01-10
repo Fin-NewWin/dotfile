@@ -36,12 +36,21 @@ return {
 			check_ts = true,
 			ts_config = {
 				lua = { "string" },
+				javascript = { "template_string" },
+				java = false,
 			},
 		},
+		config = true,
 	},
 	{
 		"nmac427/guess-indent.nvim",
 		event = "BufReadPost",
+		opts = {},
+		config = true,
+	},
+	{
+		"echasnovski/mini.cursorword",
+		event = "VeryLazy",
 		opts = {},
 		config = true,
 	},

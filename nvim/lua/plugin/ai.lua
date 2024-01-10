@@ -2,6 +2,9 @@ return {
 	{
 		"Exafunction/codeium.vim",
 		event = "BufEnter",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 		config = function()
 			vim.g.codeium_disable_bindings = 1
 			vim.keymap.set("i", "<C-Space>", function()

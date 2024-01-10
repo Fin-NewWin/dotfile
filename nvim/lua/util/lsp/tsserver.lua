@@ -17,7 +17,7 @@ autocmd("BufWritePre", {
 	desc = "TSServerOrganizeImports",
 	pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
 	callback = function()
-		vim.notify("This is running and shit")
+		-- vim.notify("This is running and shit")
 		organize_imports()
 	end,
 })

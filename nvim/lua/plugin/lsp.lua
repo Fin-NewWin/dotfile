@@ -23,7 +23,7 @@ return {
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
-			local on_attach = function(_, bufnr)
+			local on_attach = function(client, bufnr)
 				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
 				-- Mappings.
@@ -46,6 +46,9 @@ return {
 						border = "none",
 					},
 				}, bufnr)
+				if client.name == "tsserver" then
+					require("util.lsp.tsserver")
+				end
 			end
 
 			local servers = {
