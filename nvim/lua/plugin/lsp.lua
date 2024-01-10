@@ -49,7 +49,6 @@ return {
 			end
 
 			local servers = {
-				"tsserver",
 				"emmet_ls",
 				"cssls",
 				"tailwindcss",
@@ -73,12 +72,7 @@ return {
 			local lsp = require("lspconfig")
 
 			lsp["tsserver"].setup({
-				on_attach = function(client, bufnr)
-					client.server_capabilities.semanticTokensProvider = function()
-						return {}
-					end
-					on_attach(client, bufnr)
-				end,
+				on_attach = on_attach,
 				capabilities = capabilities,
 			})
 

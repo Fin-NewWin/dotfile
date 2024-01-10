@@ -4,3 +4,5 @@ require("core.key")
 require("core.autocmd")
 
 require("core.lazy")
+
+require("util.lsp.tsserver")
