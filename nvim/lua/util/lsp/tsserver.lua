@@ -10,10 +10,10 @@ end
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local group_org_imp = augroup("TSServerOrganizeImports", { clear = true })
+local group_imp_org = augroup("TSServerOrganizeImports", { clear = true })
 
 autocmd("BufWritePre", {
-	group = group_org_imp,
+	group = group_imp_org,
 	desc = "TSServerOrganizeImports",
 	pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
 	callback = function()
@@ -23,8 +23,9 @@ autocmd("BufWritePre", {
 })
 
 -- FIX: find a way to autoimport
+-- local group_imp_miss = vim.api.nvim_create_augroup("TS_add_missing_imports", { clear = true })
 -- autocmd("BufWritePre", {
--- 	group = vim.api.nvim_create_augroup("TS_add_missing_imports", { clear = true }),
+-- 	group = group_imp_miss,
 -- 	desc = "TS_add_missing_imports",
 -- 	pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
 -- 	callback = function()
