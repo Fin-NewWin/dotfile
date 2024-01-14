@@ -12,8 +12,10 @@ return {
 				ensure_installed = "all",
 				sync_install = false,
 				auto_install = true,
+				ignore_install = {
+					"comment",
+				},
 				highlight = {
-					enable = true,
 					additional_vim_regex_highlighting = false,
 					disable = function(lang, buf)
 						local max_filesize = 100 * 1024 -- 100 KB
