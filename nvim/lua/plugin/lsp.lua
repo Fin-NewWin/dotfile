@@ -6,7 +6,6 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{ "folke/neodev.nvim", opts = {} },
-			"ray-x/lsp_signature.nvim",
 		},
 		config = function()
 			require("mason").setup()
@@ -15,17 +14,11 @@ return {
 			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
 
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
 			local on_attach = function(client, bufnr)
-				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
-
 				-- Mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -39,20 +32,9 @@ return {
 				key("n", "<leader>rn", vim.lsp.buf.rename, opts)
 				key("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 				key("n", "<leader>gr", vim.lsp.buf.references, opts)
-
-				require("lsp_signature").on_attach({
-					bind = true,
-					handler_opts = {
-						border = "none",
-					},
-				}, bufnr)
-				if client.name == "tsserver" then
-					require("util.lsp.tsserver")
-				end
 			end
 
 			local servers = {
-				"emmet_ls",
 				"cssls",
 				"tailwindcss",
 				"html",
@@ -60,6 +42,7 @@ return {
 				"texlab",
 
 				"lua_ls",
+				"pyright",
 
 				"clangd",
 				"jdtls",
@@ -77,7 +60,34 @@ return {
 			lsp["tsserver"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
+				single_file_support = false,
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "literal",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayVariableTypeHints = false,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayEnumMemberValueHints = true,
+						},
+					},
+					javascript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all",
+							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayVariableTypeHints = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayEnumMemberValueHints = true,
+						},
+					},
+				},
 			})
+
+			require("util.lsp.tsserver")
 
 			lsp["pyright"].setup({
 				on_attach = on_attach,

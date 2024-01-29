@@ -9,14 +9,8 @@ return {
 				["@lsp.type.function.lua"] = { link = "GruvboxOrange" },
 				NormalFloat = { link = "Pmenu" },
 				Pmenu = { bg = "#3c3836" },
-
-				-- Diagnostic
-				DiagnosticSignError = { link = "GruvboxRed" },
-				DiagnosticSignWarn = { link = "GruvboxYellow" },
-				DiagnosticSignInfo = { link = "GruvboxBlue" },
-				DiagnosticSignHint = { link = "GruvboxAqua" },
 			},
-			-- transparent_mode = true,
+			transparent_mode = true,
 			-- contrast = "hard",
 		},
 		config = function(_, opts)
