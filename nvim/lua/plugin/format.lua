@@ -7,8 +7,10 @@ local formatters_by_ft = {
 	html = { "prettier" },
 	json = { "prettier" },
 	lua = { "stylua" },
-	python = { "black" },
+	python = { "black", "isort" },
 }
+
+local formatters = vim.tbl_flatten(vim.tbl_values(formatters_by_ft))
 
 return {
 	{
@@ -35,9 +37,12 @@ return {
 			})
 			require("conform").setup(opts)
 
+			-- sort imports
+			require("util.lsp.tsserver")
+
 			local mason_tool_installer = require("mason-tool-installer")
 			mason_tool_installer.setup({
-				ensure_installed = vim.fn.uniq(vim.tbl_values(formatters_by_ft)),
+				ensure_installed = formatters,
 			})
 		end,
 	},
