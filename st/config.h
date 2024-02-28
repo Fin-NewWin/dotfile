@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+// Last patch: https://git.suckless.org/st/commit/7473a8d1a57e5f9aba41b953f4e498c35e1c9dc5.html
 /*
  * appearance
  *
