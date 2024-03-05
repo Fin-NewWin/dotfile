@@ -48,10 +48,4 @@ return {
 		opts = {},
 		config = true,
 	},
-	{
-		"echasnovski/mini.cursorword",
-		event = "VeryLazy",
-		opts = {},
-		config = true,
-	},
 }
