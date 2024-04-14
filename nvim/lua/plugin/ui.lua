@@ -40,19 +40,23 @@ return {
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
-		event = "VeryLazy",
+		event = "BufReadPost",
 		opts = {
 			filetypes = {
 				"html",
 				"css",
+				"cssls",
+				"scss",
+				"less",
 				"javascript",
 				"typescript",
 				"typescriptreact",
 				"javascriptreact",
 				"lua",
 			},
+
 			user_default_options = {
-				tailwind = false, -- Enable tailwind colors
+				tailwind = true, -- Enable tailwind colors
 			},
 		},
 		config = true,
