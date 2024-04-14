@@ -4,7 +4,9 @@ killall swww-daemon
 killall waybar
 killall gammastep
 killall xbindkeys
+killall dunst
 
+dunst &
 swww init &
 
 waybar &
@@ -12,6 +14,6 @@ gammastep &
 
 pamixer --default-source --set-volume 20
 
-setwall
-
 xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
+
+setwall
