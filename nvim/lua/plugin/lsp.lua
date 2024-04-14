@@ -30,8 +30,9 @@ return {
 
 				key("n", "gt", vim.lsp.buf.type_definition, opts)
 				key("n", "<leader>rn", vim.lsp.buf.rename, opts)
-				key("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-				key("n", "<leader>gr", vim.lsp.buf.references, opts)
+				key("n", "gr", vim.lsp.buf.references, opts)
+
+				key("n", "<leader>q", vim.diagnostic.setloclist)
 			end
 
 			local servers = {
@@ -126,7 +127,7 @@ return {
 				float = {
 					focusable = false,
 					style = "minimal",
-					source = "always",
+					source = true,
 					header = "",
 					prefix = "",
 				},
