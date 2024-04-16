@@ -5,10 +5,28 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# XDG
+export HOME=/home/fin
+export XAUTHORITY=/home/fin/.cache/Xauthority
+export XDG_CACHE_HOME=/home/fin/.cache
+export XDG_CONFIG_HOME=/home/fin/.config
+export XDG_DATA_HOME=/home/fin/.local/share
+export XDG_RUNTIME_DIR=/run/user/1000
+export XDG_SEAT=seat0
+export XDG_SESSION_CLASS=user
+export XDG_SESSION_ID=1
+export XDG_SESSION_TYPE=tty
+export XDG_STATE_HOME=/home/fin/.local/state
+export XDG_VTNR=1
+export XDG_DATA_DIRS=/usr/local/share:/usr/share
+export XDG_RUNTIME_DIR=/run/user/$UID
+export XINITRC=/home/fin/.config/X11/xinitrc
+
 set show-all-if-unmodified on
 
 export HISTFILE=$HOME/.cache/shell/history
 export HISTCONTROL="erasedups:ignorespace"
+export HISTTIMEFORMAT="%F %T "
 shopt -s histappend
 
 stty -ixon
