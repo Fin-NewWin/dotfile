@@ -2,13 +2,23 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 -- Filetype
+
 -- nesC not supported, temp make it into filetype "c"
-autocmd({ "BufEnter" }, {
-	pattern = {
-		"*.nc",
-	},
+-- autocmd({ "BufEnter" }, {
+-- 	pattern = {
+-- 		"*.nc",
+-- 	},
+-- 	callback = function()
+-- 		vim.bo.filetype = "c"
+-- 	end,
+-- })
+
+augroup("python", { clear = true })
+autocmd({ "BufRead", "BufNewFile" }, {
+	group = "python",
+	pattern = "*.ipynb",
 	callback = function()
-		vim.bo.filetype = "c"
+		vim.opt.filetype = "python"
 	end,
 })
 
