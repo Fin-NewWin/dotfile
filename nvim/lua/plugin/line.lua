@@ -6,6 +6,9 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"lewis6991/gitsigns.nvim",
 		},
+		opt = {
+			set_vim_settings = false,
+		},
 		config = true,
 	},
 	{
