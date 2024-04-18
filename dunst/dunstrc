@@ -91,7 +91,7 @@
 [spotify]
 	appname = Spotify*
 	format = "<b> Now Playing:</b>\n%s\n%b"
-	background = "#1d2021"
+	background = "#282828"
 	foreground = "#ebdbb2"
-	frame_color = "#1db954"
+	frame_color = "#b8bb26"
 	timeout = 3
