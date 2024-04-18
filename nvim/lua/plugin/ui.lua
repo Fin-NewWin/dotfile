@@ -39,29 +39,6 @@ return {
 		end,
 	},
 	{
-		"NvChad/nvim-colorizer.lua",
-		event = "BufReadPost",
-		opts = {
-			filetypes = {
-				"html",
-				"css",
-				"cssls",
-				"scss",
-				"less",
-				"javascript",
-				"typescript",
-				"typescriptreact",
-				"javascriptreact",
-				"lua",
-			},
-
-			user_default_options = {
-				tailwind = true, -- Enable tailwind colors
-			},
-		},
-		config = true,
-	},
-	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
 		main = "ibl",
@@ -71,22 +48,6 @@ return {
 				enabled = false,
 			},
 		},
-	},
-	{
-		"rcarriga/nvim-notify",
-		opts = {
-			timeout = 3000,
-			background_colour = "#000000",
-			max_height = function()
-				return math.floor(vim.o.lines * 0.75)
-			end,
-			max_width = function()
-				return math.floor(vim.o.columns * 0.75)
-			end,
-		},
-		init = function()
-			vim.notify = require("notify")
-		end,
 	},
 	{
 		"stevearc/dressing.nvim",
