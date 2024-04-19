@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-chmod a+wr /opt/spotify
-chmod a+wr /opt/spotify/Apps -R
-
-echo "Remember to run spicetify update"
