@@ -7,29 +7,13 @@
 case $1 in
     up)
         pamixer -u -i 4
-        send_notification "$1"
         ;;
     down)
         pamixer -u -d 4
-        send_notification "$1"
         ;;
     mute)
-        if "$(pamixer -t --get-mute)"; then
-            dunstify -i volume-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted" &
-        else
-            send_notification up
-        fi
+        pamixer -t
         ;;
     mic)
-        if "$(pamixer --default-source -t --get-mute)";
-        then
-            dunstify -i volume-mic-mute -a "changevolume" -t 2000 -r 9993 -u low "Muted" &
-        else
-            dunstify -i volume-mic -a "changevolume" -t 2000 -r 9993 -u low "Activated" &
-        fi
-        ;;
-    # status)
-    #     if "$(pamixer -t --get-mute)"; then
-
-    *) ;;
+        pamixer --default-source -t
 esac
