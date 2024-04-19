@@ -15,12 +15,10 @@ setWall(){
         ln -sf "$WALLPAPER" "$BG_LOCATION"
     fi
     # Command to change wallpaper
-        swww img "$BG_LOCATION"\
-            --transition-bezier .43,1.19,1,.4 \
-            --transition-type grow \
-            --transition-duration 1 \
-            --transition-fps 60 \
-            --transition-pos top-right
+    swww img "$BG_LOCATION" --transition-type center \
+        --transition-bezier .43,1.19,1,.4 \
+        --transition-duration 1 \
+        --transition-fps 60 \
 
     notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
     return
@@ -36,21 +34,26 @@ then
         WALLPAPER=$(find "${FULL_PATH}" -iregex '.*.\(jpg\|jpeg\|png\)' | shuf -n 1)
         # Check if WALLPAPER is not empty
         [ -z "$WALLPAPER" ] && echo "Directory no have immmmmmmage, try again" && exit
+        setWall
     # if file
     elif [ -f "$FULL_PATH" ]
     then
         case $(file --mime-type -b "$FULL_PATH") in
             image/*)
                 WALLPAPER="$FULL_PATH"
+                setWall
                 ;;
             *)
-                notify-send "🖼️ Error" "Not a valid image or directory."
+                notify-send -i ERROR "🖼️ Error" "Not a valid image or directory."
                 ;;
         esac
     # If doesn't exist
     else
         echo "Does not exist" && return
     fi
+elif [ $# -eq 0 ]
+then
+    setWall
 fi
 
-setWall
+
