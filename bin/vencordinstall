@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-curl -Lo /tmp/vencord-installer https://github.com/Vencord/Installer/releases/latest/download/VencordInstallerCli-linux
-
-chmod +x /tmp/vencord-installer
-
-echo "1" | XDG_CONFIG_HOME="$XDG_CONFIG_HOME" /tmp/vencord-installer --install
-
-rm -f /tmp/vencord-installer
