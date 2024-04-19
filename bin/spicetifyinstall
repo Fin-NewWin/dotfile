@@ -3,4 +3,9 @@
 chmod a+wr /opt/spotify
 chmod a+wr /opt/spotify/Apps -R
 
-echo "Remember to run spicetify update"
+bold=$(tput bold)
+
+normal=$(tput sgr0)
+echo "-------------------------------------"
+echo "Remember to run ${bold} spicetify apply ${normal}"
+echo "-------------------------------------"
