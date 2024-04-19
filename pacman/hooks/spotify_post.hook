@@ -1,0 +1,10 @@
+[Trigger]
+Type = Package
+Operation = Upgrade
+Operation = Install
+Target = spotify
+
+[Action]
+Description = Applying spicetify to Spotify
+When = PostTransaction
+Exec =  /usr/bin/bash -c /usr/local/sbin/spicetifyinstall
