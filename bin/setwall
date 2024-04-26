@@ -20,7 +20,7 @@ setWall(){
         --transition-duration 1 \
         --transition-fps 60 \
 
-    notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$WALLPAPER" -u low -r 9994 || \
+        notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename $WALLPAPER)" -u low -r 9994 || \
     return
 }
 
