@@ -5,13 +5,7 @@ return {
 		config = function()
 			local neocodeium = require("neocodeium")
 			neocodeium.setup({
-				enabled = function()
-					local disabled = {
-						IncRename = true,
-					}
-					local cmd = vim.fn.getcmdline():match("%S+")
-					return not disabled[cmd]
-				end,
+				show_label = false,
 			})
 			vim.keymap.set("i", "<C-Space>", neocodeium.accept)
 		end,
