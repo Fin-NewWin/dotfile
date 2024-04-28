@@ -2,28 +2,9 @@
 	"layer": "top",
 
 	"modules-left": ["hyprland/workspaces" ],
-	"modules-right": ["custom/disk_root", "cpu", "memory", "network", "backlight", "pulseaudio", "clock", "battery", "idle_inhibitor", "tray"],
+	"modules-center": ["clock"],
+	"modules-right": ["network", "backlight", "pulseaudio", "battery", "idle_inhibitor", "tray"],
 
-	"custom/disk_root": {
-		"format": "💽 {} ",
-		"interval": 30,
-		"exec": "df -h --output=pcent / | tail -1 | tr -d ' '"
-	},
-	"temperature": {
-		// "thermal-zone": 2,
-		// "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-		"critical-threshold": 80,
-		// "format-critical": "{temperatureC}°C {icon}",
-		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
-		"format-icons": ["󰉬", "", "󰉪"]
-	},
-	"cpu": {
-		"format": "🏭 {usage}%",
-		"tooltip": false
-	},
-	"memory": {
-		"format": "💾 {used:0.1f}G"
-	},
 	"network": {
 		"family": "ipv4",
 		// "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -36,18 +17,16 @@
 	},
 	"backlight": {
 		// "device": "acpi_video1",
-		"format": "{icon} {percent}%",
+		"format": "{icon}{percent:3}% ",
 		"format-icons": ["🔅", "🔆"]
 	},
 	"pulseaudio": {
 		// "scroll-step": 1, // %, can be a float
-		"format": "{icon} {volume}% {format_source}",
-		"format-muted": "🔇 {format_source}",
-		"format-bluetooth": "{icon} {volume}% {format_source}",
-		"format-bluetooth-muted": "🔇 {format_source}",
+		"format": "{icon} {volume}%",
+		"format-muted": "<span color='#fb4934'>{icon} {volume}%</span>",
 
-		"format-source": "",
-		"format-source-muted": "<span color='#fb4934'></span>",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-bluetooth-muted": "<span color='#fb4934'> {icon} {volume}%</span>",
 
 		"format-icons": {
 			"headphones": "",
@@ -56,14 +35,15 @@
 			"phone": "",
 			"portable": "",
 			"car": "",
-			"default": ["🔈", "🔉", "🔊"]
+
+			"default": ["", "", ""]
 		},
 		"on-click": "ponymix -N -t sink toggle",
 		"on-click-right": "ponymix -N -t source toggle"
 	},
 	"clock": {
 		"interval": 30,
-		"format": "⏰ {:%H:%M}",
+		"format": "{:%a %d %b %H:%M}",
 	},
 	"battery": {
 		"interval": 10,
@@ -72,16 +52,16 @@
 			"warning": 20,
 			"critical": 10
 		},
-		"format": "<span rise='1000'>{icon}</span> {capacity}%",
-		"format-charging": "<span color='#b8bb26' rise='1000'>{icon}</span> {capacity}%",
-		"format-plugged":  "<span rise='1000'>{icon} </span> {capacity}%",
+		"format": "<span rise='1000'>{icon}</span>{capacity:3}%",
+		"format-charging": "<span color='#00ff00' rise='1000'>{icon}</span>{capacity:3}%",
+		"format-plugged":  "<span rise='1000'>{icon}</span>{capacity:3}%",
 		// "format-good": "", // An empty format will hide the module
 		// "format-full": "",
         "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹"],
 
 	},
 	"idle_inhibitor": {
-		"format": "<span color='#589df6'>{icon}</span>",
+		"format": "<span color='#589df6'>{icon} </span>",
 		"format-icons": {
 			"activated": "",
 			"deactivated": ""
