@@ -41,14 +41,6 @@ key("n", "J", "mzJ`z")
 key({ "n", "v", "o" }, "H", "^")
 key({ "n", "v", "o" }, "L", "$")
 
--- Center when move
-key("n", "<C-d>", "<C-d>zz")
-key("n", "<C-u>", "<C-u>zz")
-key("n", "{", "{zz")
-key("n", "}", "}zz")
-key("n", "n", "nzzzv")
-key("n", "N", "Nzzzv")
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 key("n", "n", "'Nn'[v:searchforward]", { expr = true })
 key("x", "n", "'Nn'[v:searchforward]", { expr = true })
