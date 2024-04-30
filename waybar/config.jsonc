@@ -22,11 +22,14 @@
 	},
 	"pulseaudio": {
 		// "scroll-step": 1, // %, can be a float
-		"format": "{icon} {volume}%",
-		"format-muted": "<span color='#fb4934'>{icon} {volume}%</span>",
+		"format": "{format_source} {icon} {volume}%",
+		"format-muted": "{format_source} <span color='#fb4934'>{icon} {volume}%</span>",
 
 		"format-bluetooth": "{icon} {volume}%",
 		"format-bluetooth-muted": "<span color='#fb4934'> {icon} {volume}%</span>",
+
+		"format-source": "<span color='#00ff00'></span>",
+		"format-source-muted": "<span color='#ff0000'></span>",
 
 		"format-icons": {
 			"headphones": "",
