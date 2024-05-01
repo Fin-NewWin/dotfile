@@ -42,3 +42,12 @@ local default_providers = {
 for _, provider in ipairs(default_providers) do
 	vim.g["loaded_" .. provider .. "_provider"] = 0
 end
+
+local builtin_check = {
+	"python_host_skip_check",
+	"python3_host_skip_check",
+}
+
+for _, check in ipairs(builtin_check) do
+	vim.g[check] = 1
+end

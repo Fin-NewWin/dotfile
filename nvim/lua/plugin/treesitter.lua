@@ -14,12 +14,17 @@ return {
 					additional_vim_regex_highlighting = false,
 					enable = true,
 					disable = function(lang, buf)
+						local disable_lang = {
+							["html"] = true,
+						}
+						if disable_lang[lang] then
+							return true
+						end
 						local max_filesize = 100 * 1024 -- 100 KB
 						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-						return ok and stats and stats.size > max_filesize
-						-- if ok and stats and stats.size > max_filesize then
-						-- 	return true
-						-- end
+						if ok and stats and stats.size > max_filesize then
+							return true
+						end
 					end,
 				},
 				indent = {
