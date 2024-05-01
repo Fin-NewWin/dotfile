@@ -2,7 +2,7 @@
 	"layer": "top",
 
 	"modules-left": ["hyprland/workspaces" ],
-	"modules-center": ["clock"],
+	"modules-center": ["clock" ],
 	"modules-right": ["network", "backlight", "pulseaudio", "battery", "idle_inhibitor", "tray"],
 
 	"network": {
@@ -72,7 +72,7 @@
 		"on-click-right": "swaylock -eFfki ~/.config/lockscreen-origin.png"
 	},
 	"tray": {
-		// "icon-size": 21,
+		"icon-size": 18,
 		"spacing": 10
 	},
 }
