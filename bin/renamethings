@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+
+# Rename files and dir names with spaces to underscores
+
+if [[ $# -eq 0 ]]; then
+	for word in $PWD/*
+	do
+		word=$(basename "$word")
+		if [[ $word != "renamethings" && $word != "*" ]]; then
+			new_word=$(echo $word | sed -e 's/[][\\^*+.$\ ]/_/g')
+			new_word=$(echo $new_word | sed -e 's/[\(\)]//g')
+			if [[ $word != $new_word ]]; then
+				mv "$word" "$new_word"
+			fi
+		fi
+	done
+	# Rename hidden files
+	for word in $PWD/.*
+	do
+		word=$(basename "$word")
+		new_word=$(echo $word | sed -e 's/[][\\^*+$\ ]/_/g')
+		new_word=$(echo $new_word | sed -e 's/[\(\)]//g')
+		if [[ $word != $new_word ]]; then
+			mv "$word" "$new_word"
+		fi
+	done
+
+else
+	# TODO: work for giving path and filenames
+	echo "TODO: given inputs"
+fi
