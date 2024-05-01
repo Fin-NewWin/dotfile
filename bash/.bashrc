@@ -39,6 +39,7 @@ stty -ixon
 
 [ -r "/usr/share/bash-completion/completions/git" ] && . /usr/share/bash-completion/completions/git
 
+eval "$(pyenv init -)"
 eval "$(starship init bash)"
 
 
