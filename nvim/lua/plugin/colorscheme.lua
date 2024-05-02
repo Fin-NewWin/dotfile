@@ -9,7 +9,7 @@ return {
 				["@lsp.type.function.lua"] = { link = "GruvboxOrange" },
 				NormalFloat = { link = "Pmenu" },
 				Pmenu = { bg = "#3c3836" },
-				MiniCursorword = { bg = "#d7005f", fg = "#ffffff", bold = true, underline = true },
+				-- MiniCursorword = { bg = "#d7005f", fg = "#ffffff", bold = true, underline = true },
 				MiniCursorwordCurrent = { underline = true },
 				-- "semiSelected" for python
 			},

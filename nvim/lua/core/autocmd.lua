@@ -13,15 +13,6 @@ local augroup = vim.api.nvim_create_augroup
 -- 	end,
 -- })
 
-augroup("python", { clear = true })
-autocmd({ "BufRead", "BufNewFile" }, {
-	group = "python",
-	pattern = "*.ipynb",
-	callback = function()
-		vim.opt.filetype = "python"
-	end,
-})
-
 autocmd("BufWritePre", {
 	desc = "Remove trailing spaces",
 	command = "%s/\\s\\+$//e",
