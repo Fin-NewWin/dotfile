@@ -40,7 +40,6 @@ stty -ixon
 [ -r "/usr/share/bash-completion/completions/git" ] && . /usr/share/bash-completion/completions/git
 
 eval "$(pyenv init -)"
-eval "$(starship init bash)"
 
 
 export HISTSIZE=10000
@@ -53,7 +52,7 @@ STATUS=$?
 NUM_JOBS=$(jobs -p | wc -l)
 
 # Set the prompt to the output of `starship prompt`
-PS1="$(starship prompt --status=$STATUS --jobs="$NUM_JOBS")"
+PS1="\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\w\[\e[1;31m\]]\[\e[1;00m\]\$\[\e[0;00m\] "
 
 
 set -o vi
