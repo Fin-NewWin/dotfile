@@ -45,7 +45,6 @@ return {
 				"lua_ls",
 
 				"pyright",
-				"ruff_lsp",
 
 				"clangd",
 				"jdtls",
