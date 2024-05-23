@@ -21,7 +21,7 @@ setWall(){
             --transition-duration 1 \
             --transition-fps 60
     elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
-        feh --bg-fill "$BG_LOCATION"
+        feh --bg-fill --no-fehbg "$BG_LOCATION"
     fi
 
     notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename $WALLPAPER)" -u low -r 9994
