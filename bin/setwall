@@ -15,12 +15,16 @@ setWall(){
         ln -sf "$WALLPAPER" "$BG_LOCATION"
     fi
     # Command to change wallpaper
-    swww img "$BG_LOCATION" --transition-type center \
-        --transition-bezier .43,1.19,1,.4 \
-        --transition-duration 1 \
-        --transition-fps 60 \
+    if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        swww img "$BG_LOCATION" --transition-type center \
+            --transition-bezier .43,1.19,1,.4 \
+            --transition-duration 1 \
+            --transition-fps 60
+    elif [ "$XDG_SESSION_TYPE" = "x11" ]; then
+        feh --bg-fill "$BG_LOCATION"
+    fi
 
-        notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename $WALLPAPER)" -u low -r 9994 || \
+    notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename $WALLPAPER)" -u low -r 9994
     return
 }
 

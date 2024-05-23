@@ -15,6 +15,6 @@ case $1 in
         elif [ "$FIRST" -eq 0 ] && [ $BRIGHT -gt 0 ]; then
             BRIGHT=1
         fi
-        brightnessctl s $BRIGHT% &
+        brightnessctl s $BRIGHT%
         ;;
 esac

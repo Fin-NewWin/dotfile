@@ -1,19 +1,24 @@
 #!/bin/sh
 
-killall swww-daemon
-killall waybar
-killall gammastep
-killall xbindkeys
-killall dunst
+# killall swww-daemon
+# killall waybar
+# killall gammastep
+# killall xbindkeys
+# killall dunst
+killall picom
+killall redshift
 
-dunst &
-swww init &
+# dunst &
+# swww init &
 
-waybar &
-gammastep &
+picom --experimental-backends -b
+redshift &
+# waybar &
+# gammastep &
+xset r rate 300 50
 
 pamixer --default-source --set-volume 20
 
-xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
+# xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
 
 setwall
