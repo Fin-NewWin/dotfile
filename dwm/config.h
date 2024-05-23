@@ -98,6 +98,8 @@ static const Key keys[] = {
 	{0,								XF86XK_AudioLowerVolume, spawn, SHCMD("changevol down") },
 	{0,								XF86XK_AudioRaiseVolume, spawn, SHCMD("changevol up") },
 	{0,								XF86XK_AudioMicMute, spawn, SHCMD("changevol mic") },
+	{0,								XF86XK_MonBrightnessUp, spawn, SHCMD("changebright +5") },
+	{0,								XF86XK_MonBrightnessDown, spawn, SHCMD("changebright -5") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
