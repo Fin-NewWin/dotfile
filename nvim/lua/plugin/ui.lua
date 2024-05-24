@@ -49,15 +49,4 @@ return {
 			},
 		},
 	},
-	{
-		"stevearc/dressing.nvim",
-		event = "VeryLazy",
-		opts = {},
-	},
-	{
-		"echasnovski/mini.cursorword",
-		event = "VeryLazy",
-		opts = {},
-		config = true,
-	},
 }

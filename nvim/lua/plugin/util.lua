@@ -14,14 +14,6 @@ return {
 	},
 
 	{
-		"ggandor/leap.nvim",
-		event = "VeryLazy",
-		dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
-	{
 		"Wansmer/treesj",
 		keys = { "<space>m" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -29,19 +21,6 @@ return {
 			require("treesj").setup({ use_default_keymaps = false })
 			vim.keymap.set("n", "<leader>m", require("treesj").toggle)
 		end,
-	},
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {
-			check_ts = true,
-			ts_config = {
-				lua = { "string" },
-				javascript = { "template_string" },
-				java = false,
-			},
-		},
-		config = true,
 	},
 	{
 		"nmac427/guess-indent.nvim",
