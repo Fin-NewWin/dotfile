@@ -21,9 +21,9 @@ return {
 		},
 		opts = {
 			formatters_by_ft = formatters_by_ft,
-			format_after_save = {
+			format_on_save = {
 				lsp_fallback = false,
-				async = true,
+				-- async = true,
 				timeout_ms = 500,
 			},
 		},

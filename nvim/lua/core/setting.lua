@@ -6,9 +6,6 @@ local options = {
 	colorcolumn = "120", -- vertical column that suggests column limit
 	cursorline = true, -- cursorline that's it
 	errorbells = false, -- no beep
-	fillchars = {
-		eob = " ", -- end of buffer char = space
-	},
 	foldenable = false, -- fold
 	ignorecase = true, -- ignore case when searching
 	laststatus = 3, -- global staths
@@ -17,7 +14,6 @@ local options = {
 	number = true, -- number line
 	pumheight = 10, -- pop menu height
 	relativenumber = true, -- number line with relative lines
-	scrolloff = 8, -- number of lines before scrolling
 	shiftwidth = 4, -- tab
 	showmode = false, -- mode bottom left of cmd but I have statusline
 	sidescrolloff = 8, -- similar to scrolloff but horizontal scrolling
