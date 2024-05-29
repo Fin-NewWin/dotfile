@@ -11,7 +11,6 @@ return {
 				Pmenu = { bg = "#3c3836" },
 				-- MiniCursorword = { bg = "#d7005f", fg = "#ffffff", bold = true, underline = true },
 				MiniCursorwordCurrent = { underline = true },
-				-- "semiSelected" for python
 			},
 			transparent_mode = true,
 			-- contrast = "hard",

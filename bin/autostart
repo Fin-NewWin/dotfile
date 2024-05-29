@@ -7,15 +7,17 @@
 # killall dunst
 killall picom
 killall redshift
+killall slstatus
 
 # dunst &
 # swww init &
 
 picom --experimental-backends -b
 redshift &
+slstatus &
 # waybar &
 # gammastep &
-xset r rate 300 50
+xset r rate 250 25
 
 pamixer --default-source --set-volume 20
 

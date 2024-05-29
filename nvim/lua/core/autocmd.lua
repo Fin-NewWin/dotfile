@@ -126,9 +126,3 @@ local function toggle_hlsearch(char)
 end
 
 vim.on_key(toggle_hlsearch, ns)
-
--- Disable options if large file
-local group = vim.api.nvim_create_augroup("LargeFileAutocmds", {})
-local old_eventignore = vim.o.eventignore
-local largefile_opened = false
-local largefile_size = 1024 * 1024

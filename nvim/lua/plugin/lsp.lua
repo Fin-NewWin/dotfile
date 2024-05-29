@@ -18,7 +18,7 @@ return {
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 
-			local on_attach = function(client, bufnr)
+			local on_attach = function(_, bufnr)
 				-- Mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -42,8 +42,6 @@ return {
 
 				"texlab",
 
-				"lua_ls",
-
 				"pyright",
 
 				"clangd",
@@ -58,6 +56,18 @@ return {
 			end
 
 			local lsp = require("lspconfig")
+
+			lsp["lua_ls"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			})
 
 			lsp["tsserver"].setup({
 				on_attach = on_attach,
