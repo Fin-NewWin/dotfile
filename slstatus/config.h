@@ -65,10 +65,14 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ netspeed_rx, " ^c#585858^| ^c#B799FF^ %sB/s ^c#585858^󰇙","wlp4s0" },
-    { netspeed_tx, "^c#F29727^ %sB/s ^c#585858^|", "wlp4s0"  },
-    { cpu_perc, " ^c#FF78C4^󰧑 Cpu %s%% ^c#585858^|", NULL  },
-    { ram_perc, " ^c#F24C3D^⚡ Ram %s%% ^c#585858^|", NULL },
-    { battery_perc," ^c#B8BB26^ Hdd %s%% ^c#585858^|", "BAT0"  },
+    { kernel_release, " ^c#A89984^ %s", NULL  },
+    { uptime, "^c#A89984^ %s ^c#585858^|", NULL  },
+	{ netspeed_rx, " ^c#D3869B^ %sB/s ^c#585858^󰇙","wlp4s0" },
+    { netspeed_tx, " ^c#FE8019^ %sB/s ^c#585858^|", "wlp4s0"  },
+    { cpu_perc, " ^c#8EC07C^󰧑 Cpu %s%% ^c#585858^|", NULL  },
+    { ram_perc, " ^c#FB4934^⚡ Ram %s%% ^c#585858^|", NULL },
+    // { backlight, " ^c#8EC07C^ %s%% ^c#585858^|", NULL },
+    { battery_state , " ^c#B8BB26^󰂂 %s",           "BAT0" },
+    { battery_perc , "%s%% ^c#585858^|",           "BAT0" },
     { datetime, " ^c#EBDBB2^  %s ^c#585858^", "%F %H:%M" },
 };
