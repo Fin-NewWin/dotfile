@@ -2,6 +2,11 @@
 
 BRIGHT=$(brightnessctl | grep -o ".[0-9]*%" | grep -o "[0-9]*")
 
+send_notification() {
+    brightness=$(brightnessctl | grep -o ".[0-9]*%" | grep -o "[0-9]*")
+    notify-send -u low -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness" "Brightness: $brightness%"
+}
+
 case $1 in
     *[0-9]*)
         FIRST=$BRIGHT
@@ -16,5 +21,6 @@ case $1 in
             BRIGHT=1
         fi
         brightnessctl s $BRIGHT%
+        send_notification
         ;;
 esac

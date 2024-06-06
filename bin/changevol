@@ -1,15 +1,18 @@
 #!/bin/sh
 
-# send_notification() {
-#     volume=$(pamixer --get-volume)
-# }
+send_notification() {
+    volume=$(pamixer --get-volume)
+    notify-send -a "changevol" -u low -h string:x-dunst-stack-tag:volume -h int:value:"$volume" "Volume: $volume%"
+}
 
 case $1 in
     up)
         pamixer -u -i 4
+        send_notification
         ;;
     down)
         pamixer -u -d 4
+        send_notification
         ;;
     mute)
         pamixer -t

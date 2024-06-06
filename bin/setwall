@@ -24,7 +24,7 @@ setWall(){
         feh --bg-fill --no-fehbg "$BG_LOCATION"
     fi
 
-    notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename $WALLPAPER)" -u low -r 9994
+    notify-send -t 2000 -i "$BG_LOCATION" "set wallpaper" "$(basename "$WALLPAPER")" -u low -r 9994
     return
 }
 

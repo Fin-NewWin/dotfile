@@ -4,16 +4,14 @@
 # killall waybar
 # killall gammastep
 # killall xbindkeys
-# killall dunst
+killall dunst
 killall picom
-killall redshift
 killall slstatus
 
-# dunst &
+dunst &
 # swww init &
 
 picom --experimental-backends -b
-redshift &
 slstatus &
 # waybar &
 # gammastep &
