@@ -15,11 +15,13 @@ local formatters = vim.tbl_flatten(vim.tbl_values(formatters_by_ft))
 return {
 	{
 		"stevearc/conform.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
 		dependencies = {
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 		},
 		opts = {
+			notify_on_error = false,
 			formatters_by_ft = formatters_by_ft,
 			format_on_save = {
 				lsp_fallback = false,

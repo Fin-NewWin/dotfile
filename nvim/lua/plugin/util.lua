@@ -23,12 +23,6 @@ return {
 		end,
 	},
 	{
-		"nmac427/guess-indent.nvim",
-		event = "BufReadPost",
-		opts = {},
-		config = true,
-	},
-	{
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPost",
 		opts = {
