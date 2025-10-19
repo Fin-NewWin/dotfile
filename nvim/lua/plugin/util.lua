@@ -23,25 +23,17 @@ return {
 		end,
 	},
 	{
-		"NvChad/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPost",
 		opts = {
-			filetypes = {
-				"html",
-				"css",
-				"cssls",
-				"scss",
-				"less",
-				"javascript",
-				"typescript",
-				"typescriptreact",
-				"javascriptreact",
-				"lua",
-			},
-
+			-- filetypes = { },
 			user_default_options = {
 				tailwind = true, -- Enable tailwind colors
 			},
+			names_custom = true,
+			RRGGBBAA = true,
+			AARRGGBB = true,
+			xterm = true,
 		},
 		config = true,
 	},

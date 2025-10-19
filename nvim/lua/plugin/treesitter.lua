@@ -1,14 +1,13 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "VeryLazy",
+		branch = "master",
+		lazy = false,
 		build = ":TSUpdate",
-		dependencies = {
-			"JoosepAlviste/nvim-ts-context-commentstring",
-		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = "all",
+				ignore_install = { "ipkg" },
 				highlight = {
 					additional_vim_regex_highlighting = false,
 					enable = true,
