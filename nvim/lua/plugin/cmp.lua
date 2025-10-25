@@ -8,7 +8,7 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
+			{"L3MON4D3/LuaSnip", build = "make install_jsregexp"},
 			"rafamadriz/friendly-snippets",
 			"onsails/lspkind.nvim",
 		},
@@ -108,10 +108,22 @@ return {
 						priority = 10,
 						entry_filter = limit_lsp_types,
 					},
-					{ name = "luasnip", priority = 7 },
-					{ name = "nvim_lua", priority = 5 },
-					{ name = "path", priority = 4 },
-					{ name = "buffer", priority = 3 },
+					{
+						name = "luasnip",
+						priority = 7,
+					},
+					{
+						name = "nvim_lua",
+						priority = 5,
+					},
+					{
+						name = "path",
+						priority = 4,
+					},
+					{
+						name = "buffer",
+						priority = 3,
+					},
 				},
 
 				require("luasnip.loaders.from_vscode").lazy_load(),
