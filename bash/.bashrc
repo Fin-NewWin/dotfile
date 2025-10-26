@@ -27,6 +27,8 @@ set show-all-if-unmodified on
 export HISTFILE=$HOME/.cache/shell/history
 export HISTCONTROL="erasedups:ignorespace"
 export HISTTIMEFORMAT="%F %T "
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 shopt -s histappend
 
 stty -ixon
@@ -42,8 +44,6 @@ stty -ixon
 eval "$(pyenv init -)"
 
 
-export HISTSIZE=10000
-export HISTFILESIZE=10000
 
 # Get the status code from the last command executed
 STATUS=$?
