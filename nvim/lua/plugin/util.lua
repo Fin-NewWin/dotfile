@@ -30,10 +30,6 @@ return {
 			user_default_options = {
 				tailwind = true, -- Enable tailwind colors
 			},
-			names_custom = true,
-			RRGGBBAA = true,
-			AARRGGBB = true,
-			xterm = true,
 		},
 		config = true,
 	},
