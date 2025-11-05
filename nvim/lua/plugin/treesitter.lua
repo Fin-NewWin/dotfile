@@ -8,6 +8,9 @@ return {
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = "all",
 				ignore_install = { "ipkg" },
+				sync_install = false,
+				auto_install = true,
+				modules = {},
 				highlight = {
 					additional_vim_regex_highlighting = false,
 					enable = true,

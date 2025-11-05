@@ -1,13 +1,6 @@
 return {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
-	root_markers = {
-		{
-			".luarc.json",
-			".luarc.jsonc",
-		},
-		".git",
-	},
 	settings = {
 		Lua = {
 			runtime = {
@@ -17,12 +10,10 @@ return {
 				globals = { "vim" },
 			},
 			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-					"${3rd}/luv/library",
-					"${3rd}/busted/library",
-				},
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
 			},
 		},
 	},
